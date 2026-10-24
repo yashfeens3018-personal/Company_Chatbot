@@ -1,0 +1,31 @@
+[project]
+name = "company-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "yashfeens3018-personal", email = "yashfeen.s3018@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "alembic>=1.20.0",
+    "faker>=40.39.0",
+    "fastapi[standard]>=0.141.1",
+    "gitpython>=3.2.1",
+    "langchain-community>=0.4.2",
+    "langchain-huggingface>=1.2.3",
+    "psycopg[binary]>=3.3.6",
+    "pwdlib[argon2]>=0.3.1",
+    "pyjwt>=2.15.1",
+    "python-dotenv>=1.2.3",
+    "sentence-transformers>=6.2.0",
+    "sqlalchemy>=2.0.54",
+    "uvicorn>=0.53.0",
+]
+
+[project.scripts]
+company-project = "company_project:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
