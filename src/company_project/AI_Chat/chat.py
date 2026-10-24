@@ -13,6 +13,7 @@ from .tools.tickets import get_ticket_tool,get_ticket_stats_tool,get_unassigned_
 from langgraph.graph import StateGraph,MessagesState,START,END
 from typing import TypedDict,List,Literal,Any
 from langchain_core.messages import HumanMessage, AIMessage
+from .Vector_db.vector_db import vector_store
 
 load_dotenv()
 model=ChatMistralAI(model="open-mistral-7b")
@@ -121,7 +122,7 @@ def intent_router(state:StateAgent):
     if state['intent']['intent']=='Database_Query':
         return "check_for_missing_info"
     elif state['intent']['intent']=='RAG_Query':
-        return "not_implemented_yet"
+        return "RAG_Query_Retrieval"
     elif state['intent']['intent']== "Mixed:have both queries":
         return "not_implemented_yet"
     elif state['intent']['intent']=="Unclear":
@@ -131,6 +132,11 @@ def intent_router(state:StateAgent):
     else:
         return "ask_for_clarification"
 
+def RAG_Query_Retrieval(state:StateAgent):
+    chunks = vector_store.similarity_search(
+    state['Rag_query'],
+    k=3)
+    return {"Retrieved_chunks":chunks}
 
 #if unclear, then this, will add an edge between this and the get_query node
 def ask_for_clarification(state:StateAgent):
@@ -263,6 +269,7 @@ graph.add_node("execute_tool",execute_tool)
 graph.add_node("final_answer",final_answer)
 graph.add_node("not_implemented_yet",not_implemented_yet)
 graph.add_node("handle_irrelevant_query",handle_irrelevant_query)
+graph.add_node("RAG_Query_Retrieval",RAG_Query_Retrieval)
 
 graph.add_edge(START,"Get_query_from_user")
 graph.add_edge("Get_query_from_user","Intent Classification")
@@ -271,6 +278,7 @@ graph.add_conditional_edges("check_for_missing_info",is_info_enough)
 graph.add_edge("ask_for_missing_info","Get_query_from_user")
 graph.add_edge("ask_for_clarification","Get_query_from_user")
 graph.add_edge("execute_tool","final_answer")
+graph.add_edge("RAG_Query_Retrieval","final_answer")
 graph.add_edge("final_answer",END)
 graph.add_edge("not_implemented_yet",END)
 graph.add_edge("handle_irrelevant_query",END)
