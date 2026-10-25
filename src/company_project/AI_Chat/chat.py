@@ -113,6 +113,15 @@ def intent_classification(state:StateAgent):
     """
     structured_model=model.with_structured_output(IntentClassification)
     answer=structured_model.invoke(prompt)
+    
+    
+    print("\n========== INTENT DEBUG ==========")
+    print("Intent:", answer["intent"])
+    print("Reason:", answer["reason"])
+    print("RAG query:", answer["rag_query"])
+    print("Database query:", answer["database_query"])
+    print("==================================\n")
+
     return {
     'intent':answer,
     'Rag_query':answer['rag_query'],
@@ -131,12 +140,21 @@ def intent_router(state:StateAgent):
         return "handle_irrelevant_query"
     else:
         return "ask_for_clarification"
+    
+def RAG_Query_Retrieval(state: StateAgent):
+    query = state["Rag_query"]
 
-def RAG_Query_Retrieval(state:StateAgent):
-    chunks = vector_store.similarity_search(
-    state['Rag_query'],
-    k=3)
-    return {"Retrieved_chunks":chunks}
+    chunks = vector_store.similarity_search(query, k=3)
+
+    print(f"\nQuery: {query}")
+    print(f"Retrieved {len(chunks)} chunks")
+
+    for i, chunk in enumerate(chunks, start=1):
+        print(f"\n--- Chunk {i} ---")
+        print(chunk.page_content)
+        print("Metadata:", chunk.metadata)
+
+    return {"Retrieved_chunks": chunks}
 
 #if unclear, then this, will add an edge between this and the get_query node
 def ask_for_clarification(state:StateAgent):
@@ -258,31 +276,54 @@ def handle_irrelevant_query(state:StateAgent):
     return {'messages':[AIMessage(content="I can help with company records, policies, documents, and operations. Please ask a question related to the company.")]}
 
 
-graph=StateGraph(StateAgent)
+graph = StateGraph(StateAgent)
 
 graph.add_node("Intent Classification", intent_classification)
-graph.add_node("Get_query_from_user",get_the_query)
-graph.add_node("ask_for_missing_info",ask_for_missing_info)
-graph.add_node("ask_for_clarification",ask_for_clarification)
-graph.add_node("check_for_missing_info",check_for_missing_info)
-graph.add_node("execute_tool",execute_tool)
-graph.add_node("final_answer",final_answer)
-graph.add_node("not_implemented_yet",not_implemented_yet)
-graph.add_node("handle_irrelevant_query",handle_irrelevant_query)
-graph.add_node("RAG_Query_Retrieval",RAG_Query_Retrieval)
+graph.add_node("ask_for_missing_info", ask_for_missing_info)
+graph.add_node("ask_for_clarification", ask_for_clarification)
+graph.add_node("check_for_missing_info", check_for_missing_info)
+graph.add_node("execute_tool", execute_tool)
+graph.add_node("final_answer", final_answer)
+graph.add_node("not_implemented_yet", not_implemented_yet)
+graph.add_node("handle_irrelevant_query", handle_irrelevant_query)
+graph.add_node("RAG_Query_Retrieval", RAG_Query_Retrieval)
 
-graph.add_edge(START,"Get_query_from_user")
-graph.add_edge("Get_query_from_user","Intent Classification")
-graph.add_conditional_edges("Intent Classification",intent_router)
-graph.add_conditional_edges("check_for_missing_info",is_info_enough)
-graph.add_edge("ask_for_missing_info","Get_query_from_user")
-graph.add_edge("ask_for_clarification","Get_query_from_user")
-graph.add_edge("execute_tool","final_answer")
-graph.add_edge("RAG_Query_Retrieval","final_answer")
-graph.add_edge("final_answer",END)
-graph.add_edge("not_implemented_yet",END)
-graph.add_edge("handle_irrelevant_query",END)
+# Start directly with the query already provided in state
+graph.add_edge(START, "Intent Classification")
+
+graph.add_conditional_edges(
+    "Intent Classification",
+    intent_router
+)
+
+graph.add_conditional_edges(
+    "check_for_missing_info",
+    is_info_enough
+)
+
+graph.add_edge("execute_tool", "final_answer")
+graph.add_edge("RAG_Query_Retrieval", "final_answer")
+
+# These nodes return a response to the outer loop.
+# The next user input is collected by the Python loop.
+graph.add_edge("ask_for_clarification", END)
+graph.add_edge("ask_for_missing_info", END)
+graph.add_edge("not_implemented_yet", END)
+graph.add_edge("handle_irrelevant_query", END)
+graph.add_edge("final_answer", END)
 
 app=graph.compile()
-result=app.invoke({"messages": []})
-print(result["messages"][-1].content)
+messages=[]
+while True:
+    query = input("You: ")
+
+    if query.lower() in ["exit", "quit"]:
+        break
+
+    messages.append(HumanMessage(content=query))
+
+    result = app.invoke({"messages": messages})
+
+    messages = result["messages"]
+
+    print("Assistant:", messages[-1].content)

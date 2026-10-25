@@ -28,7 +28,7 @@ headers_to_split_on = [
 ]
 
 markdown_splitter = MarkdownHeaderTextSplitter(
-    headers_to_split_on=headers_to_split_on,strip_headers=False
+    headers_to_split_on=headers_to_split_on,strip_headers=True
 )
 
 md_header_splits = []
@@ -41,8 +41,8 @@ for doc in documents:
 
     md_header_splits.extend(splits)
 
-chunk_size = 250
-chunk_overlap = 30
+chunk_size = 500
+chunk_overlap = 100
 text_splitter = RecursiveCharacterTextSplitter(
 chunk_size=chunk_size, chunk_overlap=chunk_overlap)
 splits = text_splitter.split_documents(md_header_splits)

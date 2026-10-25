@@ -1,0 +1,5 @@
+1. Most of my queries are right now not retrieving the right text, and i feel it can be due to the following factors:
+    a. chunk size and overlap size b.number of k in retrieved documents
+    i changed the chunk size to 500 from 250 and overlapping size to 100 from 30 and i can see a lot of improvement for now.
+2. The retrieval was being not v successful because i was keeping the headers of the md files while splitting and for that the retrieval was retrieving the headings from the files leaving other details. Keeping it off made things a bit better.
+3. Wrong intent classification: I asked for total paid leaves available to an employee and my flow considered it as a database query thinking that the leave_balances might have answer for it.
