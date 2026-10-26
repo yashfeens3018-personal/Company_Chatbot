@@ -32,7 +32,7 @@ def search_employees_tool(
     job_title: str | None = None,
     employment_status: str | None = None,
 ):
-    """Search employees using optional demographic and job-related filters.
+    """Get one or more employees using optional demographic and job-related filters.
 
     Returns matching employees with their ID, name, gender, email, phone
     number, join date, job title, employment status, department name, and

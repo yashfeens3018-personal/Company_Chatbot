@@ -1,5 +1,4 @@
-1. Most of my queries are right now not retrieving the right text, and i feel it can be due to the following factors:
-    a. chunk size and overlap size b.number of k in retrieved documents
-    i changed the chunk size to 500 from 250 and overlapping size to 100 from 30 and i can see a lot of improvement for now.
-2. The retrieval was being not v successful because i was keeping the headers of the md files while splitting and for that the retrieval was retrieving the headings from the files leaving other details. Keeping it off made things a bit better.
-3. Wrong intent classification: I asked for total paid leaves available to an employee and my flow considered it as a database query thinking that the leave_balances might have answer for it.
+1. The retrieval was also v trash because the readme file and some other files contains links so the retrieval was giving them more importance because of semnatic similarity. When i stopped including those files in the chunking, the retrievalgot better.
+2. The retrieval was not being v successful because i was keeping the headers of the md files while splitting and for that the retrieval was retrieving the headings from the files leaving other details. Keeping it off made things a bit better.
+3. Wrong intent classification: I asked for total paid leaves available to an employee and my flow considered it as a database query thinking that the leave_balances might have answer for it. Fixed it by doing prompt engineernig mainly explaining what each table stores and then adding example queries.
+4. Wrong tools being called to fetch an answer, like usually if i am asking get me the record of "Kayla Peterson", it should use the search tool, but its using get tool which requires the arguments like email or id and therefore throwing the error. Needs to fix this.

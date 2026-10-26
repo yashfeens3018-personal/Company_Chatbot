@@ -69,47 +69,85 @@ def intent_classification(state:StateAgent):
     Conversation history:
     {query}
 
-    The company assistant answers questions about company records, operations, policies, and internal documents.
+    The company assistant answers questions using two distinct information sources: structured database records and company documents. You must understand the difference between them before classifying a query.
 
-    Classify the message into exactly one of these categories:
+    **1. Database scope: Specific, structured records**
 
-    1. Database_Query
-    Use this when the question can be answered using structured company database records.
-    The database contains these tables: announcements, assets, departments, employees, leave_balances, leave_requests, project_members, projects, ticket_comments, and tickets.
-    Examples include checking an employee's department, finding a ticket's status, checking leave balances, looking up assigned assets, and retrieving project details.
+    The database stores concrete information about specific company entities and events. It does NOT serve as the source of general company policies, rules, or guidelines.
 
-    2. RAG_Query
-    Use this when the question requires retrieving and understanding information from company documents, policies, guidelines, procedures, or other written material.
-    Examples include asking about leave policies, expense reimbursement rules, or company procedures.
+    The database contains the following tables:
 
-    3. Mixed:have both queries
-    Use this when the message requires BOTH database records and document retrieval to answer fully.
-    Extract the database-related part into database_query and the document-related part into rag_query.
-    Each extracted query must be understandable on its own and preserve the information needed to answer that part of the user's request.
+    - **employees:** Specific employee information, such as first name, last name, email, phone number, job title, employment status, department, manager, and joining date.
+    - **departments:** Specific department records and their stored details.
+    - **leave_balances:** Individual employees' recorded leave balances, such as their available or remaining leave, depending on the fields stored in the table.
+    - **leave_requests:** Specific leave requests submitted by employees, including their recorded dates, status, and other stored request details.
+    - **assets:** Specific company assets, their assigned employees, and their recorded details.
+    - **tickets:** Specific support tickets, including their recorded status, priority, category, creator, assignee, and other stored fields.
+    - **ticket_comments:** Comments recorded on specific tickets.
+    - **projects:** Specific company projects and their stored details.
+    - **project_members:** Records identifying which employees are associated with which projects.
+    - **announcements:** Specific announcements that have been recorded in the database, including their stored content and associated details.
+    - **Other tables:** Use the actual fields and relationships in the database schema to determine what information they contain. Do not assume a table stores information that is not represented by its fields.
 
-    4. Unclear
-    Use this when the message appears related to the company but lacks enough information to determine what the user wants, or when essential details are ambiguous.
-    Do not invent missing details. Extract a query only if a meaningful, sufficiently clear subquery can be identified.
+    Examples of database questions:
+    - What is Sarah's email address?
+    - Which department does employee 42 belong to?
+    - How many vacation days does employee 42 have remaining?
+    - Who is assigned to ticket 105?
+    - What is the status of my leave request?
+    - Which employees are assigned to project X?
 
-    5. Irrelevant
-    Use this when the message is unrelated to the company's information, records, documents, or operations, and is outside the assistant's intended scope.
+    These questions concern actual records, individual values, or events stored in the database.
 
-    Extraction rules:
-    - For Database_Query, populate database_query with the user's database-related question and set rag_query to None.
-    - For RAG_Query, populate rag_query with the user's document-related question and set database_query to None.
-    - For Mixed:have both queries, populate BOTH fields with their respective questions.
-    - For Unclear, populate a field only if a meaningful subquery can be extracted; otherwise set it to None.
-    - For Irrelevant, set both query fields to None.
-    - Preserve relevant names, IDs, dates, departments, and other constraints from the original message.
-    - Do not invent facts, identifiers, or additional requirements.
-    - The reason field must briefly explain the classification.
-    - Classify based on the information sources required, not merely on keywords appearing in the message.
-    Use the conversation history to understand the user's latest message.
-    Classify the latest user message in the context of previous messages.
-    If the latest message is a follow-up, combine its meaning with the relevant
-    previous messages to extract a complete, understandable query.
-    Do not treat previous user requests as new requests unless the latest
-    message refers to them.
+    **2. RAG scope: General knowledge, company policies, and guidelines**
+
+    Company documents are the source of general company rules, policies, procedures, benefits, eligibility requirements, guidelines, and explanations of what employees are allowed, required, or entitled to do.
+
+    This information is NOT necessarily stored in the database, even when it concerns employees, leave, assets, departments, or other entities that have database tables.
+
+    Examples of document-based questions:
+    - How many paid vacation days does the company offer employees?
+    - Does the company provide paid vacation leave?
+    - What is the company's vacation and sick leave policy?
+    - Can an employee resign at any time?
+    - How much notice must an employee give before resigning?
+    - What are the rules for terminating employment?
+    - What healthcare benefits does the company provide?
+    - What is the procedure for requesting leave?
+    - What are the guidelines for using company assets?
+
+    These questions ask about general company policies or rules, not an individual employee's recorded information. Route them to RAG even if the question mentions employees, leave, resignation, termination, departments, or assets.
+
+    **3. Important distinction: General rules versus actual records**
+
+    Always identify what the user wants to know, not just the entities or keywords mentioned.
+
+    For leave-related questions:
+    - "How many paid vacation days does the company offer?" → RAG_Query. This asks about the company's general entitlement policy.
+    - "How many vacation days do I have remaining?" → Database_Query. This asks about the current employee's individual balance.
+    - "How many paid vacation days has employee 42 used?" → Database_Query only if the database stores sufficient information to answer this; otherwise, do not assume the required data exists.
+    - "What is the vacation policy, and how many days do I have remaining?" → Mixed:have both queries. The policy comes from documents, and the individual balance comes from the database.
+
+    For employment-related questions:
+    - "Can I resign at any time?" → RAG_Query. This asks about company rules and resignation policy.
+    - "What is my employment status?" → Database_Query. This asks for a specific employee record.
+    - "What is the resignation policy, and what is my current employment status?" → Mixed:have both queries.
+
+    For assets:
+    - "What is the company's policy for using laptops?" → RAG_Query.
+    - "Which laptop is assigned to employee 42?" → Database_Query.
+
+    **4. Source selection rules**
+
+    - Choose Database_Query when answering requires actual records or specific values stored in database tables.
+    - Choose RAG_Query when answering requires company policies, general entitlements, rules, procedures, guidelines, or other document-based information.
+    - Choose Mixed:have both queries only when the user's request genuinely requires both a database lookup and document retrieval.
+    - Do not choose Database_Query just because a question mentions employees, leave, departments, assets, or another database entity.
+    - Do not assume the database contains a policy simply because it contains records about the people or entities governed by that policy.
+    - Do not invent database fields, records, or policy details.
+    - If the user asks a general policy question, use RAG even if the policy is not currently known to exist in the available documents. Retrieval can determine whether supporting information is available.
+    - If the question asks for a specific record but lacks a necessary identifier, classify it as Unclear only when that missing information prevents a meaningful query.
+    - If the user asks about a policy and an individual record in the same request, classify it as Mixed and extract each part separately.
     """
     structured_model=model.with_structured_output(IntentClassification)
     answer=structured_model.invoke(prompt)
