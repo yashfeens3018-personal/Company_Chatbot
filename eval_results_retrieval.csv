@@ -1,0 +1,51 @@
+﻿evidence_coverage@1,evidence_coverage@3,evidence_coverage@5,evidence_coverage@7,evidence_coverage@8,evidence_full@1,evidence_full@3,evidence_full@5,evidence_full@7,evidence_full@8,evidence_hit@1,evidence_hit@3,evidence_hit@5,evidence_hit@7,evidence_hit@8,file_hit@1,file_hit@3,file_hit@5,file_hit@7,file_hit@8,first_evidence_rank,id,mrr,question,question_type,top1_score
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q001,1.0,What is the annual learning budget for each employee?,direct,0.35021311044692993
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q002,1.0,How many weeks of paid new parent leave does Clef offer?,direct,0.17283853888511658
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,2,q003,0.5,How much is the employee referral bonus?,direct,0.2943684160709381
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,False,True,True,True,True,3,q004,0.3333333333333333,How often do employees set their OKRs?,direct,0.493476927280426
+0.0,0.0,0.0,0.0,1.0,False,False,False,False,True,False,False,False,False,True,True,True,True,True,True,8,q005,0.125,What vesting schedule applies to employee equity at Clef?,direct,0.3294713497161865
+0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,,q006,0.0,What is Clef's mission statement?,direct,0.3210274577140808
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,2,q007,0.5,Which week of the quarter is hack week?,direct,0.5131615400314331
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,3,q008,0.3333333333333333,How long should a weekly one on one meeting last?,direct,0.434678852558136
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,3,q009,0.3333333333333333,How many interviews does each candidate go through?,direct,0.5053306221961975
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,2,q010,0.5,How many days of paid vacation do employees get each year?,direct,0.39107877016067505
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q011,1.0,"If I get invited to talk at an industry conference, how much of my travel will the company pay for?",paraphrased,0.4293729066848755
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q012,1.0,How much paid time off do I get when a close relative dies?,paraphrased,0.3988948464393616
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,3,q013,0.3333333333333333,"If I leave the company, how long can I still buy my vested stock?",paraphrased,0.39367571473121643
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q014,1.0,Can I expect messages I send from my work email address to stay private if I label them personal?,paraphrased,0.5052697062492371
+0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,True,True,True,True,True,,q015,0.0,How does a new hire get to wrap up their first day with the team?,paraphrased,0.48455899953842163
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q016,1.0,How quickly does the team need to get back to someone who applies directly through the website?,paraphrased,0.5343925356864929
+0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,False,True,True,True,True,3,q017,0.3333333333333333,Which people do employees report to?,paraphrased,0.5376298427581787
+0.0,0.0,1.0,1.0,1.0,False,False,True,True,True,False,False,True,True,True,False,False,True,True,True,4,q018,0.25,What part of the day should everyone keep free for in-person meetings?,paraphrased,0.5547763109207153
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q019,1.0,What share of my family's health insurance premiums does the company cover?,paraphrased,0.6720900535583496
+0.5,1.0,1.0,1.0,1.0,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q020,1.0,Can I trade some salary for a bigger ownership stake?,paraphrased,0.5147775411605835
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q021,1.0,How many stock options is each employee offered?,specific,0.3090689182281494
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q022,1.0,What is the salary for a technical employee with more than 5 years of experience?,specific,0.5179409384727478
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q023,1.0,How much do the three founders earn per year?,specific,0.7120932936668396
+0.0,0.0,1.0,1.0,1.0,False,False,True,True,True,False,False,True,True,True,True,True,True,True,True,4,q024,0.25,"How much money has Clef raised to date, and in what form?",specific,0.31946277618408203
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q025,1.0,"At what rate does sick leave accrue, and what is the maximum?",specific,0.3704290986061096
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q026,1.0,What is the daily co-working space subsidy for remote work?,specific,0.2865156829357147
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q027,1.0,How much is the monthly allowance for waiving Clef's medical coverage?,specific,0.30946505069732666
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q028,1.0,How many shares of Clef common stock are currently outstanding?,specific,0.17564894258975983
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q029,1.0,How much advance notice must be given before taking a sabbatical?,specific,0.43398967385292053
+1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q030,1.0,How many hours does a typical workweek at Clef involve?,specific,0.110365130007267
+0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,False,True,True,True,True,,q031,0.0,What are Clef's four core values?,multi-part,0.44384488463401794
+0.3333333333333333,0.6666666666666666,0.6666666666666666,0.6666666666666666,1.0,False,False,False,False,True,True,True,True,True,True,True,True,True,True,True,1,q032,1.0,What are the three stages of the interview process and how long does each take?,multi-part,0.5519438982009888
+0.5,0.5,1.0,1.0,1.0,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q033,1.0,"How long is the sabbatical, and does taking new parent leave delay eligibility for it?",multi-part,0.3109852969646454
+0.0,0.2,0.8,0.8,0.8,False,False,False,False,False,False,True,True,True,True,True,True,True,True,True,2,q034,0.5,What do I need to do before working remotely for more than two consecutive days?,multi-part,0.3143453598022461
+0.3333333333333333,1.0,1.0,1.0,1.0,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q035,1.0,"How are OKRs scored, and what average score is considered ideal?",multi-part,0.38390254974365234
+0.5,0.5,0.5,0.5,0.5,False,False,False,False,False,True,True,True,True,True,True,True,True,True,True,1,q036,1.0,What do the different Slack statuses mean for how quickly I should expect a response?,multi-part,0.4107707440853119
+0.5,0.5,1.0,1.0,1.0,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q037,1.0,"What does the referral program pay, who is eligible, when is it paid, and where are open positions posted?",multi-part,0.4240529239177704
+0.5,1.0,1.0,1.0,1.0,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q038,1.0,"How many objectives and key results should each person set per quarter, and what kind of objective is required?",multi-part,0.1734856814146042
+0.0,0.3333333333333333,0.6666666666666666,0.6666666666666666,0.6666666666666666,False,False,False,False,False,False,True,True,True,True,True,True,True,True,True,3,q039,0.3333333333333333,"How does equity vesting work, and what happens if I leave before one year?",multi-part,0.40106773376464844
+0.5,0.75,0.75,0.75,0.75,False,False,False,False,False,True,True,True,True,True,True,True,True,True,True,1,q040,1.0,"What are the key guidelines for a new hire's first day: start and end time, what they should publish, and who is responsible?",multi-part,0.3886631727218628
+,,,,,,,,,,,,,,,,,,,,,q041,,What percentage does Clef match on employee 401(k) contributions?,unanswerable,0.40270909667015076
+,,,,,,,,,,,,,,,,,,,,,q042,,How much relocation assistance does Clef give new hires?,unanswerable,0.42300260066986084
+,,,,,,,,,,,,,,,,,,,,,q043,,Are dogs or other pets allowed in the Clef office?,unanswerable,0.5296714305877686
+,,,,,,,,,,,,,,,,,,,,,q044,,Does Clef reimburse gym memberships or fitness costs?,unanswerable,0.47224247455596924
+,,,,,,,,,,,,,,,,,,,,,q045,,How much severance does Clef pay when an employee is laid off?,unanswerable,0.39362281560897827
+,,,,,,,,,,,,,,,,,,,,,q046,,Does Clef pay out unused vacation days when an employee leaves?,unanswerable,0.26601845026016235
+,,,,,,,,,,,,,,,,,,,,,q047,,Does Clef provide free parking or a commuter subsidy for employees?,unanswerable,0.4199044108390808
+,,,,,,,,,,,,,,,,,,,,,q048,,What is the current exercise price per share for Clef stock options?,unanswerable,0.2793378233909607
+,,,,,,,,,,,,,,,,,,,,,q049,,What valuation did Clef's Series A round close at?,unanswerable,0.508417546749115
+,,,,,,,,,,,,,,,,,,,,,q050,,How many people currently work at Clef?,unanswerable,0.4176517724990845

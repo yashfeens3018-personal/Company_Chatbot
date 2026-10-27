@@ -1,4 +1,45 @@
-1. The retrieval was also v trash because the readme file and some other files contains links so the retrieval was giving them more importance because of semnatic similarity. When i stopped including those files in the chunking, the retrievalgot better.
-2. The retrieval was not being v successful because i was keeping the headers of the md files while splitting and for that the retrieval was retrieving the headings from the files leaving other details. Keeping it off made things a bit better.
-3. Wrong intent classification: I asked for total paid leaves available to an employee and my flow considered it as a database query thinking that the leave_balances might have answer for it. Fixed it by doing prompt engineernig mainly explaining what each table stores and then adding example queries.
-4. Wrong tools being called to fetch an answer, like usually if i am asking get me the record of "Kayla Peterson", it should use the search tool, but its using get tool which requires the arguments like email or id and therefore throwing the error. Needs to fix this.
+1. The Retrieval was not good, and these were the few loopholes i indentifed and fixed:
+a. Some of my files only contained links to other files, so the links contained exact words and phrases like healthcare insurance policies and therefore were being retrieved and were given the most priority so i removed such files from chunking and embeddings.
+b. I had included headings in the splitting too and they were being being counted as a chunk and therefore was posing the same problem as the links.
+c. finetuned by running on different queries to see which one retrieved the most relevant documents and chunks .
+These did improve the performance alot, but i still wanted to test the retrieval properly using metrics like:
+1. Evidence coverage and hits
+2. Right documents retrieval and file hits
+To test these i used different types of questions like direct, paraphrased, specific, multipart(requiring different files)
+The results showed me that the retrieval is working well now, and they also showed me exactly where it is still weak.
+
+Results (40 answerable questions, retrieving up to 8 chunks)
+
+Question type	file hit @1	file hit @5	evidence hit @1	evidence hit @3	evidence hit @8	all evidence found @8
+Direct	0.80	0.90	0.20	0.80	0.90	0.90
+Paraphrased	0.80	1.00	0.60	0.80	0.90	0.90
+Specific	1.00	1.00	0.90	0.90	1.00	1.00
+Multi-part	0.90	1.00	0.70	0.90	0.90	0.50
+Overall	0.88	0.97	0.60	0.85	0.93	0.82
+
+A file hit means one of the top k chunks came from the right document. An evidence hit means one of the top k chunks actually contained the passage that answers the question, which is the stricter test. “All evidence found” is for multi-part questions, where every required passage has to be in the results. MRR (how high the right chunk ranks) was 0.72 overall.
+
+What I inferred from this
+
+The retriever finds the right document almost every time. The right file is in the top 5 for 97% of questions, and the answer passage is in the top 8 for 93%. I think the clean-up of the link-only files and the heading chunks is what made this possible, since those were stealing the top spots.
+The main weakness is ranking, not finding. For direct questions the right file is first 80% of the time, but the exact answer chunk is first only 20% of the time. So it gets to the right document but often picks a neighbouring chunk. That is why evid@3 (0.85) is much better than evid@1 (0.60). My guess is that the chunks lose their heading context, or the question’s wording is too generic and matches several chunks about the same topic.
+Specific questions work best (MRR 0.93). Numbers and unique details give the embedding model something strong to match.
+Multi-part questions find something but not everything. 90% of them get at least one needed passage, but only 50% get all of them. That is expected, since these need several passages, sometimes from different files, and one search query pulls mostly from one area.
+The similarity scores can’t tell me when the handbook has no answer. The top-1 distance was 0.404 for answerable questions and 0.411 for unanswerable ones, which is basically the same. A distance threshold alone can’t make the bot refuse, so refusing has to be handled by the LLM.
+Some misses may be my dataset being too strict. In a couple of cases the retriever returned a correct chunk from a different file that repeats the same information, but my evidence label only listed one passage.
+
+Next steps
+
+Improve ranking. Add the document title and section heading to each chunk before embedding it, try different chunk sizes and overlap, and test a reranker over the top 8. I’ll re-run the same retrieval test after each change and compare evid@1 and MRR.
+Improve multi-part retrieval. Try splitting the question into sub-queries, or using MMR so the 8 results come from more varied places. I’ll measure it with the “all evidence found” column.
+
+I tried different similarity metrics but they didnot improve the retrieval any further, as the problem was not with retrieving the right file but right chunk at a higher rank.
+so, i decided to improve answer by getting answer by setting the k=6 as it retrieves almost all necessary chunks. setting k higher than is not good because it produces minimal improvement but adds more cost to the prompt in answer generation.
+
+
+2.While i was testing this, i realized my intent classification was not good and therefore i had to do prompt engineering multiple times to do it better. The progess is as below:
+a. I noticed that it was routing some questions to the database which it should not have. For example, how many leaves do we get? llm thought the answer must be in leaves table, so then i described each table in detail and told it how these tables contained specific records for employments, leaves, assets etc.
+b. This improved it but still a few questions were being routed to database, i then added the documents details as well and also added the example queries to make it understand how to differentiate between the two. These 3 changes then improved it significantly.
+c. I also made it a little biased towards RAG(see last lines of the prompt) because usually the queries where intent classification was getting confused were RAG based.
+
+

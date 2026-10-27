@@ -18,6 +18,8 @@ from .Vector_db.vector_db import vector_store
 load_dotenv()
 model=ChatMistralAI(model="open-mistral-7b")
 
+RETRIEVAL_K = 8
+
 tools=[
        get_asset_tool, get_asset_stats_tool, get_employee_assets_tool, get_expiring_warranties_tool, get_unassigned_assets_tool,search_assets_tool,
        get_announcement_tool, search_announcements_tool,get_active_announcements_tool,get_department_announcements_tool,get_employee_announcements_tool,
@@ -64,90 +66,84 @@ def intent_classification(state:StateAgent):
     f"{'User' if isinstance(i,HumanMessage) else 'Assistant'}: {i.content}"
     for i in state['messages'])
 
-    prompt = f"""You are an intent classification component for an internal company assistant. Your task is to classify the user's message and extract the relevant query or queries for the appropriate information source.
+    prompt = f"""You are the intent classification component of an internal company assistant. Decide which information source is needed to answer the user's LATEST message, and extract the query for each source.
 
     Conversation history:
     {query}
 
-    The company assistant answers questions using two distinct information sources: structured database records and company documents. You must understand the difference between them before classifying a query.
+    Classify the latest user message. Use earlier messages only to resolve references such as "it" or "that policy".
 
-    **1. Database scope: Specific, structured records**
+    The assistant has exactly two information sources.
 
-    The database stores concrete information about specific company entities and events. It does NOT serve as the source of general company policies, rules, or guidelines.
+    ============================================================
+    SOURCE A: DATABASE (records about specific people, things and events)
+    ============================================================
+    Tables and what each row stores:
+    - employees: one row per employee: employee_id, first_name, last_name, gender, email, phone_number, address, date_of_birth, date_joined, job_title, department_id, manager_id (that employee's own manager), salary (that employee's own salary), employment_status.
+    - departments: one row per department: department_id, name, description, budget.
+    - leave_balances: one row per employee, leave type and year: total_days, used_days, remaining_days. Numbers only, no policy text.
+    - leave_requests: one row per leave request: employee_id, leave_type (Annual, Sick, Casual, Unpaid, Maternity), start_date, end_date, reason, status (Pending, Approved, Rejected), approved_by.
+    - assets: one row per company asset such as a laptop or phone: asset_tag, asset_type, brand, model, serial_number, purchase_date, purchase_cost, status, condition, warranty_expiry, assigned_to (an employee).
+    - tickets: one row per support ticket: ticket_id, created_by, assigned_to, title, description, category, status, priority, due_at, resolved_at, closed_at.
+    - ticket_comments: comments written on a ticket: ticket_id, author_id, comment, created_at.
+    - projects: one row per project: name, description, department_id, project_manager_id, status (Planning, Active, On Hold, Completed), start_date, expected_end_date.
+    - project_members: which employee works on which project, with role and joined_at.
+    - announcements: company or department announcements: title, content, created_by, department_id, published_at, expires_at.
 
-    The database contains the following tables:
+    The database holds ONLY these records. It never contains policies, rules, benefits, entitlements, procedures, company values, culture, or any explanation of how the company works. It also holds no company-level facts about money or ownership: no fundraising, valuation, share counts, stock option prices or equity terms, no salary bands, no benefit or contribution amounts. The only money values it stores are one employee's own salary, a department's budget and an asset's purchase cost. A question belongs to the database only if its answer is a value stored in one of the columns above for one particular, identifiable record.
 
-    - **employees:** Specific employee information, such as first name, last name, email, phone number, job title, employment status, department, manager, and joining date.
-    - **departments:** Specific department records and their stored details.
-    - **leave_balances:** Individual employees' recorded leave balances, such as their available or remaining leave, depending on the fields stored in the table.
-    - **leave_requests:** Specific leave requests submitted by employees, including their recorded dates, status, and other stored request details.
-    - **assets:** Specific company assets, their assigned employees, and their recorded details.
-    - **tickets:** Specific support tickets, including their recorded status, priority, category, creator, assignee, and other stored fields.
-    - **ticket_comments:** Comments recorded on specific tickets.
-    - **projects:** Specific company projects and their stored details.
-    - **project_members:** Records identifying which employees are associated with which projects.
-    - **announcements:** Specific announcements that have been recorded in the database, including their stored content and associated details.
-    - **Other tables:** Use the actual fields and relationships in the database schema to determine what information they contain. Do not assume a table stores information that is not represented by its fields.
+    ============================================================
+    SOURCE B: COMPANY HANDBOOK (documents)
+    ============================================================
+    The handbook explains how the company works in general. It covers:
+    - Benefits and perks: health and disability insurance, vacation and sick leave, holidays, new parent leave, sabbatical, protected absences (for example bereavement or jury duty), learning and conference budgets, referral bonuses.
+    - Compensation: salary bands and rubrics, equity and stock options, vesting, exercising options, fundraising and share counts.
+    - Employment policies: at-will employment, working remotely, employee privacy, equal opportunity, complaints, drug and alcohol, code of conduct, the invention and confidentiality agreement.
+    - How the team works: company values, mission, product principles, OKRs, one on ones, effective meetings, hack weeks, communication and Slack etiquette, sharing files, budgeting, who people report to in general, onboarding and the first day.
+    - Hiring: the interview process, sourcing candidates, changes to the handbook.
+    Any question about what the company allows, requires or offers, how much, how long, how often, when, who is responsible, or how something is normally done belongs to the handbook. This includes questions whose answer is a number (an amount, a limit, a number of days, a percentage), because those numbers describe company rules, not an individual's record.
 
-    Examples of database questions:
-    - What is Sarah's email address?
-    - Which department does employee 42 belong to?
-    - How many vacation days does employee 42 have remaining?
-    - Who is assigned to ticket 105?
-    - What is the status of my leave request?
-    - Which employees are assigned to project X?
+    ============================================================
+    HOW TO DECIDE
+    ============================================================
+    Ask yourself: is the user asking about ONE specific, identifiable record, or about the company in general?
 
-    These questions concern actual records, individual values, or events stored in the database.
+    1. Database_Query: only when the message points to a specific record (a named person, an employee id, a ticket, project or asset identifier or name, or the speaker themself through "my", "I" or "me") AND the answer is a stored column value.
+    2. RAG_Query: when the question is general or impersonal. It talks about "the company", the company name, "employees" in general, "new hires", "we", or about rules, amounts, limits, timing, process, benefits, tools, values or culture. Mentioning employees, leave, salary, managers, projects, assets or departments does NOT make a question a database question.
+       - What a particular named person earns is a database question. Salary bands, pay rubrics and how compensation works are handbook questions.
+       - Who a particular named person reports to is a database question. How reporting lines work in the company in general is a handbook question.
+       - A person's own leave balance is a database question. How leave works, accrues or is approved is a handbook question.
+       - Pay for a role, a level or a group of people (for example what founders or senior staff earn) is a handbook question. Pay of one named person is a database question.
+       - Facts about the company as a whole (money raised, valuation, number of shares, option price, equity terms, which benefits or matching contributions exist) are handbook questions, even though they mention money, shares or employees.
+    3. Mixed:have both queries: only when the message contains TWO different needs, a general policy part AND a specific-record part. A question with several sub-questions that are all about handbook topics is still RAG_Query, not Mixed.
+    4. Unclear: only when you cannot tell what is being asked at all, or when a question about a specific record gives no identifier and no "my" or "I". A general question about the company is never Unclear.
+    5. Irrelevant: not related to the company at all (small talk, weather, general trivia, writing help).
+    6. If you are torn between RAG_Query and Database_Query and the message contains no specific person, record, identifier, "my" or "I", choose RAG_Query.
+    7. If a general question might not be covered by the handbook, still choose RAG_Query. Retrieval will find out whether the answer exists. Never choose Unclear or Irrelevant just because you are unsure the handbook covers the topic.
 
-    **2. RAG scope: General knowledge, company policies, and guidelines**
+    ============================================================
+    EXAMPLES
+    ============================================================
+    - "Which public holidays does the company observe?" -> RAG_Query
+    - "What does the drug and alcohol policy say?" -> RAG_Query
+    - "Does the company give employees a day off on their birthday?" -> RAG_Query (it may not be covered; retrieval decides)
+    - "What are the steps for filing a complaint, who handles it, and is retaliation allowed?" -> RAG_Query (several sub-questions, all handbook)
+    - "Does the company reimburse home internet costs?" -> RAG_Query
+    - "What is Maria Lopez's job title?" -> Database_Query
+    - "How many annual leave days do I have remaining?" -> Database_Query
+    - "Who approved leave request 88?" -> Database_Query
+    - "What is the status of ticket 105?" -> Database_Query
+    - "What is the complaint procedure, and do I have any pending leave requests?" -> Mixed:have both queries
+    - "What is the weather in Paris?" -> Irrelevant
+    - "Can you look that up for me?" (nothing earlier in the conversation) -> Unclear
 
-    Company documents are the source of general company rules, policies, procedures, benefits, eligibility requirements, guidelines, and explanations of what employees are allowed, required, or entitled to do.
-
-    This information is NOT necessarily stored in the database, even when it concerns employees, leave, assets, departments, or other entities that have database tables.
-
-    Examples of document-based questions:
-    - How many paid vacation days does the company offer employees?
-    - Does the company provide paid vacation leave?
-    - What is the company's vacation and sick leave policy?
-    - Can an employee resign at any time?
-    - How much notice must an employee give before resigning?
-    - What are the rules for terminating employment?
-    - What healthcare benefits does the company provide?
-    - What is the procedure for requesting leave?
-    - What are the guidelines for using company assets?
-
-    These questions ask about general company policies or rules, not an individual employee's recorded information. Route them to RAG even if the question mentions employees, leave, resignation, termination, departments, or assets.
-
-    **3. Important distinction: General rules versus actual records**
-
-    Always identify what the user wants to know, not just the entities or keywords mentioned.
-
-    For leave-related questions:
-    - "How many paid vacation days does the company offer?" → RAG_Query. This asks about the company's general entitlement policy.
-    - "How many vacation days do I have remaining?" → Database_Query. This asks about the current employee's individual balance.
-    - "How many paid vacation days has employee 42 used?" → Database_Query only if the database stores sufficient information to answer this; otherwise, do not assume the required data exists.
-    - "What is the vacation policy, and how many days do I have remaining?" → Mixed:have both queries. The policy comes from documents, and the individual balance comes from the database.
-
-    For employment-related questions:
-    - "Can I resign at any time?" → RAG_Query. This asks about company rules and resignation policy.
-    - "What is my employment status?" → Database_Query. This asks for a specific employee record.
-    - "What is the resignation policy, and what is my current employment status?" → Mixed:have both queries.
-
-    For assets:
-    - "What is the company's policy for using laptops?" → RAG_Query.
-    - "Which laptop is assigned to employee 42?" → Database_Query.
-
-    **4. Source selection rules**
-
-    - Choose Database_Query when answering requires actual records or specific values stored in database tables.
-    - Choose RAG_Query when answering requires company policies, general entitlements, rules, procedures, guidelines, or other document-based information.
-    - Choose Mixed:have both queries only when the user's request genuinely requires both a database lookup and document retrieval.
-    - Do not choose Database_Query just because a question mentions employees, leave, departments, assets, or another database entity.
-    - Do not assume the database contains a policy simply because it contains records about the people or entities governed by that policy.
-    - Do not invent database fields, records, or policy details.
-    - If the user asks a general policy question, use RAG even if the policy is not currently known to exist in the available documents. Retrieval can determine whether supporting information is available.
-    - If the question asks for a specific record but lacks a necessary identifier, classify it as Unclear only when that missing information prevents a meaningful query.
-    - If the user asks about a policy and an individual record in the same request, classify it as Mixed and extract each part separately.
+    ============================================================
+    OUTPUT FIELDS
+    ============================================================
+    - intent: one of the allowed values.
+    - reason: one short sentence explaining the choice.
+    - rag_query: for RAG_Query and Mixed, a standalone search query for the handbook. Keep the user's own key terms and every detail they asked about, only resolve references from the conversation, and do not add words that were not asked. Keep all sub-questions of a multi-part question in one query. Otherwise null.
+    - database_query: for Database_Query and Mixed, a standalone description of the record lookup, including any identifier or name given. Otherwise null.
     """
     structured_model=model.with_structured_output(IntentClassification)
     answer=structured_model.invoke(prompt)
@@ -182,7 +178,7 @@ def intent_router(state:StateAgent):
 def RAG_Query_Retrieval(state: StateAgent):
     query = state["Rag_query"]
 
-    chunks = vector_store.similarity_search(query, k=3)
+    chunks = vector_store.similarity_search(query, k=RETRIEVAL_K)
 
     print(f"\nQuery: {query}")
     print(f"Retrieved {len(chunks)} chunks")
@@ -352,16 +348,18 @@ graph.add_edge("final_answer", END)
 
 app=graph.compile()
 messages=[]
-while True:
-    query = input("You: ")
+if __name__ == "__main__":
+    messages = []
+    while True:
+        query = input("You: ")
 
-    if query.lower() in ["exit", "quit"]:
-        break
+        if query.lower() in ["exit", "quit"]:
+            break
 
-    messages.append(HumanMessage(content=query))
+        messages.append(HumanMessage(content=query))
 
-    result = app.invoke({"messages": messages})
+        result = app.invoke({"messages": messages})
 
-    messages = result["messages"]
+        messages = result["messages"]
 
-    print("Assistant:", messages[-1].content)
+        print("Assistant:", messages[-1].content)
