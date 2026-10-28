@@ -5,8 +5,8 @@ from datetime import datetime
 
 @tool
 def get_announcement_tool(announcement_id:int):
-    """Retrieve an announcement by its ID, including its title,
-    content, creator, department, publication date, and expiry date."""
+    """Retrieve ONE announcement when you already have its exact announcement ID.
+    Do not use this to list or browse announcements; use search_announcements_tool for that."""
     return get_announcement(announcement_id)
 
 @tool
@@ -18,19 +18,9 @@ def search_announcements_tool(title:str=None,
     published_to:datetime=None,
     expires_from:datetime=None,
     expires_to:datetime=None):
-    """
-    Given the following arguments which are optional, this tool returns the filtered announcements and is for searching.
-
-    Args:
-        title (str, optional): _description_. Defaults to None.
-        content (str, optional): _description_. Defaults to None.
-        created_by (int, optional): _description_. Defaults to None.
-        department_id (int, optional): _description_. Defaults to None.
-        published_from (datetime, optional): _description_. Defaults to None.
-        published_to (datetime, optional): _description_. Defaults to None.
-        expires_from (datetime, optional): _description_. Defaults to None.
-        expires_to (datetime, optional): _description_. Defaults to None.
-    """
+    """List or search announcements and can also give u a single announcement. Call with NO arguments to list ALL announcements,
+    or filter by title, content, creator, department, publish date range or expiry date range.
+    Use this whenever the user does not give an announcement ID."""
     return search_announcements(title,
     content,
     created_by,
@@ -50,14 +40,14 @@ def get_active_announcements_tool(department_id:int=None):
 
 @tool
 def get_department_announcements_tool(department_id:int,
-    include_expired:bool=False):
+    include_expired:bool=True):
     """
     Retrieves the announcements done by a department and can include the due and expired announcements too if user wants. 
     Args:
         department_id (int): _description_
         include_expired (bool, optional): _description_. Defaults to False.
     """
-    return get_department_announcements()
+    return get_department_announcements(department_id, include_expired)
 
 @tool
 def get_employee_announcements_tool(employee_id:int):

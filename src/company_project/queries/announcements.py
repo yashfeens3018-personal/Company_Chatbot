@@ -199,7 +199,7 @@ def get_active_announcements(
 
 def get_department_announcements(
     department_id:int,
-    include_expired:bool=False
+    include_expired:bool=True
 ):
     _require_department(department_id=department_id)
     conditions=[
@@ -244,7 +244,8 @@ def get_employee_announcements(
         Announcements.content,
         Department.name.label("department_name"),
         Announcements.published_at,
-        Announcements.expires_at
+        Announcements.expires_at,
+        Announcements.created_by
     ).outerjoin(
         Department,
         Announcements.department_id==Department.department_id

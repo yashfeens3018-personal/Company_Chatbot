@@ -42,4 +42,19 @@ a. I noticed that it was routing some questions to the database which it should 
 b. This improved it but still a few questions were being routed to database, i then added the documents details as well and also added the example queries to make it understand how to differentiate between the two. These 3 changes then improved it significantly.
 c. I also made it a little biased towards RAG(see last lines of the prompt) because usually the queries where intent classification was getting confused were RAG based.
 
+3. Not choosing the right tool since to choose from 37 tools is alot for my small model mistral.I have suspected it could be because of one of these reasons:
+a. 37 tools are a lot for a small model to handled
+b. Descriptions were not very good had to prompt engineer them
+
+(Not yet implemented)For now, it can not use tool to retrieve an argument in order to execute the main tool which user asked for. 
+For example, if user asked for "Give me all announcements made by kayla peterson" and there are no tools which retrieve the announcements by first and last names, it should first retrieve the id from employees table using first and last name and then use that id to execute the announcemnet tool.
+
+4. Tools must also return the arguments they are being searched with because without seeing them in the retrieved results our generation llm can not verify the answer and in order to avoid hallucinated answers might not answer it.
+I fixed the final output prompt to fix this(told it to believe the database results) and not invent facts futhermore or for rag queries.
+
+5. During testing, i realized there might be some queries i had yet not implemented and should implement.
+
+6. During Database questions testing, i realized that i had implemented AND in queries but not OR approach so i added that.
+like i had the tool to search for an employee having first_name = this and employment_status=this but not or within the same field like retrive all ai engineers and data scientists (this would require or)
+
 

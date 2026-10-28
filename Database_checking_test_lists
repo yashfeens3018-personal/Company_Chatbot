@@ -1,0 +1,22 @@
+Database branch testing checklist
+For every table, I must check every single tool and also these points:
+1. If the right tools are being called for the database queries.
+2. If the LLM can answer specific details from the returned query. For example, if a query returns 7 fields, but I need only 1, is the LLM able to provide me that?
+3. If there are some queries that cannot be answered by existing tools and more tools need to be added.
+4. If the returned fields in a tool are enough or if the tools should return some more fields.
+5. If my check_for_missing_info is working correctly.(generating correct arguments, tools, missing arguments)
+6. Which kinds of valid queries seem ambiguous to the LLM and cause it to ask for clarification, and how can I improve this problem?
+7. If my check_for_missing_info is inventing arguments by itself, which it should not do.
+8. If the tools return the correct database records for different combinations of filters, sorting, and limits.
+9. If the LLM handles queries that return multiple records correctly, including summarizing them, counting them, comparing them, and identifying the relevant record.
+10. If the LLM answers correctly when the user asks follow-up questions that depend on the previous database results.
+11. If the LLM handles edge cases, such as invalid IDs, nonexistent employees, missing optional filters, and queries with no matching records.
+12. If the LLM ever claims that an operation succeeded when the tool failed or returned an error.
+13. If the LLM's final answer is grounded in the tool results, without inventing facts, changing values, or making unsupported assumptions.
+14. If authorization and access restrictions work correctly, such as preventing an employee from accessing another employee's private leave requests or personal information. (not implemented yet)
+15. If the tools handle database errors, unexpected return values, and large result sets appropriately.
+16. If the LLM correctly distinguishes between queries requiring database information and queries that should be handled by RAG, especially ambiguous cases such as asking about paid vacation days versus an employee's remaining leave balance.
+17. If the LLM handles different phrasings of the same query correctly, including paraphrased questions, informal wording, typos, and alternative names for database fields.
+18. If the LLM avoids making unnecessary tool calls or calling multiple tools when one tool is sufficient.
+19. If the system behaves consistently across repeated runs of the same query, and which failures occur intermittently.
+20. If the system's response is useful and clear to the user, including whether it provides the requested information without dumping unnecessary database fields or raw tool output.

@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from .tools.assets import get_asset_tool, get_asset_stats_tool, get_employee_assets_tool, get_expiring_warranties_tool, get_unassigned_assets_tool,search_assets_tool
 from .tools.announcements import get_announcement_tool, search_announcements_tool,get_active_announcements_tool,get_department_announcements_tool,get_employee_announcements_tool
 from .tools.department import get_department_info_tool, get_departments_tool
-from .tools.employees import get_employee_tool, search_employees_tool
+from .tools.employees import get_employee_tool, search_employees_tool, get_employee_stats_tool
 from .tools.leave_balances import get_leave_balance_tool, search_leave_balances_tool
 from .tools.leave_requests import get_current_leaves_tool,get_leave_request_tool,search_leave_requests_tool
 from .tools.project_members import get_employee_project_memberships_tool,get_project_member_tool,get_project_members_tool,search_project_members_tool
@@ -16,15 +16,29 @@ from langchain_core.messages import HumanMessage, AIMessage
 from .Vector_db.vector_db import vector_store
 
 load_dotenv()
-model=ChatMistralAI(model="open-mistral-7b")
+model=ChatMistralAI(model="open-mistral-7b",temperature=0)
 
 RETRIEVAL_K = 8
+DEBUG=True
+MAX_DEBUG_CHARS=1500
+trace=[]
+def debug_print(node,**values):
+    trace.append(node)
+    if not DEBUG:
+        return
+    print(f"\n========== NODE: {node} ==========")
+    for key,value in values.items():
+        text=str(value)
+        if len(text)>MAX_DEBUG_CHARS:
+            text=text[:MAX_DEBUG_CHARS]+f"... [truncated, {len(text)} chars total]"
+        print(f"{key}: {text}")
+    print("="*50+"\n")
 
 tools=[
        get_asset_tool, get_asset_stats_tool, get_employee_assets_tool, get_expiring_warranties_tool, get_unassigned_assets_tool,search_assets_tool,
        get_announcement_tool, search_announcements_tool,get_active_announcements_tool,get_department_announcements_tool,get_employee_announcements_tool,
        get_department_info_tool, get_departments_tool,
-       get_employee_tool, search_employees_tool,
+       get_employee_tool, search_employees_tool, get_employee_stats_tool,
        get_leave_balance_tool, search_leave_balances_tool,
        get_current_leaves_tool,get_leave_request_tool,search_leave_requests_tool,
        get_employee_project_memberships_tool,get_project_member_tool,get_project_members_tool,search_project_members_tool,
@@ -65,7 +79,7 @@ def intent_classification(state:StateAgent):
     query = "\n".join(
     f"{'User' if isinstance(i,HumanMessage) else 'Assistant'}: {i.content}"
     for i in state['messages'])
-
+    debug_print("Intent Classification: input",messages_in_state=len(state['messages']),conversation_history=query)
     prompt = f"""You are the intent classification component of an internal company assistant. Decide which information source is needed to answer the user's LATEST message, and extract the query for each source.
 
     Conversation history:
@@ -76,7 +90,7 @@ def intent_classification(state:StateAgent):
     The assistant has exactly two information sources.
 
     ============================================================
-    SOURCE A: DATABASE (records about specific people, things and events)
+    SOURCE A: DATABASE (stored records about people, things and events, and counts or lists of them)
     ============================================================
     Tables and what each row stores:
     - employees: one row per employee: employee_id, first_name, last_name, gender, email, phone_number, address, date_of_birth, date_joined, job_title, department_id, manager_id (that employee's own manager), salary (that employee's own salary), employment_status.
@@ -90,7 +104,7 @@ def intent_classification(state:StateAgent):
     - project_members: which employee works on which project, with role and joined_at.
     - announcements: company or department announcements: title, content, created_by, department_id, published_at, expires_at.
 
-    The database holds ONLY these records. It never contains policies, rules, benefits, entitlements, procedures, company values, culture, or any explanation of how the company works. It also holds no company-level facts about money or ownership: no fundraising, valuation, share counts, stock option prices or equity terms, no salary bands, no benefit or contribution amounts. The only money values it stores are one employee's own salary, a department's budget and an asset's purchase cost. A question belongs to the database only if its answer is a value stored in one of the columns above for one particular, identifiable record.
+    The database holds ONLY these records. It never contains policies, rules, benefits, entitlements, procedures, company values, culture, or any explanation of how the company works. It also holds no company-level facts about money or ownership: no fundraising, valuation, share counts, stock option prices or equity terms, no salary bands, no benefit or contribution amounts. The only money values it stores are one employee's own salary, a department's budget and an asset's purchase cost. A question belongs to the database if its answer is stored in, or can be counted or listed from, these tables: a value for one particular record, OR a count, total, list or breakdown of records. Examples of such counts: how many employees the company has, how many employees are in a department or have a given status, how many tickets are open, which assets are unassigned.
 
     ============================================================
     SOURCE B: COMPANY HANDBOOK (documents)
@@ -101,24 +115,25 @@ def intent_classification(state:StateAgent):
     - Employment policies: at-will employment, working remotely, employee privacy, equal opportunity, complaints, drug and alcohol, code of conduct, the invention and confidentiality agreement.
     - How the team works: company values, mission, product principles, OKRs, one on ones, effective meetings, hack weeks, communication and Slack etiquette, sharing files, budgeting, who people report to in general, onboarding and the first day.
     - Hiring: the interview process, sourcing candidates, changes to the handbook.
-    Any question about what the company allows, requires or offers, how much, how long, how often, when, who is responsible, or how something is normally done belongs to the handbook. This includes questions whose answer is a number (an amount, a limit, a number of days, a percentage), because those numbers describe company rules, not an individual's record.
+    Any question about what the company allows, requires or offers, how much, how long, how often, when, who is responsible, or how something is normally done belongs to the handbook. This includes questions whose answer is a number (an amount, a limit, a number of days, a percentage), because those numbers describe company rules, not stored records.
 
     ============================================================
     HOW TO DECIDE
     ============================================================
-    Ask yourself: is the user asking about ONE specific, identifiable record, or about the company in general?
+    Ask yourself: must the answer be READ or COUNTED from the stored records (people, leave, assets, tickets, projects, announcements, departments)? Then it is the database. Or does it explain a rule, benefit, policy, amount offered, or how things are done? Then it is the handbook. Words like "the company" or "our company" do not decide this; what is being asked for decides it.
 
-    1. Database_Query: only when the message points to a specific record (a named person, an employee id, a ticket, project or asset identifier or name, or the speaker themself through "my", "I" or "me") AND the answer is a stored column value.
-    2. RAG_Query: when the question is general or impersonal. It talks about "the company", the company name, "employees" in general, "new hires", "we", or about rules, amounts, limits, timing, process, benefits, tools, values or culture. Mentioning employees, leave, salary, managers, projects, assets or departments does NOT make a question a database question.
+    1. Database_Query: when the answer must be read or counted from stored records. This covers a specific record (a named person, an employee id, a ticket, project or asset identifier or name, or the speaker themself through "my", "I" or "me") AND counts, totals, lists or breakdowns across many records. Counting or listing needs no identifier.
+    2. RAG_Query: when the question is about rules, amounts, limits, timing, process, benefits, tools, values or culture. Mentioning employees, leave, salary, managers, projects, assets or departments does NOT make a question a database question.
        - What a particular named person earns is a database question. Salary bands, pay rubrics and how compensation works are handbook questions.
        - Who a particular named person reports to is a database question. How reporting lines work in the company in general is a handbook question.
        - A person's own leave balance is a database question. How leave works, accrues or is approved is a handbook question.
        - Pay for a role, a level or a group of people (for example what founders or senior staff earn) is a handbook question. Pay of one named person is a database question.
        - Facts about the company as a whole (money raised, valuation, number of shares, option price, equity terms, which benefits or matching contributions exist) are handbook questions, even though they mention money, shares or employees.
-    3. Mixed:have both queries: only when the message contains TWO different needs, a general policy part AND a specific-record part. A question with several sub-questions that are all about handbook topics is still RAG_Query, not Mixed.
-    4. Unclear: only when you cannot tell what is being asked at all, or when a question about a specific record gives no identifier and no "my" or "I". A general question about the company is never Unclear.
+       - How many employees, tickets, assets or projects exist right now is a database question (counted from records). How many days, weeks or people a policy allows is a handbook question.
+    3. Mixed:have both queries: only when the message contains TWO different needs, a general policy part AND a record part (specific or counted). A question with several sub-questions that are all about handbook topics is still RAG_Query, not Mixed.
+    4. Unclear: only when you cannot tell what is being asked at all, or when a question about one specific record gives no identifier and no "my" or "I". Counting or listing questions are never Unclear. A general question about the company is never Unclear.
     5. Irrelevant: not related to the company at all (small talk, weather, general trivia, writing help).
-    6. If you are torn between RAG_Query and Database_Query and the message contains no specific person, record, identifier, "my" or "I", choose RAG_Query.
+    6. If you are torn between RAG_Query and Database_Query and the message is not asking to look up, count or list stored records, choose RAG_Query.
     7. If a general question might not be covered by the handbook, still choose RAG_Query. Retrieval will find out whether the answer exists. Never choose Unclear or Irrelevant just because you are unsure the handbook covers the topic.
 
     ============================================================
@@ -129,10 +144,14 @@ def intent_classification(state:StateAgent):
     - "Does the company give employees a day off on their birthday?" -> RAG_Query (it may not be covered; retrieval decides)
     - "What are the steps for filing a complaint, who handles it, and is retaliation allowed?" -> RAG_Query (several sub-questions, all handbook)
     - "Does the company reimburse home internet costs?" -> RAG_Query
+    - "How many people can be on a hack week team?" -> RAG_Query (a rule, not a count of records)
     - "What is Maria Lopez's job title?" -> Database_Query
     - "How many annual leave days do I have remaining?" -> Database_Query
     - "Who approved leave request 88?" -> Database_Query
     - "What is the status of ticket 105?" -> Database_Query
+    - "How many employees does the company have?" -> Database_Query (count of employee records)
+    - "How many tickets are still open?" -> Database_Query
+    - "List all announcements." -> Database_Query
     - "What is the complaint procedure, and do I have any pending leave requests?" -> Mixed:have both queries
     - "What is the weather in Paris?" -> Irrelevant
     - "Can you look that up for me?" (nothing earlier in the conversation) -> Unclear
@@ -143,7 +162,7 @@ def intent_classification(state:StateAgent):
     - intent: one of the allowed values.
     - reason: one short sentence explaining the choice.
     - rag_query: for RAG_Query and Mixed, a standalone search query for the handbook. Keep the user's own key terms and every detail they asked about, only resolve references from the conversation, and do not add words that were not asked. Keep all sub-questions of a multi-part question in one query. Otherwise null.
-    - database_query: for Database_Query and Mixed, a standalone description of the record lookup, including any identifier or name given. Otherwise null.
+    - database_query: for Database_Query and Mixed, a standalone plain-language description of what to look up, count or list, including any identifier or name given. Do not mention table or column names and do not start with the word retrieve. Otherwise null.
     """
     structured_model=model.with_structured_output(IntentClassification)
     answer=structured_model.invoke(prompt)
@@ -155,28 +174,32 @@ def intent_classification(state:StateAgent):
     print("RAG query:", answer["rag_query"])
     print("Database query:", answer["database_query"])
     print("==================================\n")
-
+    debug_print("Intent Classification: output",raw_answer=answer)
     return {
     'intent':answer,
     'Rag_query':answer['rag_query'],
     'Database_query':answer['database_query']}
 
 def intent_router(state:StateAgent):
-    if state['intent']['intent']=='Database_Query':
-        return "check_for_missing_info"
-    elif state['intent']['intent']=='RAG_Query':
-        return "RAG_Query_Retrieval"
-    elif state['intent']['intent']== "Mixed:have both queries":
-        return "not_implemented_yet"
-    elif state['intent']['intent']=="Unclear":
-        return "ask_for_clarification"
-    elif state['intent']['intent']=="Irrelevant":
-        return "handle_irrelevant_query"
+    intent=state['intent']['intent']
+    if intent=='Database_Query':
+        route="check_for_missing_info"
+    elif intent=='RAG_Query':
+        route="RAG_Query_Retrieval"
+    elif intent== "Mixed:have both queries":
+        route="not_implemented_yet"
+    elif intent=="Unclear":
+        route="ask_for_clarification"
+    elif intent=="Irrelevant":
+        route="handle_irrelevant_query"
     else:
-        return "ask_for_clarification"
+        route="ask_for_clarification"
+    debug_print("intent_router (router)",intent=intent,next_node=route)
+    return route
     
 def RAG_Query_Retrieval(state: StateAgent):
     query = state["Rag_query"]
+    debug_print("RAG_Query_Retrieval: start",rag_query=query,k=RETRIEVAL_K,intent=state.get('intent'))
 
     chunks = vector_store.similarity_search(query, k=RETRIEVAL_K)
 
@@ -187,15 +210,17 @@ def RAG_Query_Retrieval(state: StateAgent):
         print(f"\n--- Chunk {i} ---")
         print(chunk.page_content)
         print("Metadata:", chunk.metadata)
-
+    debug_print("RAG_Query_Retrieval: done",chunks_retrieved=len(chunks),sources=[chunk.metadata.get('source') or chunk.metadata.get('file_path') for chunk in chunks])
     return {"Retrieved_chunks": chunks}
 
 #if unclear, then this, will add an edge between this and the get_query node
 def ask_for_clarification(state:StateAgent):
+    debug_print("ask_for_clarification",intent=state.get('intent'),selected_tool=state.get('selected_tool'),last_user_message=state['messages'][-1].content)
     return {'messages':[AIMessage(content="I am so sorry, i could not understand your previous request. Could you please make your query a bit more clear?")]}
 
 #need to ask for the missing info
 def ask_for_missing_info(state:StateAgent):
+    debug_print("ask_for_missing_info",selected_tool=state.get('selected_tool'),tool_arguments=state.get('tool_arguments'),missing_arguments=state.get('missing_arguments'))
     return {'messages':[AIMessage(content=f"I am so sorry, I could not process your database query because it is missing these mandatory arguments: {state['missing_arguments']}. Please submit your complete query again, including these required arguments.")]}
 
 class Infocheck(TypedDict):
@@ -206,6 +231,7 @@ class Infocheck(TypedDict):
 
 #if database query then this node will run
 def check_for_missing_info(state:StateAgent):
+    debug_print("check_for_missing_info: start",database_query=state['Database_query'],tools_available=len(tools))
     tool_details = [
         {
             "name": tool.name,
@@ -236,10 +262,11 @@ def check_for_missing_info(state:StateAgent):
     """
     structured_model=model.with_structured_output(Infocheck)
     answer=structured_model.invoke(prompt)
-
+    debug_print("check_for_missing_info: model tool selection",raw_answer=answer)
     selected_tool = next((tool for tool in tools if tool.name == answer["selected_tool"]), None)
 
     if selected_tool is None:
+        debug_print("check_for_missing_info: no matching tool",requested_tool=answer["selected_tool"],known_tools=list(tools_by_names))
         return {'enough_info':False,'missing_arguments':[],'selected_tool':None,'tool_arguments':{}}
 
     available_arguments = answer["available_arguments"] or {}
@@ -249,6 +276,7 @@ def check_for_missing_info(state:StateAgent):
         argument for argument in required_arguments
         if argument not in available_arguments
     ]
+    debug_print("check_for_missing_info: argument check",selected_tool=selected_tool.name,tool_description=selected_tool.description,all_parameters=list(argument_schema.get("properties",{})),required_arguments=required_arguments,arguments_from_model=available_arguments,missing_arguments=missing_arguments,enough_info=len(missing_arguments)==0)
 
     if len(missing_arguments)==0:
         return {'enough_info':True,'missing_arguments':[],'selected_tool':selected_tool.name,'tool_arguments':available_arguments}
@@ -258,19 +286,32 @@ def check_for_missing_info(state:StateAgent):
 #is enough confitional edge for routing
 def is_info_enough(state:StateAgent):
     if state["selected_tool"] is None:
-        return "ask_for_clarification"
+        route="ask_for_clarification"
     elif state["enough_info"]:
-        return "execute_tool"
+        route="execute_tool"
     else:
-        return "ask_for_missing_info"
+        route="ask_for_missing_info"
+    debug_print("is_info_enough (router)",selected_tool=state["selected_tool"],enough_info=state["enough_info"],missing_arguments=state["missing_arguments"],next_node=route)
+    return route
 
 #this after the execute_tool
 def execute_tool(state:StateAgent):
-    tool = tools_by_names[state['selected_tool']]
-    observation = tool.invoke(state["tool_arguments"])
+    tool = tools_by_names[state["selected_tool"]]
+    debug_print("execute_tool: calling",tool=tool.name,arguments=state["tool_arguments"])
+    try:
+        observation = tool.invoke(state["tool_arguments"])
+        debug_print("execute_tool: success",result_type=type(observation).__name__,result=observation)
+    except Exception as exc:
+        observation = f"The database lookup failed: {exc}"
+        debug_print("execute_tool: FAILED",error_type=type(exc).__name__,error=exc)
     return {"Database_result": observation}
     
 def final_answer(state:StateAgent):
+    question=next((message.content for message in reversed(state['messages']) if isinstance(message, HumanMessage)), "")
+    selected=state.get('selected_tool')
+    purpose=tools_by_names[selected].description.strip().split("\n\n")[0] if selected else ""
+    lookup_note=f"The database results were produced by running the tool {selected} with these arguments: {state.get('tool_arguments')}. Tool purpose: {purpose}" if selected else "No database lookup was performed."
+    debug_print("final_answer: input",question=question,lookup_note=lookup_note,standalone_request=state.get('Database_query'),database_result=state.get('Database_result'),chunks_in_prompt=len(state.get('Retrieved_chunks') or []),chunk_sources=[chunk.metadata.get('source') or chunk.metadata.get('file_path') for chunk in state.get('Retrieved_chunks') or []])
     prompt=f"""
     You are a helpful AI assistant for a company.
 
@@ -278,35 +319,41 @@ def final_answer(state:StateAgent):
     provided in the database results and retrieved document chunks.
 
     User's latest question:
-    {state['Database_query'] or next((message.content for message in reversed(state['messages']) if isinstance(message, HumanMessage)), "")}
+    {question}
 
     Database results:
     {state.get('Database_result')}
+
+    How the database results were produced:
+    {lookup_note}
 
     Retrieved document chunks:
     {state.get('Retrieved_chunks')}
 
     Instructions:
     1. Use the database results for company records and structured information.
+       They are the exact output of the tool described above, run with the arguments shown, so every filter in those arguments (for example gender, employee id or department) has already been applied. Treat the results as correct and answer from them directly. Do not require the filter to appear as a column or field in the rows. A count, total or list returned by the tool is the answer to the matching question.
     2. Use the retrieved document chunks for company policies, procedures,
        and other documented information.
     3. If both sources contain relevant information, combine them into one
        clear and coherent answer.
-    4. Do not invent facts or make assumptions beyond the provided information.
-    5. If the available information is insufficient to answer the question,
-       clearly explain what information is missing.
+    4. Do not invent facts. Only state numbers, names and details that appear in the database results or the retrieved chunks. Conclusions that follow directly from the tool arguments and the tool purpose are allowed, for example a count returned for gender male is the number of male employees.
+    5. If the database result says the lookup failed or is empty, say so plainly. Only say information is missing if neither the results, the chunks nor the tool arguments answer the question.
     6. Present the answer in a clear, concise, and readable format.
     """
 
     response=model.invoke(prompt)
+    debug_print("final_answer: output",answer=response.content,usage=getattr(response,'usage_metadata',None))
 
     return {"messages":[AIMessage(content=response.content)]}
 
 
 def not_implemented_yet(state:StateAgent):
+    debug_print("not_implemented_yet",intent=state.get('intent'),rag_query=state.get('Rag_query'),database_query=state.get('Database_query'))
     return {'messages':[AIMessage(content="This query type is not implemented yet. The database-query flow is currently available; document retrieval and mixed queries will be added later.")]}
 
 def handle_irrelevant_query(state:StateAgent):
+    debug_print("handle_irrelevant_query",intent=state.get('intent'),last_user_message=state['messages'][-1].content)
     return {'messages':[AIMessage(content="I can help with company records, policies, documents, and operations. Please ask a question related to the company.")]}
 
 
@@ -358,7 +405,9 @@ if __name__ == "__main__":
 
         messages.append(HumanMessage(content=query))
 
+        trace.clear()
         result = app.invoke({"messages": messages})
+        debug_print("turn summary",nodes_visited=" -> ".join(trace),intent=(result.get("intent") or {}).get("intent"),selected_tool=result.get("selected_tool"),tool_arguments=result.get("tool_arguments"),chunks_retrieved=len(result.get("Retrieved_chunks") or []),total_messages=len(result["messages"]))
 
         messages = result["messages"]
 

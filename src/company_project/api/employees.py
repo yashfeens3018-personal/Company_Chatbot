@@ -37,7 +37,7 @@ def get_employees_endpoint(
         gender=gender,
         first_name=first_name,
         last_name=last_name,
-        job_title=job_title,
+        job_titles=[job_title] if job_title is not None else None,
         employment_status=employment_status
     )
 
