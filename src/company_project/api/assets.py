@@ -48,7 +48,8 @@ def get_assets_endpoint(asset_type: str = None,
     model: str = None,
     status: str = None,
     condition: str = None,
-    assigned_to: int = None,
+    assigned_to_first_name: str = None,
+    assigned_to_last_name: str = None,
     purchase_cost_min: float = None,
     purchase_cost_max: float = None,
     purchase_from: datetime = None,
@@ -60,7 +61,8 @@ def get_assets_endpoint(asset_type: str = None,
     model=model,
     status=status,
     condition=condition,
-    assigned_to=assigned_to,
+    assigned_to_first_name=assigned_to_first_name,
+    assigned_to_last_name=assigned_to_last_name,
     purchase_cost_min=purchase_cost_min,
     purchase_cost_max=purchase_cost_max,
     purchase_from=purchase_from,
@@ -101,11 +103,12 @@ def get_asset_endpoint(asset_id: int):
     )
 
 
-@router.get("/assets/employee/{employee_id}")
-def get_employee_assets_endpoint(employee_id: int):
+@router.get("/assets/employee/{first_name}/{last_name}")
+def get_employee_assets_endpoint(first_name: str, last_name: str):
     return _call_asset_query(
         get_employee_assets,
-        employee_id
+        first_name,
+        last_name
     )
 
 
@@ -154,9 +157,15 @@ class UpdateAsset(BaseModel):
         min_length=1,
         max_length=50
     )
-    assigned_to: int | None = Field(
+    assigned_to_first_name: str | None = Field(
         default=None,
-        gt=0
+        min_length=1,
+        max_length=100
+    )
+    assigned_to_last_name: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100
     )
     condition: str | None = Field(
         default=None,
@@ -179,10 +188,14 @@ def update_asset_endpoint(asset: UpdateAsset):
         purchase_date=asset.purchase_date,
         purchase_cost=asset.purchase_cost,
         status=asset.status,
-        assigned_to=asset.assigned_to,
+        assigned_to_first_name=asset.assigned_to_first_name,
+        assigned_to_last_name=asset.assigned_to_last_name,
         condition=asset.condition,
         warranty_expiry=asset.warranty_expiry,
-        assigned_to_provided = "assigned_to" in asset.model_fields_set
+        assigned_to_provided = (
+            "assigned_to_first_name" in asset.model_fields_set
+            or "assigned_to_last_name" in asset.model_fields_set
+        )
     )
 
 
@@ -220,9 +233,15 @@ class CreateAsset(BaseModel):
         min_length=1,
         max_length=50
     )
-    assigned_to: int | None = Field(
+    assigned_to_first_name: str | None = Field(
         default=None,
-        gt=0
+        min_length=1,
+        max_length=100
+    )
+    assigned_to_last_name: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100
     )
     condition: str = Field(
         ...,
@@ -244,7 +263,8 @@ def create_asset_endpoint(asset: CreateAsset):
         purchase_date=asset.purchase_date,
         purchase_cost=asset.purchase_cost,
         status=asset.status,
-        assigned_to=asset.assigned_to,
+        assigned_to_first_name=asset.assigned_to_first_name,
+        assigned_to_last_name=asset.assigned_to_last_name,
         condition=asset.condition,
         warranty_expiry=asset.warranty_expiry
     )

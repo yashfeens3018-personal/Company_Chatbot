@@ -21,6 +21,7 @@ asset_conditions = [
     "damaged"
 ]
 
+
 def get_asset(
     asset_id: int = None,
     asset_tag: str = None,
@@ -43,10 +44,8 @@ def get_asset(
         does_asset_id_exist(asset_id=asset_id)
         condition = Assets.asset_id == asset_id
     elif asset_tag is not None:
-        does_asset_tag_exist(asset_tag=asset_tag)
         condition = Assets.asset_tag == asset_tag
     else:
-        does_asset_serial_exist(asset_serial=serial_number)
         condition = Assets.serial_number == serial_number
 
     stmt = select(
@@ -69,22 +68,25 @@ def get_asset(
         result = session.execute(stmt)
         asset = [dict(row._mapping) for row in result.all()]
 
+    if not asset:
+        raise LookupError("No asset found for the given identifier.")
     return asset
 
 
 def search_assets(
-    asset_type: str = None,
-    brand: str = None,
-    model: str = None,
-    status: str = None,
-    condition: str = None,
-    assigned_to: int = None,
-    purchase_cost_min: float = None,
-    purchase_cost_max: float = None,
-    purchase_from: datetime = None,
-    purchase_to: datetime = None,
-    warranty_from: datetime = None,
-    warranty_to: datetime = None
+    asset_type: str | None = None,
+    brand: str | None = None,
+    model: str | None = None,
+    status: str | None = None,
+    condition: str | None = None,
+    assigned_to_first_name: str | None = None,
+    assigned_to_last_name: str | None = None,
+    purchase_cost_min: float | None = None,
+    purchase_cost_max: float | None = None,
+    purchase_from: datetime | None = None,
+    purchase_to: datetime | None = None,
+    warranty_from: datetime | None = None,
+    warranty_to: datetime | None = None,
 ):
     conditions = []
 
@@ -104,25 +106,34 @@ def search_assets(
         )
 
     if status is not None:
+        status = status.lower()
         if status not in asset_statuses:
             raise ValueError(
                 f"Status '{status}' is not one of the allowed statuses "
                 f"{', '.join(asset_statuses)}"
-            )      
-        status = status.lower()
+            )
         conditions.append(Assets.status == status)
 
     if condition is not None:
+        condition = condition.lower()
         if condition not in asset_conditions:
             raise ValueError(
                 f"Condition '{condition}' is not one of the allowed conditions "
                 f"{', '.join(asset_conditions)}"
             )
-        condition = condition.lower()
         conditions.append(Assets.condition == condition)
 
-    if assigned_to is not None:
-        conditions.append(Assets.assigned_to == assigned_to)
+    if (assigned_to_first_name is None) != (assigned_to_last_name is None):
+        raise ValueError(
+            "Provide both the assigned employee's first and last name."
+        )
+
+    if assigned_to_first_name is not None:
+        employee_ids = _find_employee_ids(
+            assigned_to_first_name,
+            assigned_to_last_name,
+        )
+        conditions.append(Assets.assigned_to.in_(employee_ids))
 
     if purchase_cost_min is not None:
         conditions.append(
@@ -176,7 +187,13 @@ def search_assets(
     return assets
 
 
-def get_employee_assets(employee_id: int):
+def get_employee_assets(first_name: str, last_name: str):
+    employee_ids = _find_employee_ids(first_name, last_name)
+    if not employee_ids:
+        raise LookupError(
+            f"No employee found with the name {first_name} {last_name}."
+        )
+
     stmt = select(
         Assets.asset_id,
         Assets.asset_tag,
@@ -189,9 +206,8 @@ def get_employee_assets(employee_id: int):
         Assets.purchase_date,
         Assets.warranty_expiry
     ).where(
-        Assets.assigned_to == employee_id
+        Assets.assigned_to.in_(employee_ids)
     )
-    does_employee_exist(employee_id=employee_id)
 
     with SessionLocal() as session:
         result = session.execute(stmt)
@@ -211,25 +227,25 @@ def get_unassigned_assets(
 
     if asset_type is not None:
         conditions.append(
-            Assets.asset_type == asset_type
+            Assets.asset_type.ilike(f"%{asset_type}%")
         )
 
     if status is not None:
+        status = status.lower()
         if status not in asset_statuses:
             raise ValueError(
                 f"Status '{status}' is not one of the allowed statuses "
                 f"{', '.join(asset_statuses)}"
-            )      
-        status = status.lower()
+            )
         conditions.append(Assets.status == status)
-    
+
     if condition is not None:
+        condition = condition.lower()
         if condition not in asset_conditions:
             raise ValueError(
                 f"Condition '{condition}' is not one of the allowed conditions "
                 f"{', '.join(asset_conditions)}"
             )
-        condition = condition.lower()
         conditions.append(Assets.condition == condition)
 
     stmt = select(
@@ -300,17 +316,27 @@ def get_asset_stats(
 
     if asset_type is not None:
         conditions.append(
-            Assets.asset_type == asset_type
+            Assets.asset_type.ilike(f"%{asset_type}%")
         )
 
     if status is not None:
         status = status.lower()
+        if status not in asset_statuses:
+            raise ValueError(
+                f"Status '{status}' is not one of the allowed statuses "
+                f"{', '.join(asset_statuses)}"
+            )
         conditions.append(
             Assets.status == status
         )
 
     if condition is not None:
         condition = condition.lower()
+        if condition not in asset_conditions:
+            raise ValueError(
+                f"Condition '{condition}' is not one of the allowed conditions "
+                f"{', '.join(asset_conditions)}"
+            )
         conditions.append(
             Assets.condition == condition
         )
@@ -326,9 +352,6 @@ def get_asset_stats(
         stats = [dict(row._mapping) for row in result.all()]
 
     return stats
-
-
-
 
 
 def does_asset_tag_exist(
@@ -407,6 +430,38 @@ def does_employee_exist(employee_id: int):
         )
 
 
+def _find_employee_ids(first_name: str, last_name: str) -> list[int]:
+    if not first_name.strip() or not last_name.strip():
+        raise ValueError(
+            "Provide both the assigned employee's first and last name."
+        )
+
+    stmt = select(Employees.employee_id).where(
+        Employees.first_name.ilike(first_name.strip()),
+        Employees.last_name.ilike(last_name.strip()),
+    )
+
+    with SessionLocal() as session:
+        return list(session.execute(stmt).scalars().all())
+
+
+def _resolve_employee_id(first_name: str, last_name: str) -> int:
+    employee_ids = _find_employee_ids(first_name, last_name)
+
+    if not employee_ids:
+        raise LookupError(
+            f"No employee found with the name {first_name} {last_name}."
+        )
+
+    if len(employee_ids) > 1:
+        raise ValueError(
+            f"More than one employee matches {first_name} {last_name}. "
+            "Provide a name that identifies one employee."
+        )
+
+    return employee_ids[0]
+
+
 def status_employee_compatibility(
     status: str,
     assigned_to: int = None
@@ -418,7 +473,7 @@ def status_employee_compatibility(
 
     if status == "assigned" and assigned_to is None:
         raise ValueError(
-            "An assigned asset must have an assigned employee. Please provide an employee id."
+            "An assigned asset must have an assigned employee. Please provide the employee's first and last name."
         )
 
     if status in ["disposed", "lost"] and assigned_to is not None:
@@ -437,7 +492,8 @@ def create_asset(
     model: str = None,
     purchase_date: datetime = None,
     purchase_cost: float = None,
-    assigned_to: int = None,
+    assigned_to_first_name: str | None = None,
+    assigned_to_last_name: str | None = None,
     warranty_expiry: datetime = None
 ):
     does_asset_tag_exist(asset_tag)
@@ -458,8 +514,19 @@ def create_asset(
             f"{', '.join(asset_conditions)}"
         )
 
-    if assigned_to is not None:
-        does_employee_exist(assigned_to)
+    if (assigned_to_first_name is None) != (assigned_to_last_name is None):
+        raise ValueError(
+            "Provide both the assigned employee's first and last name."
+        )
+
+    assigned_to = (
+        _resolve_employee_id(
+            assigned_to_first_name,
+            assigned_to_last_name,
+        )
+        if assigned_to_first_name is not None
+        else None
+    )
 
     status_employee_compatibility(
         status=status,
@@ -507,10 +574,11 @@ def update_asset(
     purchase_date: datetime = None,
     purchase_cost: float = None,
     status: str = None,
-    assigned_to: int = None,
+    assigned_to_first_name: str | None = None,
+    assigned_to_last_name: str | None = None,
     condition: str = None,
     warranty_expiry: datetime = None,
-    assigned_to_provided:bool=False
+    assigned_to_provided: bool = False
 ):
     does_asset_id_exist(id)
     stmt = select(
@@ -534,6 +602,19 @@ def update_asset(
         current_asset = result.one()
 
     values = {}
+    if (assigned_to_first_name is None) != (assigned_to_last_name is None):
+        raise ValueError(
+            "Provide both the assigned employee's first and last name."
+        )
+
+    assigned_to = (
+        _resolve_employee_id(
+            assigned_to_first_name,
+            assigned_to_last_name,
+        )
+        if assigned_to_first_name is not None
+        else None
+    )
 
     if asset_tag is not None:
         does_asset_tag_exist(
@@ -551,7 +632,6 @@ def update_asset(
     if model is not None:
         values["model"] = model
 
-
     if serial_number is not None:
         does_asset_serial_exist(
             serial_number,
@@ -561,7 +641,7 @@ def update_asset(
 
     if purchase_cost is not None:
         values["purchase_cost"] = purchase_cost
-        
+
     if status is not None:
         status = status.lower()
 
@@ -570,8 +650,7 @@ def update_asset(
                 f"Status '{status}' is not one of the allowed statuses "
                 f"{', '.join(asset_statuses)}"
             )
-    if assigned_to is not None:
-        does_employee_exist(assigned_to)
+    if assigned_to_provided:
         values["assigned_to"] = assigned_to
 
     if condition is not None:
@@ -593,7 +672,7 @@ def update_asset(
 
     final_assigned_to = (
         assigned_to
-        if assigned_to_provided 
+        if assigned_to_provided
         else current_asset.assigned_to
     )
 
@@ -613,7 +692,7 @@ def update_asset(
         status=final_status,
         assigned_to=final_assigned_to
     )
-    
+
     if status in ["lost", "disposed", "available"]:
         if assigned_to is not None:
             raise ValueError(f"A {status} asset cannot be assigned to an employee.")
@@ -621,10 +700,11 @@ def update_asset(
         values["assigned_to"] = None
     elif status is not None:
         values["status"] = status
-        if assigned_to is not None:
-            does_employee_exist(assigned_to)
+        if assigned_to_provided:
             values["assigned_to"] = assigned_to
 
+    elif assigned_to_provided:
+        values["assigned_to"] = assigned_to
 
     if (
         final_purchase_date is not None
@@ -640,8 +720,6 @@ def update_asset(
 
     if warranty_expiry is not None:
         values["warranty_expiry"] = warranty_expiry
-
-    
 
     if not values:
         return 0
