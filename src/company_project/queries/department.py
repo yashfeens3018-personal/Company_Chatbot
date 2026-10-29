@@ -25,6 +25,7 @@ def get_department_info(id:int=None,name:str=None):
                 Department.name,
                 Department.description,
                 Department.created_at,
+                Department.budget,
                 select(
                     func.count(Projects.project_id)
                 ).where(
@@ -46,6 +47,7 @@ def get_department_info(id:int=None,name:str=None):
                     Department.name,
                     Department.description,
                     Department.created_at,
+                    Department.budget,
                     select(
                         func.count(Projects.project_id)
                     ).where(
@@ -61,7 +63,7 @@ def get_department_info(id:int=None,name:str=None):
                     ).where(
                         Announcements.department_id==Department.department_id
                         ).scalar_subquery().label("Number Of Announcements")
-                    ).where(Department.name==name)
+                    ).where(Department.name.ilike(f"%{name}%"))
     with SessionLocal() as session:
         result=session.execute(stmt)
         department=[dict(row._mapping) for row in result.all()]

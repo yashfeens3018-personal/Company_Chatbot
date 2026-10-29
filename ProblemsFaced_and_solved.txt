@@ -57,4 +57,8 @@ I fixed the final output prompt to fix this(told it to believe the database resu
 6. During Database questions testing, i realized that i had implemented AND in queries but not OR approach so i added that.
 like i had the tool to search for an employee having first_name = this and employment_status=this but not or within the same field like retrive all ai engineers and data scientists (this would require or)
 
+7. Number of projects for a department (two queries whch can solve)
+number of employees, number of announcements (Same issue because two tables)
+in projects and announcements i need to add to accept only the department name as well (for things where name is being provided i should run to get the id to make things easier)
 
+8.Need to make api files the same as well

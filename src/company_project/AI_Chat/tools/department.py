@@ -10,18 +10,38 @@ def get_department_info_tool(
     id: int | None = None,
     name: str | None = None,
 ):
-    """Retrieve one department by its ID or exact name.
+    """Get the full profile of a single department, looked up by ID or by name.
 
-    Returns the department's ID, name, description, creation date, and counts
-    of its employees, projects, and department-specific announcements. Provide
-    exactly one of ``id`` or ``name``. A missing ID raises a not-found error;
-    a name with no exact match returns an empty list.
+    Use this when the user asks about one specific department (e.g. "tell me
+    about Finance", "info on department 3"). 
+    
+    Helpful in answering questions like:
+    1) Number of employees in a specific department
+    2) Number of projects in a specific department
+    3) Number of announcements in a specific department
+    4) departmemt info like id, name, description, budget, created_at
+    Returns a list of matching
+    rows, each with: department_id, name, description, budget, created_at,
+    and counts of employees, projects, and announcements. It does NOT return
+    employee names, job titles, managers, or the contents of projects or
+    announcements; it only returns counts.
+
+    Provide exactly one of ``id`` or ``name``, never both and never neither.
+
+    Name lookup is a case-insensitive PARTIAL match, so pass the short,
+    distinctive part of the name. Use "Finance", not "Finance Department" or
+    "the finance dept". If several departments contain the text, all of them
+    are returned. If nothing matches, an empty list is returned (this means
+    no such department, not an error); in that case, call
+    ``get_departments_tool`` with no filters to see the real department
+    names, then retry. An ID that does not exist raises a not-found error.
 
     Args:
-        id: Department ID to look up. Must be greater than zero. Do not provide
-            this together with ``name``.
-        name: Exact department name to look up (1–100 non-whitespace
-            characters). Do not provide this together with ``id``.
+        id: Numeric department ID (integer greater than 0). Use only when the
+            user gave an ID. Do not combine with ``name``.
+        name: Text to search for within the department name (1-100
+            characters, not blank). Case-insensitive, matches anywhere in the
+            name. Prefer one key word. Do not combine with ``id``.
     """
     return get_department_info(id=id, name=name)
 
@@ -40,35 +60,38 @@ def get_departments_tool(
     min_announcements: int | None = None,
     max_announcements: int | None = None,
 ):
-    """Search departments using optional details, budget, date, and size filters.
+    """List or filter departments. Use for browsing, comparing, ranking, or discovery.
 
-    Returns matching departments with their ID, name, description, budget,
-    creation date, and employee, project, and announcement counts. Name
-    matching is case-insensitive and partial. Numeric ranges are inclusive.
-    Supply either bound independently or both; when both are supplied, the
-    minimum must not exceed the maximum. With no filters, returns all
-    departments.
+    Use this when the user wants several departments, asks "which departments
+    ...", wants to filter by budget, creation date, or size, or when you need
+    to discover the exact department names that exist. With no arguments it
+    returns ALL departments. All filters are optional and combined with AND.
+
+    Each result row contains: department_id, name, description, budget,
+    created_at, and counts of employees, projects, and announcements. It does
+    NOT return individual employees, projects, or announcements.
+
+    Range filters are inclusive. You may give just a min, just a max, or
+    both; if both, min must be <= max. All counts and budgets must be >= 0.
 
     Args:
-        name: Case-insensitive partial match for the department name. If
-            provided, it must contain 1–100 non-whitespace characters.
-        budget_min: Inclusive minimum department budget; must be non-negative.
-        budget_max: Inclusive maximum department budget; must be
-            non-negative and at least ``budget_min`` when both are provided.
-        created_from: Inclusive earliest creation timestamp.
-        created_to: Inclusive latest creation timestamp; must not precede
-            ``created_from`` when both are provided.
-        min_employees: Inclusive minimum employee count; must be non-negative.
-        max_employees: Inclusive maximum employee count; must be
-            non-negative and at least ``min_employees`` when both are provided.
-        min_projects: Inclusive minimum project count; must be non-negative.
-        max_projects: Inclusive maximum project count; must be
-            non-negative and at least ``min_projects`` when both are provided.
-        min_announcements: Inclusive minimum department announcement count;
-            must be non-negative.
-        max_announcements: Inclusive maximum department announcement count;
-            must be non-negative and at least ``min_announcements`` when both
-            are provided.
+        name: Case-insensitive partial match on the department name (1-100
+            characters, not blank). Use a single key word, e.g. "eng" or
+            "Finance".
+        budget_min: Minimum budget, inclusive.
+        budget_max: Maximum budget, inclusive (>= budget_min if both given).
+        created_from: Only departments created on or after this timestamp
+            (ISO 8601, e.g. "2024-01-31T00:00:00").
+        created_to: Only departments created on or before this timestamp
+            (must not be earlier than created_from).
+        min_employees: Minimum number of employees, inclusive.
+        max_employees: Maximum number of employees, inclusive.
+        min_projects: Minimum number of projects, inclusive.
+        max_projects: Maximum number of projects, inclusive.
+        min_announcements: Minimum number of department announcements,
+            inclusive.
+        max_announcements: Maximum number of department announcements,
+            inclusive.
     """
     return get_departments(
         name=name,

@@ -94,7 +94,7 @@ def intent_classification(state:StateAgent):
     ============================================================
     Tables and what each row stores:
     - employees: one row per employee: employee_id, first_name, last_name, gender, email, phone_number, address, date_of_birth, date_joined, job_title, department_id, manager_id (that employee's own manager), salary (that employee's own salary), employment_status.
-    - departments: one row per department: department_id, name, description, budget.
+    - departments: one row per department: department_id, name, description, budget, creation date. Each department also has counts of its employees, projects and announcements. This is the only place that holds information about a specific department.
     - leave_balances: one row per employee, leave type and year: total_days, used_days, remaining_days. Numbers only, no policy text.
     - leave_requests: one row per leave request: employee_id, leave_type (Annual, Sick, Casual, Unpaid, Maternity), start_date, end_date, reason, status (Pending, Approved, Rejected), approved_by.
     - assets: one row per company asset such as a laptop or phone: asset_tag, asset_type, brand, model, serial_number, purchase_date, purchase_cost, status, condition, warranty_expiry, assigned_to (an employee).
@@ -106,6 +106,8 @@ def intent_classification(state:StateAgent):
 
     The database holds ONLY these records. It never contains policies, rules, benefits, entitlements, procedures, company values, culture, or any explanation of how the company works. It also holds no company-level facts about money or ownership: no fundraising, valuation, share counts, stock option prices or equity terms, no salary bands, no benefit or contribution amounts. The only money values it stores are one employee's own salary, a department's budget and an asset's purchase cost. A question belongs to the database if its answer is stored in, or can be counted or listed from, these tables: a value for one particular record, OR a count, total, list or breakdown of records. Examples of such counts: how many employees the company has, how many employees are in a department or have a given status, how many tickets are open, which assets are unassigned.
 
+    Named things are records. A named person, a named department (for example "Finance", "the Engineering department"), a project, an asset or a ticket is a specific record. When the user asks for "info", "details", "an overview", "a profile" or "to tell me about" such a named thing, or asks about its description, budget, headcount, projects or announcements, that is a database lookup. The user does not need to say "record" or "database".
+
     ============================================================
     SOURCE B: COMPANY HANDBOOK (documents)
     ============================================================
@@ -116,13 +118,14 @@ def intent_classification(state:StateAgent):
     - How the team works: company values, mission, product principles, OKRs, one on ones, effective meetings, hack weeks, communication and Slack etiquette, sharing files, budgeting, who people report to in general, onboarding and the first day.
     - Hiring: the interview process, sourcing candidates, changes to the handbook.
     Any question about what the company allows, requires or offers, how much, how long, how often, when, who is responsible, or how something is normally done belongs to the handbook. This includes questions whose answer is a number (an amount, a limit, a number of days, a percentage), because those numbers describe company rules, not stored records.
+    The handbook does NOT describe individual departments or teams, their budgets, headcount, projects or announcements.
 
     ============================================================
     HOW TO DECIDE
     ============================================================
     Ask yourself: must the answer be READ or COUNTED from the stored records (people, leave, assets, tickets, projects, announcements, departments)? Then it is the database. Or does it explain a rule, benefit, policy, amount offered, or how things are done? Then it is the handbook. Words like "the company" or "our company" do not decide this; what is being asked for decides it.
 
-    1. Database_Query: when the answer must be read or counted from stored records. This covers a specific record (a named person, an employee id, a ticket, project or asset identifier or name, or the speaker themself through "my", "I" or "me") AND counts, totals, lists or breakdowns across many records. Counting or listing needs no identifier.
+    1. Database_Query: when the answer must be read or counted from stored records. This covers a specific record (a named person, a named department, an employee id, a ticket, project or asset identifier or name, or the speaker themself through "my", "I" or "me") AND counts, totals, lists or breakdowns across many records. Counting or listing needs no identifier.
     2. RAG_Query: when the question is about rules, amounts, limits, timing, process, benefits, tools, values or culture. Mentioning employees, leave, salary, managers, projects, assets or departments does NOT make a question a database question.
        - What a particular named person earns is a database question. Salary bands, pay rubrics and how compensation works are handbook questions.
        - Who a particular named person reports to is a database question. How reporting lines work in the company in general is a handbook question.
@@ -130,10 +133,11 @@ def intent_classification(state:StateAgent):
        - Pay for a role, a level or a group of people (for example what founders or senior staff earn) is a handbook question. Pay of one named person is a database question.
        - Facts about the company as a whole (money raised, valuation, number of shares, option price, equity terms, which benefits or matching contributions exist) are handbook questions, even though they mention money, shares or employees.
        - How many employees, tickets, assets or projects exist right now is a database question (counted from records). How many days, weeks or people a policy allows is a handbook question.
+       - Information about a particular named department (what it does, its budget, size, projects, announcements) is a database question. How departments or teams work in general (for example how budgeting is done or how teams communicate) is a handbook question.
     3. Mixed:have both queries: only when the message contains TWO different needs, a general policy part AND a record part (specific or counted). A question with several sub-questions that are all about handbook topics is still RAG_Query, not Mixed.
-    4. Unclear: only when you cannot tell what is being asked at all, or when a question about one specific record gives no identifier and no "my" or "I". Counting or listing questions are never Unclear. A general question about the company is never Unclear.
+    4. Unclear: only when you cannot tell what is being asked at all, or when a question about one specific record gives no identifier and no "my" or "I". Counting or listing questions are never Unclear. A general question about the company is never Unclear. A question naming a department, person, project, asset or ticket is never Unclear.
     5. Irrelevant: not related to the company at all (small talk, weather, general trivia, writing help).
-    6. If you are torn between RAG_Query and Database_Query and the message is not asking to look up, count or list stored records, choose RAG_Query.
+    6. If you are torn between RAG_Query and Database_Query and the message does NOT name a specific record and is NOT asking to count or list stored records, choose RAG_Query. This rule never applies when a specific person, department, project, asset or ticket is named: that is Database_Query.
     7. If a general question might not be covered by the handbook, still choose RAG_Query. Retrieval will find out whether the answer exists. Never choose Unclear or Irrelevant just because you are unsure the handbook covers the topic.
 
     ============================================================
@@ -145,6 +149,7 @@ def intent_classification(state:StateAgent):
     - "What are the steps for filing a complaint, who handles it, and is retaliation allowed?" -> RAG_Query (several sub-questions, all handbook)
     - "Does the company reimburse home internet costs?" -> RAG_Query
     - "How many people can be on a hack week team?" -> RAG_Query (a rule, not a count of records)
+    - "How does budgeting work at the company?" -> RAG_Query (how things are done in general)
     - "What is Maria Lopez's job title?" -> Database_Query
     - "How many annual leave days do I have remaining?" -> Database_Query
     - "Who approved leave request 88?" -> Database_Query
@@ -152,6 +157,9 @@ def intent_classification(state:StateAgent):
     - "How many employees does the company have?" -> Database_Query (count of employee records)
     - "How many tickets are still open?" -> Database_Query
     - "List all announcements." -> Database_Query
+    - "Give me info about the Finance department." -> Database_Query (a named department is a specific record)
+    - "What is the Engineering department's budget and how many people work there?" -> Database_Query
+    - "Which departments have more than 10 employees?" -> Database_Query (a filtered list of records)
     - "What is the complaint procedure, and do I have any pending leave requests?" -> Mixed:have both queries
     - "What is the weather in Paris?" -> Irrelevant
     - "Can you look that up for me?" (nothing earlier in the conversation) -> Unclear
@@ -162,7 +170,7 @@ def intent_classification(state:StateAgent):
     - intent: one of the allowed values.
     - reason: one short sentence explaining the choice.
     - rag_query: for RAG_Query and Mixed, a standalone search query for the handbook. Keep the user's own key terms and every detail they asked about, only resolve references from the conversation, and do not add words that were not asked. Keep all sub-questions of a multi-part question in one query. Otherwise null.
-    - database_query: for Database_Query and Mixed, a standalone plain-language description of what to look up, count or list, including any identifier or name given. Do not mention table or column names and do not start with the word retrieve. Otherwise null.
+    - database_query: for Database_Query and Mixed, a standalone plain-language description of what to look up, count or list, including any identifier or name given. Keep it limited to what the user actually asked for and do not add details they did not request. Do not mention table or column names and do not start with the word retrieve. Otherwise null.
     """
     structured_model=model.with_structured_output(IntentClassification)
     answer=structured_model.invoke(prompt)
