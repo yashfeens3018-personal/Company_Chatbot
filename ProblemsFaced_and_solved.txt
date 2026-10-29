@@ -57,8 +57,55 @@ I fixed the final output prompt to fix this(told it to believe the database resu
 6. During Database questions testing, i realized that i had implemented AND in queries but not OR approach so i added that.
 like i had the tool to search for an employee having first_name = this and employment_status=this but not or within the same field like retrive all ai engineers and data scientists (this would require or)
 
+
+7. My Check_missing_info was contractding itself like here is an example:
+========== NODE: check_for_missing_info: model tool selection ==========
+raw_answer: {'selected_tool': 'get_announcement_tool', 'reason': "The user's query explicitly asks for an announcement by its title, 'laptops now available'. The tool `get_announcement_tool` is designed to fetch a single announcement by its numeric ID, but since the user has provided a title (not an ID), this tool is not suitable. Instead, the `search_announcements_tool` is the correct choice because it allows searching announcements by title, content, or other attributes. However, since the user explicitly mentioned a title, `search_announcements_tool` with the `title` argument is the best match.", 'available_arguments': {'title': 'laptops now available'}}
+==================================================
+
+
+========== NODE: check_for_missing_info: argument check ==========
+selected_tool: get_announcement_tool
+tool_description: Fetch ONE announcement by its numeric announcement ID.
+
+    Use this ONLY when the user gave an announcement ID (e.g. "announcement
+    12"). If the user gave a title, a topic, a keyword, a department, or an
+    author, do NOT use this tool; use ``search_announcements_tool`` instead.
+    Never guess an ID.
+
+    Returns the announcement's title, content, creator, department,
+    publish date, and expiry date.
+
+    Args:
+        announcement_id: Numeric announcement ID (integer greater than 0).
+all_parameters: ['announcement_id']
+required_arguments: ['announcement_id']
+arguments_from_model: {'title': 'laptops now available'}
+missing_arguments: ['announcement_id']
+enough_info: False
+==================================================
+
+
+========== NODE: is_info_enough (router) ==========
+selected_tool: get_announcement_tool
+enough_info: False
+missing_arguments: ['announcement_id']
+next_node: ask_for_missing_info
+Here even though it reasoned well that it should use search function not get still it chose the get because of the given ordering (as here below the selected tool was before the reason):
+class Infocheck(TypedDict):
+    selected_tool: str | None
+    reason: str
+    available_arguments: dict
+
+reordering them and putting reason before selected tool solved this problem.
+
+8.The database queries were retrieving all records for a specific condition but my final answer prompt (because the free model i am using is small) was cutting it and then was summarizing the remaining.
+fixed this through prompt engineering (check rule 7 in final answer)
+
 7. Number of projects for a department (two queries whch can solve)
 number of employees, number of announcements (Same issue because two tables)
 in projects and announcements i need to add to accept only the department name as well (for things where name is being provided i should run to get the id to make things easier)
 
 8.Need to make api files the same as well
+
+9. sometimes people spell thing wrongly for example finnance so should my model correct it because it can see the existing valuesor not?

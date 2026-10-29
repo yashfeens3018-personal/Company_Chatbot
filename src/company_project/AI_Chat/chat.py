@@ -232,9 +232,9 @@ def ask_for_missing_info(state:StateAgent):
     return {'messages':[AIMessage(content=f"I am so sorry, I could not process your database query because it is missing these mandatory arguments: {state['missing_arguments']}. Please submit your complete query again, including these required arguments.")]}
 
 class Infocheck(TypedDict):
-    selected_tool:str|None
-    reason:str
-    available_arguments:dict
+    reason: str
+    selected_tool: str | None
+    available_arguments: dict
 
 
 #if database query then this node will run
@@ -318,6 +318,9 @@ def final_answer(state:StateAgent):
     question=next((message.content for message in reversed(state['messages']) if isinstance(message, HumanMessage)), "")
     selected=state.get('selected_tool')
     purpose=tools_by_names[selected].description.strip().split("\n\n")[0] if selected else ""
+    result=state.get('Database_result')
+    record_count=len(result) if isinstance(result,list) else None
+    count_note=f" The tool returned exactly {record_count} records." if record_count is not None else ""
     lookup_note=f"The database results were produced by running the tool {selected} with these arguments: {state.get('tool_arguments')}. Tool purpose: {purpose}" if selected else "No database lookup was performed."
     debug_print("final_answer: input",question=question,lookup_note=lookup_note,standalone_request=state.get('Database_query'),database_result=state.get('Database_result'),chunks_in_prompt=len(state.get('Retrieved_chunks') or []),chunk_sources=[chunk.metadata.get('source') or chunk.metadata.get('file_path') for chunk in state.get('Retrieved_chunks') or []])
     prompt=f"""
@@ -348,6 +351,7 @@ def final_answer(state:StateAgent):
     4. Do not invent facts. Only state numbers, names and details that appear in the database results or the retrieved chunks. Conclusions that follow directly from the tool arguments and the tool purpose are allowed, for example a count returned for gender male is the number of male employees.
     5. If the database result says the lookup failed or is empty, say so plainly. Only say information is missing if neither the results, the chunks nor the tool arguments answer the question.
     6. Present the answer in a clear, concise, and readable format.
+    7. If the database results are a list, include EVERY record in your answer, one after another, and do not stop early or skip any. State the total number of records exactly as given in the lookup note. Do not make claims about date ranges or years that have no records unless the results show it.
     """
 
     response=model.invoke(prompt)

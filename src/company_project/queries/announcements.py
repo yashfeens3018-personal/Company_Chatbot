@@ -15,6 +15,34 @@ def _require_department(department_id:int):
 
     if exists is None:
         raise ValueError("Department does not exist.")
+
+
+def _resolve_department_id(
+    department_name: str | None = None,
+    department_id: int | None = None,
+):
+    if department_name is None:
+        if department_id is not None:
+            _require_department(department_id=department_id)
+        return department_id
+
+    with SessionLocal() as session:
+        resolved_department_id = session.execute(
+            select(Department.department_id).where(
+                Department.name == department_name
+            )
+        ).scalar_one_or_none()
+
+    if resolved_department_id is None:
+        raise ValueError("Department does not exist.")
+
+    if (
+        department_id is not None
+        and department_id != resolved_department_id
+    ):
+        raise ValueError("Department name and ID do not match.")
+
+    return resolved_department_id
     
 def _require_employee(employee_id:int):
     session=SessionLocal()
@@ -71,11 +99,12 @@ def search_announcements(
     title:str=None,
     content:str=None,
     created_by:int=None,
-    department_id:int=None,
+    department_name:str=None,
     published_from:datetime=None,
     published_to:datetime=None,
     expires_from:datetime=None,
-    expires_to:datetime=None
+    expires_to:datetime=None,
+    department_id:int=None,
 ):
     conditions=[]
 
@@ -95,8 +124,12 @@ def search_announcements(
             Announcements.created_by==created_by
         )
 
+    department_id = _resolve_department_id(
+        department_name=department_name,
+        department_id=department_id,
+    )
+
     if department_id is not None:
-        _require_department(department_id=department_id)
         conditions.append(
             Announcements.department_id==department_id
         )
@@ -148,7 +181,9 @@ def search_announcements(
 
 
 def get_active_announcements(
-    department_id:int=None
+    department_name:str=None,
+    *,
+    department_id:int=None,
 ):
     current_time=datetime.utcnow()
 
@@ -160,8 +195,12 @@ def get_active_announcements(
         )
     ]
 
+    department_id = _resolve_department_id(
+        department_name=department_name,
+        department_id=department_id,
+    )
+
     if department_id is not None:
-        _require_department(department_id=department_id)
         conditions.append(
             (
                 Announcements.department_id==department_id
@@ -198,10 +237,18 @@ def get_active_announcements(
 
 
 def get_department_announcements(
-    department_id:int,
-    include_expired:bool=True
+    department_name:str=None,
+    include_expired:bool=True,
+    *,
+    department_id:int=None,
 ):
-    _require_department(department_id=department_id)
+    department_id = _resolve_department_id(
+        department_name=department_name,
+        department_id=department_id,
+    )
+    if department_id is None:
+        raise ValueError("Provide a department name.")
+
     conditions=[
         Announcements.department_id==department_id
     ]
@@ -235,9 +282,26 @@ def get_department_announcements(
 
 
 def get_employee_announcements(
-    employee_id:int
+    first_name: str,
+    last_name: str,
 ):
-    _require_employee(employee_id=employee_id)
+    if not first_name.strip() or not last_name.strip():
+        raise ValueError("Provide both an employee first name and last name.")
+
+    employee_ids_stmt = select(Employees.employee_id).where(
+        Employees.first_name.ilike(first_name.strip()),
+        Employees.last_name.ilike(last_name.strip()),
+    )
+
+    with SessionLocal() as session:
+        employee_ids = session.execute(employee_ids_stmt).scalars().all()
+
+    if not employee_ids:
+        raise LookupError(
+            f"No employee found with the name {first_name.strip()} "
+            f"{last_name.strip()}."
+        )
+
     stmt=select(
         Announcements.announcement_id,
         Announcements.title,
@@ -250,7 +314,7 @@ def get_employee_announcements(
         Department,
         Announcements.department_id==Department.department_id
     ).where(
-        Announcements.created_by==employee_id
+        Announcements.created_by.in_(employee_ids)
     ).order_by(
         Announcements.published_at.desc()
     )
@@ -266,10 +330,16 @@ def create_announcement(
     title:str,
     content:str,
     created_by:int,
-    department_id:int=None,
+    department_name:str=None,
     published_at:datetime=None,
-    expires_at:datetime=None
+    expires_at:datetime=None,
+    department_id:int=None,
 ):
+    department_id = _resolve_department_id(
+        department_name=department_name,
+        department_id=department_id,
+    )
+
     if published_at is not None and expires_at is not None:
         if expires_at<published_at:
             raise ValueError("Expiry date cannot be before published date")
@@ -284,16 +354,6 @@ def create_announcement(
 
         if creator_exists is None:
             raise ValueError("Employee does not exist")
-
-        if department_id is not None:
-            department_exists=session.execute(
-                select(Department.department_id).where(
-                    Department.department_id==department_id
-                )
-            ).scalar_one_or_none()
-
-            if department_exists is None:
-                raise ValueError("Department does not exist")
 
     values={
         "title":title,
@@ -322,9 +382,10 @@ def update_announcement(
     id:int,
     title:str=None,
     content:str=None,
-    department_id:int=None,
+    department_name:str=None,
     published_at:datetime=None,
-    expires_at:datetime=None
+    expires_at:datetime=None,
+    department_id:int=None,
 ):
     if id is None:
         raise ValueError("Provide announcement ID in order to update the announcement")
@@ -334,22 +395,22 @@ def update_announcement(
     if all(value is None for value in [
         title,
         content,
+        department_name,
         department_id,
         published_at,
         expires_at
     ]):
         raise ValueError("Provide at least one field to update")
 
-    if department_id is not None:
-        with SessionLocal() as session:
-            department_exists=session.execute(
-                select(Department.department_id).where(
-                    Department.department_id==department_id
-                )
-            ).scalar_one_or_none()
+    department_id = _resolve_department_id(
+        department_name=department_name,
+        department_id=department_id,
+    )
 
-        if department_exists is None:
-            raise ValueError("Department does not exist")
+    if department_id is not None:
+        values={"department_id": department_id}
+    else:
+        values={}
 
     if published_at is not None or expires_at is not None:
         with SessionLocal() as session:
@@ -384,16 +445,11 @@ def update_announcement(
         ):
             raise ValueError("Expiry date cannot be before published date")
 
-    values={}
-
     if title is not None:
         values["title"]=title
 
     if content is not None:
         values["content"]=content
-
-    if department_id is not None:
-        values["department_id"]=department_id
 
     if published_at is not None:
         values["published_at"]=published_at
