@@ -445,23 +445,6 @@ def _find_employee_ids(first_name: str, last_name: str) -> list[int]:
         return list(session.execute(stmt).scalars().all())
 
 
-def _resolve_employee_id(first_name: str, last_name: str) -> int:
-    employee_ids = _find_employee_ids(first_name, last_name)
-
-    if not employee_ids:
-        raise LookupError(
-            f"No employee found with the name {first_name} {last_name}."
-        )
-
-    if len(employee_ids) > 1:
-        raise ValueError(
-            f"More than one employee matches {first_name} {last_name}. "
-            "Provide a name that identifies one employee."
-        )
-
-    return employee_ids[0]
-
-
 def status_employee_compatibility(
     status: str,
     assigned_to: int = None
@@ -473,7 +456,7 @@ def status_employee_compatibility(
 
     if status == "assigned" and assigned_to is None:
         raise ValueError(
-            "An assigned asset must have an assigned employee. Please provide the employee's first and last name."
+            "An assigned asset must have an assigned employee. Please provide an employee id."
         )
 
     if status in ["disposed", "lost"] and assigned_to is not None:
@@ -492,8 +475,7 @@ def create_asset(
     model: str = None,
     purchase_date: datetime = None,
     purchase_cost: float = None,
-    assigned_to_first_name: str | None = None,
-    assigned_to_last_name: str | None = None,
+    assigned_to: int = None,
     warranty_expiry: datetime = None
 ):
     does_asset_tag_exist(asset_tag)
@@ -514,19 +496,8 @@ def create_asset(
             f"{', '.join(asset_conditions)}"
         )
 
-    if (assigned_to_first_name is None) != (assigned_to_last_name is None):
-        raise ValueError(
-            "Provide both the assigned employee's first and last name."
-        )
-
-    assigned_to = (
-        _resolve_employee_id(
-            assigned_to_first_name,
-            assigned_to_last_name,
-        )
-        if assigned_to_first_name is not None
-        else None
-    )
+    if assigned_to is not None:
+        does_employee_exist(assigned_to)
 
     status_employee_compatibility(
         status=status,
@@ -574,8 +545,7 @@ def update_asset(
     purchase_date: datetime = None,
     purchase_cost: float = None,
     status: str = None,
-    assigned_to_first_name: str | None = None,
-    assigned_to_last_name: str | None = None,
+    assigned_to: int = None,
     condition: str = None,
     warranty_expiry: datetime = None,
     assigned_to_provided: bool = False
@@ -602,19 +572,6 @@ def update_asset(
         current_asset = result.one()
 
     values = {}
-    if (assigned_to_first_name is None) != (assigned_to_last_name is None):
-        raise ValueError(
-            "Provide both the assigned employee's first and last name."
-        )
-
-    assigned_to = (
-        _resolve_employee_id(
-            assigned_to_first_name,
-            assigned_to_last_name,
-        )
-        if assigned_to_first_name is not None
-        else None
-    )
 
     if asset_tag is not None:
         does_asset_tag_exist(
@@ -650,7 +607,8 @@ def update_asset(
                 f"Status '{status}' is not one of the allowed statuses "
                 f"{', '.join(asset_statuses)}"
             )
-    if assigned_to_provided:
+    if assigned_to is not None:
+        does_employee_exist(assigned_to)
         values["assigned_to"] = assigned_to
 
     if condition is not None:
@@ -700,11 +658,10 @@ def update_asset(
         values["assigned_to"] = None
     elif status is not None:
         values["status"] = status
-        if assigned_to_provided:
+        if assigned_to is not None:
+            does_employee_exist(assigned_to)
             values["assigned_to"] = assigned_to
 
-    elif assigned_to_provided:
-        values["assigned_to"] = assigned_to
 
     if (
         final_purchase_date is not None

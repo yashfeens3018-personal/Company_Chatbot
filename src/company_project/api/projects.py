@@ -30,8 +30,9 @@ def _call_project_query(query,*args,**kwargs):
 @router.get("/projects")
 def get_projects_endpoint(
     name:str|None=Query(default=None,min_length=1,max_length=150),
-    department_id:int|None=Query(default=None,gt=0),
-    project_manager_id:int|None=Query(default=None,gt=0),
+    department_name:str|None=Query(default=None,min_length=1,max_length=100),
+    project_manager_first_name:str|None=Query(default=None,min_length=1,max_length=100),
+    project_manager_last_name:str|None=Query(default=None,min_length=1,max_length=100),
     status:str|None=Query(default=None,min_length=1,max_length=50),
     start_from:datetime|None=None,
     start_to:datetime|None=None,
@@ -41,8 +42,9 @@ def get_projects_endpoint(
     return _call_project_query(
         search_projects,
         name=name,
-        department_id=department_id,
-        project_manager_id=project_manager_id,
+        department_name=department_name,
+        project_manager_first_name=project_manager_first_name,
+        project_manager_last_name=project_manager_last_name,
         status=status,
         start_from=start_from,
         start_to=start_to,
@@ -51,23 +53,29 @@ def get_projects_endpoint(
     )
 
 
-@router.get("/projects/employee/{employee_id}")
-def get_employee_projects_endpoint(employee_id:int=Path(...,gt=0)):
-    return _call_project_query(get_employee_projects,employee_id)
+@router.get("/projects/employee/{first_name}/{last_name}")
+def get_employee_projects_endpoint(first_name:str,last_name:str):
+    return _call_project_query(
+        get_employee_projects,
+        first_name,
+        last_name,
+    )
 
 
 @router.get("/projects/stats")
 def get_project_stats_endpoint(
-    department_id:int|None=Query(default=None,gt=0),
-    project_manager_id:int|None=Query(default=None,gt=0),
+    department_name:str|None=Query(default=None,min_length=1,max_length=100),
+    project_manager_first_name:str|None=Query(default=None,min_length=1,max_length=100),
+    project_manager_last_name:str|None=Query(default=None,min_length=1,max_length=100),
     status:str|None=Query(default=None,min_length=1,max_length=50),
     start_from:datetime|None=None,
     start_to:datetime|None=None
 ):
     return _call_project_query(
         get_project_stats,
-        department_id=department_id,
-        project_manager_id=project_manager_id,
+        department_name=department_name,
+        project_manager_first_name=project_manager_first_name,
+        project_manager_last_name=project_manager_last_name,
         status=status,
         start_from=start_from,
         start_to=start_to

@@ -157,15 +157,9 @@ class UpdateAsset(BaseModel):
         min_length=1,
         max_length=50
     )
-    assigned_to_first_name: str | None = Field(
+    assigned_to: int | None = Field(
         default=None,
-        min_length=1,
-        max_length=100
-    )
-    assigned_to_last_name: str | None = Field(
-        default=None,
-        min_length=1,
-        max_length=100
+        gt=0
     )
     condition: str | None = Field(
         default=None,
@@ -188,14 +182,10 @@ def update_asset_endpoint(asset: UpdateAsset):
         purchase_date=asset.purchase_date,
         purchase_cost=asset.purchase_cost,
         status=asset.status,
-        assigned_to_first_name=asset.assigned_to_first_name,
-        assigned_to_last_name=asset.assigned_to_last_name,
+        assigned_to=asset.assigned_to,
         condition=asset.condition,
         warranty_expiry=asset.warranty_expiry,
-        assigned_to_provided = (
-            "assigned_to_first_name" in asset.model_fields_set
-            or "assigned_to_last_name" in asset.model_fields_set
-        )
+        assigned_to_provided = "assigned_to" in asset.model_fields_set
     )
 
 
@@ -233,15 +223,9 @@ class CreateAsset(BaseModel):
         min_length=1,
         max_length=50
     )
-    assigned_to_first_name: str | None = Field(
+    assigned_to: int | None = Field(
         default=None,
-        min_length=1,
-        max_length=100
-    )
-    assigned_to_last_name: str | None = Field(
-        default=None,
-        min_length=1,
-        max_length=100
+        gt=0
     )
     condition: str = Field(
         ...,
@@ -263,8 +247,7 @@ def create_asset_endpoint(asset: CreateAsset):
         purchase_date=asset.purchase_date,
         purchase_cost=asset.purchase_cost,
         status=asset.status,
-        assigned_to_first_name=asset.assigned_to_first_name,
-        assigned_to_last_name=asset.assigned_to_last_name,
+        assigned_to=asset.assigned_to,
         condition=asset.condition,
         warranty_expiry=asset.warranty_expiry
     )

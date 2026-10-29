@@ -4,7 +4,7 @@ import random
 from datetime import datetime, timedelta
 
 from faker import Faker
-from sqlalchemy import delete, insert, select
+from sqlalchemy import delete, insert
 
 from company_project.database import SessionLocal
 from company_project.models import (
@@ -195,30 +195,12 @@ def seed_ticket_comments(ticket_ids: list[int], employee_ids: list[int]) -> None
 
 
 def seed_assets(employee_ids: list[int]) -> None:
-    with SessionLocal() as session:
-        employee_names = {
-            employee.employee_id: (employee.first_name, employee.last_name)
-            for employee in session.execute(
-                select(
-                    Employees.employee_id,
-                    Employees.first_name,
-                    Employees.last_name,
-                )
-            )
-        }
-
     for index in range(NUM_ASSETS):
         status = random.choice(asset_statuses)
         assigned_to = random.choice(employee_ids) if status == "assigned" else None
 
         if status in {"lost", "disposed"}:
             assigned_to = None
-
-        assigned_employee = (
-            employee_names[assigned_to]
-            if assigned_to is not None
-            else (None, None)
-        )
 
         purchase_date = random_date(2022, 2026)
         warranty_expiry = purchase_date + timedelta(days=random.randint(365, 1825))
@@ -233,8 +215,7 @@ def seed_assets(employee_ids: list[int]) -> None:
             model=f"{fake.word().title()} {random.randint(1, 20)}",
             purchase_date=purchase_date,
             purchase_cost=random.randint(20000, 500000),
-            assigned_to_first_name=assigned_employee[0],
-            assigned_to_last_name=assigned_employee[1],
+            assigned_to=assigned_to,
             warranty_expiry=warranty_expiry,
         )
 

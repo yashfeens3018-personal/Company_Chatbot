@@ -48,6 +48,18 @@ def _require_employee(session,employee_id:int,role:str):
         raise ValueError(f"{role} does not exist.")
 
 
+def _find_employee_ids(session,first_name:str,last_name:str):
+    if not first_name.strip() or not last_name.strip():
+        raise ValueError("Provide both the employee's first and last name.")
+
+    return session.execute(
+        select(Employees.employee_id).where(
+            Employees.first_name.ilike(first_name.strip()),
+            Employees.last_name.ilike(last_name.strip()),
+        )
+    ).scalars().all()
+
+
 def _validate_date_range(start_date:datetime,end_date:datetime|None):
     if end_date is not None and start_date>=end_date:
         raise ValueError("Expected end date must be after the start date.")
@@ -87,8 +99,9 @@ def get_project(project_id:int):
 
 def search_projects(
     name:str=None,
-    department_id:int=None,
-    project_manager_id:int=None,
+    department_name:str=None,
+    project_manager_first_name:str=None,
+    project_manager_last_name:str=None,
     status:str=None,
     start_from:datetime=None,
     start_to:datetime=None,
@@ -110,10 +123,30 @@ def search_projects(
     if name is not None:
         _validate_project_name(name)
         conditions.append(Projects.name.ilike(f"%{name}%"))
-    if department_id is not None:
-        conditions.append(Projects.department_id==department_id)
-    if project_manager_id is not None:
-        conditions.append(Projects.project_manager_id==project_manager_id)
+    if department_name is not None:
+        with SessionLocal() as session:
+            department_id=session.execute(
+                select(Department.department_id).where(
+                    Department.name.ilike(department_name.strip())
+                )
+            ).scalar_one_or_none()
+        if department_id is None:
+            conditions.append(Projects.department_id.in_([]))
+        else:
+            conditions.append(Projects.department_id==department_id)
+
+    if (project_manager_first_name is None) != (project_manager_last_name is None):
+        raise ValueError(
+            "Provide both the project manager's first and last name."
+        )
+    if project_manager_first_name is not None:
+        with SessionLocal() as session:
+            employee_ids=_find_employee_ids(
+                session,
+                project_manager_first_name,
+                project_manager_last_name,
+            )
+        conditions.append(Projects.project_manager_id.in_(employee_ids))
     if status is not None:
         conditions.append(Projects.status==status)
     if start_from is not None:
@@ -152,9 +185,12 @@ def search_projects(
     return projects
 
 
-def get_employee_projects(employee_id:int):
+def get_employee_projects(first_name:str,last_name:str):
     with SessionLocal() as session:
-        _require_employee(session,employee_id,"Employee")
+        employee_ids=_find_employee_ids(session,first_name,last_name)
+
+    if not employee_ids:
+        raise ValueError(f"Employee {first_name} {last_name} does not exist.")
 
     stmt=select(
         Projects.project_id,
@@ -173,7 +209,7 @@ def get_employee_projects(employee_id:int):
         Department,
         Projects.department_id==Department.department_id
     ).where(
-        Project_Members.employee_id==employee_id
+        Project_Members.employee_id.in_(employee_ids)
     ).order_by(
         Projects.start_date.desc()
     )
@@ -186,8 +222,9 @@ def get_employee_projects(employee_id:int):
 
 
 def get_project_stats(
-    department_id:int=None,
-    project_manager_id:int=None,
+    department_name:str=None,
+    project_manager_first_name:str=None,
+    project_manager_last_name:str=None,
     status:str=None,
     start_from:datetime=None,
     start_to:datetime=None
@@ -200,10 +237,30 @@ def get_project_stats(
     if start_from is not None and start_to is not None and start_from>start_to:
         raise ValueError("Start of start date range cannot be after its end.")
 
-    if department_id is not None:
-        conditions.append(Projects.department_id==department_id)
-    if project_manager_id is not None:
-        conditions.append(Projects.project_manager_id==project_manager_id)
+    if department_name is not None:
+        with SessionLocal() as session:
+            department_id=session.execute(
+                select(Department.department_id).where(
+                    Department.name.ilike(department_name.strip())
+                )
+            ).scalar_one_or_none()
+        if department_id is None:
+            conditions.append(Projects.department_id.in_([]))
+        else:
+            conditions.append(Projects.department_id==department_id)
+
+    if (project_manager_first_name is None) != (project_manager_last_name is None):
+        raise ValueError(
+            "Provide both the project manager's first and last name."
+        )
+    if project_manager_first_name is not None:
+        with SessionLocal() as session:
+            employee_ids=_find_employee_ids(
+                session,
+                project_manager_first_name,
+                project_manager_last_name,
+            )
+        conditions.append(Projects.project_manager_id.in_(employee_ids))
     if status is not None:
         conditions.append(Projects.status==status)
     if start_from is not None:
