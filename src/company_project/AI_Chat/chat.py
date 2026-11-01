@@ -139,6 +139,7 @@ def intent_classification(state:StateAgent):
     5. Irrelevant: not related to the company at all (small talk, weather, general trivia, writing help).
     6. If you are torn between RAG_Query and Database_Query and the message does NOT name a specific record and is NOT asking to count or list stored records, choose RAG_Query. This rule never applies when a specific person, department, project, asset or ticket is named: that is Database_Query.
     7. If a general question might not be covered by the handbook, still choose RAG_Query. Retrieval will find out whether the answer exists. Never choose Unclear or Irrelevant just because you are unsure the handbook covers the topic.
+    8. If the previous assistant message asked the user for missing details (such as an employee id, a ticket number, a name or an email), the latest message is the answer to that question. Combine it with the earlier request and classify the combined request, as if the user had said everything in one message. A short reply such as a number or a name is never Unclear in that situation.
 
     ============================================================
     EXAMPLES
@@ -195,7 +196,7 @@ def intent_router(state:StateAgent):
     elif intent=='RAG_Query':
         route="RAG_Query_Retrieval"
     elif intent== "Mixed:have both queries":
-        route="not_implemented_yet"
+        route=[node for node,part in (("check_for_missing_info",state['Database_query']),("RAG_Query_Retrieval",state['Rag_query'])) if part] or "ask_for_clarification"
     elif intent=="Unclear":
         route="ask_for_clarification"
     elif intent=="Irrelevant":
@@ -229,7 +230,8 @@ def ask_for_clarification(state:StateAgent):
 #need to ask for the missing info
 def ask_for_missing_info(state:StateAgent):
     debug_print("ask_for_missing_info",selected_tool=state.get('selected_tool'),tool_arguments=state.get('tool_arguments'),missing_arguments=state.get('missing_arguments'))
-    return {'messages':[AIMessage(content=f"I am so sorry, I could not process your database query because it is missing these mandatory arguments: {state['missing_arguments']}. Please submit your complete query again, including these required arguments.")]}
+    missing=", ".join(argument.replace("_"," ") for argument in state['missing_arguments'])
+    return {'messages':[AIMessage(content=f"I can look that up, but I still need the following detail(s): {missing}. Please reply with just that information and I will continue.")]}
 
 class Infocheck(TypedDict):
     reason: str
@@ -293,12 +295,13 @@ def check_for_missing_info(state:StateAgent):
 
 #is enough confitional edge for routing
 def is_info_enough(state:StateAgent):
+    mixed=state['intent']['intent']=="Mixed:have both queries"
     if state["selected_tool"] is None:
-        route="ask_for_clarification"
+        route="final_answer" if mixed else "ask_for_clarification"
     elif state["enough_info"]:
         route="execute_tool"
     else:
-        route="ask_for_missing_info"
+        route="final_answer" if mixed else "ask_for_missing_info"
     debug_print("is_info_enough (router)",selected_tool=state["selected_tool"],enough_info=state["enough_info"],missing_arguments=state["missing_arguments"],next_node=route)
     return route
 
@@ -316,18 +319,30 @@ def execute_tool(state:StateAgent):
     
 def final_answer(state:StateAgent):
     question=next((message.content for message in reversed(state['messages']) if isinstance(message, HumanMessage)), "")
+    history="\n".join(f"{'User' if isinstance(message,HumanMessage) else 'Assistant'}: {str(message.content)[:500]}" for message in state['messages'][-7:-1]) or "None"
     selected=state.get('selected_tool')
     purpose=tools_by_names[selected].description.strip().split("\n\n")[0] if selected else ""
     result=state.get('Database_result')
     record_count=len(result) if isinstance(result,list) else None
     count_note=f" The tool returned exactly {record_count} records." if record_count is not None else ""
-    lookup_note=f"The database results were produced by running the tool {selected} with these arguments: {state.get('tool_arguments')}. Tool purpose: {purpose}" if selected else "No database lookup was performed."
-    debug_print("final_answer: input",question=question,lookup_note=lookup_note,standalone_request=state.get('Database_query'),database_result=state.get('Database_result'),chunks_in_prompt=len(state.get('Retrieved_chunks') or []),chunk_sources=[chunk.metadata.get('source') or chunk.metadata.get('file_path') for chunk in state.get('Retrieved_chunks') or []])
+    missing=", ".join(argument.replace("_"," ") for argument in state.get('missing_arguments') or [])
+    if state.get('Database_query') and not selected:
+        lookup_note="The record part of the question could not be matched to any available lookup, so there are no database results. Say that this part could not be answered and ask the user to rephrase it."
+    elif selected and state.get('enough_info') is False:
+        lookup_note=f"The record lookup could not be run because it still needs these details from the user: {missing}. There are no database results. Do not guess the missing values."
+    elif selected:
+        lookup_note=f"The database results were produced by running the tool {selected} with these arguments: {state.get('tool_arguments')}. Tool purpose: {purpose.rstrip('.')}.{count_note}"
+    else:
+        lookup_note="No database lookup was performed."
+    debug_print("final_answer: input",question=question,earlier_conversation=history,lookup_note=lookup_note,standalone_request=state.get('Database_query'),database_result=state.get('Database_result'),chunks_in_prompt=len(state.get('Retrieved_chunks') or []),chunk_sources=[chunk.metadata.get('source') or chunk.metadata.get('file_path') for chunk in state.get('Retrieved_chunks') or []])
     prompt=f"""
     You are a helpful AI assistant for a company.
 
     Your task is to answer the user's question using the information
     provided in the database results and retrieved document chunks.
+
+    Earlier conversation (context only, do not answer these old messages again):
+    {history}
 
     User's latest question:
     {question}
@@ -352,6 +367,8 @@ def final_answer(state:StateAgent):
     5. If the database result says the lookup failed or is empty, say so plainly. Only say information is missing if neither the results, the chunks nor the tool arguments answer the question.
     6. Present the answer in a clear, concise, and readable format.
     7. If the database results are a list, include EVERY record in your answer, one after another, and do not stop early or skip any. State the total number of records exactly as given in the lookup note. Do not make claims about date ranges or years that have no records unless the results show it.
+    8. If the note says the record lookup could not be run or matched, first answer the part of the question that the retrieved chunks can answer, then ask the user in one short sentence for what is needed to complete the rest. Never present the missing part as answered.
+    9. If the latest question refers to something said earlier (for example "what about her?", or it only supplies a detail you asked for), use the earlier conversation to understand what is being asked. Take facts only from the database results and the retrieved chunks, never from the earlier conversation.
     """
 
     response=model.invoke(prompt)
@@ -376,7 +393,7 @@ graph.add_node("ask_for_missing_info", ask_for_missing_info)
 graph.add_node("ask_for_clarification", ask_for_clarification)
 graph.add_node("check_for_missing_info", check_for_missing_info)
 graph.add_node("execute_tool", execute_tool)
-graph.add_node("final_answer", final_answer)
+graph.add_node("final_answer", final_answer, defer=True)
 graph.add_node("not_implemented_yet", not_implemented_yet)
 graph.add_node("handle_irrelevant_query", handle_irrelevant_query)
 graph.add_node("RAG_Query_Retrieval", RAG_Query_Retrieval)
