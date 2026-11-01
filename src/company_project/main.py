@@ -13,6 +13,7 @@ from .api.project_members import router as projectmembers_router
 from .api.projects import router as projects_router
 from .api.ticket_comments import router as ticketcomments_router
 from .api.tickets import router as tickets_router
+from .api.chat import router as chat_router
 
 from .auth.security import (
     verify_password,
@@ -33,6 +34,7 @@ app.include_router(projectmembers_router)
 app.include_router(projects_router)
 app.include_router(ticketcomments_router)
 app.include_router(tickets_router)
+app.include_router(chat_router)
 
 
 @app.post("/token/login")
@@ -78,3 +80,4 @@ def read_users_me(
     current_user: Annotated[dict, Depends(get_user)]
 ):
     return current_user
+
