@@ -118,12 +118,9 @@ src/company_project/
 
 ## Roadmap
 
-- [ ] Run **Mixed** queries by executing the database and RAG branches in parallel and merging the answer
 - [ ] Use the logged-in user (from the JWT) for "my" questions, and enforce permissions in code before any tool runs
-- [ ] Serve the chatbot through FastAPI and build a web UI
-- [ ] Admin dashboard for creating, updating and deleting records (the chatbot itself stays read-only)
-- [ ] Retrieval ranking: reranker and chunk-size experiments
-- [ ] Try a stronger model for intent classification and tool selection
+- [ ] build a web UI
+- [ ] Admin dashboard for creating, updating and deleting records
 
 ## Acknowledgements
 
