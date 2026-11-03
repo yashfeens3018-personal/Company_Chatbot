@@ -210,7 +210,15 @@ def RAG_Query_Retrieval(state: StateAgent):
     query = state["Rag_query"]
     debug_print("RAG_Query_Retrieval: start",rag_query=query,k=RETRIEVAL_K,intent=state.get('intent'))
 
-    chunks = vector_store.similarity_search(query, k=RETRIEVAL_K)
+    try:
+        chunks = vector_store.similarity_search(query, k=RETRIEVAL_K)
+    except Exception:
+        logger.exception("Chroma retrieval failed")
+
+        return {
+            "Retrieved_chunks": [],
+            "retrieval_error": True
+        }
 
     print(f"\nQuery: {query}")
     print(f"Retrieved {len(chunks)} chunks")

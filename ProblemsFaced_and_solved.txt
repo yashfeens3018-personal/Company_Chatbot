@@ -109,3 +109,5 @@ in projects and announcements i need to add to accept only the department name a
 8.Need to make api files the same as well
 
 9. sometimes people spell thing wrongly for example finnance so should my model correct it because it can see the existing valuesor not?
+
+10. Trying to make my rag better, testing different metrics like fit hit, evidence hit and MMR

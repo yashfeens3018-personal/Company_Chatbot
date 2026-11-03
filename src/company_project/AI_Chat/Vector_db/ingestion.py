@@ -48,11 +48,17 @@ if os.path.exists(MANIFEST_PATH):
         manifest = json.load(f)
 
 embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
-vector_store = Chroma(
-    collection_name="Company_data",
-    embedding_function=embeddings,
-    persist_directory=PERSIST_DIR,
-)
+
+try:
+    vector_store = Chroma(
+        collection_name="Company_data",
+        embedding_function=embeddings,
+        persist_directory=PERSIST_DIR,
+    )
+
+except Exception as e:
+    print(f"Failed to initialize Chroma: {e}")
+    raise
 
 # Config changed -> full rebuild
 if manifest.get("config") != CONFIG:
@@ -77,7 +83,12 @@ print(f"added={len(added)} modified={len(modified)} deleted={len(deleted)} "
 # 3. Remove stale chunks (modified + deleted files)
 stale = modified + deleted
 if stale:
-    vector_store.delete(where={"source": {"$in": stale}})
+    try:
+        vector_store.delete(where={"source": {"$in": stale}})
+
+    except Exception as e:
+        print(f"Failed to delete stale documents: {e}")
+        raise
 
 # 4. Split + embed only added/modified files
 to_process = [current[s] for s in added + modified]
@@ -97,12 +108,25 @@ if to_process:
         chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP
     )
     splits = text_splitter.split_documents(md_splits)
-    vector_store.add_documents(splits)
+    try:
+        vector_store.add_documents(splits)
+
+    except Exception as e:
+        print(f"Failed to insert documents into Chroma: {e}")
+        raise
 
 # 5. Save manifest only after everything succeeded
 manifest["files"] = current_hashes
 os.makedirs(PERSIST_DIR, exist_ok=True)
-with open(MANIFEST_PATH, "w") as f:
-    json.dump(manifest, f, indent=2)
+try:
+    with open(MANIFEST_PATH) as f:
+        manifest = json.load(f)
+
+except FileNotFoundError:
+    print("Manifest does not exist. Creating a new one.")
+
+except json.JSONDecodeError:
+    print("Manifest contains invalid JSON.")
+    raise
 
 print("Index up to date")

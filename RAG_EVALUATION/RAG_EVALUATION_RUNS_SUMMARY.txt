@@ -1,0 +1,38 @@
+This file documents all the runs (ragas evaluation +retrieval evaluation)
+
+1. FIRST runs
+========================================================================
+RAGAS (judge: open-mistral-7b)   scored 38/40 answerable questions
+========================================================================
+metric                                      mean   valid   NaN
+faithfulness                               0.839      35     3
+answer_relevancy                           0.772      38     0
+llm_context_precision_with_reference       0.613      37     1
+context_recall                             0.795      38     0
+
+By question type:
+  direct       (n=10) faithfulness=0.85  answer_relevancy=0.75  llm_context_precision_with_reference=0.54  context_recall=0.70
+  multi-part   (n=10) faithfulness=0.87  answer_relevancy=0.78  llm_context_precision_with_reference=0.30  context_recall=0.72
+  paraphrased  (n=9) faithfulness=0.81  answer_relevancy=0.65  llm_context_precision_with_reference=0.62  context_recall=0.78
+  specific     (n=9) faithfulness=0.81  answer_relevancy=0.90  llm_context_precision_with_reference=1.00  context_recall=1.00
+
+Skipped (not scored, so the means above exclude them): 2
+  q017: no retrieved chunks (intent=Database_Query)
+  q023: no retrieved chunks (intent=Database_Query)
+
+4 metric score(s) are NaN: the judge returned output RAGAS could not parse or a call timed out. With a 7B judge this is common; check the NaN column above.
+
+Through this, i realized that:
+a. my relevant retrieved chunks were not ranked higher (especially with multipart, so maybe i need a reranker)
+b. The paraphrased questions' answers' relevancy was low, i need to look into this
+c. Some zeros are judge errors. q031 (four core values) and q009 (three interviews) have correct answers, yet they score 0 on answer_relevancy and context_recall. That is typical of a 7B judge, so i should treat as noise.
+d. The graph passes 8 chunks of about 380 characters each, so usually 1–2 are relevant. Precision punishes this even when recall is fine (0.80).
+e. The query rewriter sometimes hurts.q015’s rewrite adds invented text (“Include details about team integration, any required activities…”). q037’s rewrite drops the fourth part of the question (“where are open positions posted”).92% of questions get rewritten, which is a lot.
+
+i am gonna try a few things:
+a. append metadata to each chunk before embedding (should help in retrieval)
+b. Add a reranker
+c. Constrain the rewriter (Tell it to only clarify and never add instructions or detail.)
+d. Remove the “Based on the retrieved document chunks” preamble from the answer prompt. It may be feeding the judge’s “noncommittal” zeros.
+
+need to do this one at a time to see if things improved or not
