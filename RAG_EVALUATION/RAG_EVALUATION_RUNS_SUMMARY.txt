@@ -1,6 +1,6 @@
 This file documents all the runs (ragas evaluation +retrieval evaluation)
 
-1. FIRST runs
+1. FIRST RUN
 ========================================================================
 RAGAS (judge: open-mistral-7b)   scored 38/40 answerable questions
 ========================================================================
@@ -36,3 +36,19 @@ c. Constrain the rewriter (Tell it to only clarify and never add instructions or
 d. Remove the “Based on the retrieved document chunks” preamble from the answer prompt. It may be feeding the judge’s “noncommittal” zeros.
 
 need to do this one at a time to see if things improved or not
+
+2. SECOND RUN
+I did (a) only here and it improved the values a lot. especially this fixed the contextual recall which means it improved the retrieval alot. Now, i need to fix the order of these chunks which i feel i can do this through the reranking.
+RAGAS (judge: open-mistral-7b)   scored 38/40 answerable questions
+========================================================================
+metric                                      mean   valid   NaN
+faithfulness                               0.925      38     0
+answer_relevancy                           0.822      38     0
+llm_context_precision_with_reference       0.680      36     2
+context_recall                             0.945      38     0
+
+By question type:
+  direct       (n=10) faithfulness=0.91  answer_relevancy=0.76  llm_context_precision_with_reference=0.74  context_recall=0.90
+  multi-part   (n=10) faithfulness=0.94  answer_relevancy=0.80  llm_context_precision_with_reference=0.36  context_recall=0.94
+  paraphrased  (n=9) faithfulness=0.91  answer_relevancy=0.83  llm_context_precision_with_reference=0.69  context_recall=0.94
+  specific     (n=9) faithfulness=0.94  answer_relevancy=0.89  llm_context_precision_with_reference=0.96  context_recall=1.00

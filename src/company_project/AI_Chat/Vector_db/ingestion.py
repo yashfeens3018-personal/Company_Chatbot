@@ -1,4 +1,5 @@
 import os, json, hashlib
+from pathlib import Path
 from git import Repo  # GitPython, already installed as a GitLoader dependency
 from dotenv import load_dotenv
 from langchain_community.document_loaders import GitLoader
@@ -16,13 +17,44 @@ MANIFEST_PATH = os.path.join(PERSIST_DIR, "manifest.json")
 
 CHUNK_SIZE, CHUNK_OVERLAP = 500, 100
 EMBED_MODEL = "BAAI/bge-small-en-v1.5"
-CONFIG = {"chunk_size": CHUNK_SIZE, "chunk_overlap": CHUNK_OVERLAP, "model": EMBED_MODEL}
+# "context_header" is a version tag: bump it whenever the header format below changes,
+# so the whole index is rebuilt (old chunks were embedded without / with a different header).
+CONFIG = {
+    "chunk_size": CHUNK_SIZE,
+    "chunk_overlap": CHUNK_OVERLAP,
+    "model": EMBED_MODEL,
+    "context_header": 1,
+}
 
 EXCLUDED = [
     "Clef Offer Letter.md", "Acknowledgment of Receipt.md",
     "Acknowledgement of Receipt.md", "Acknowledgement of Receipt of Changes.md",
     "README.md",
 ]
+
+HEADER_KEYS = ("Header 1", "Header 2", "Header 3")
+
+
+def add_context_header(chunk):
+    """Prepend 'Document: ... / Section: A > B > C' to the chunk text so the embedding
+    (and the LLM) knows where the chunk came from. Headers were stripped by the splitter,
+    so without this a chunk like 'CLEF, INC.' has no idea it belongs to the mission statement."""
+    meta = chunk.metadata
+    doc_title = Path(meta.get("source", "")).stem
+    breadcrumb = " > ".join(meta[k] for k in HEADER_KEYS if meta.get(k))
+
+    lines = []
+    if doc_title:
+        lines.append(f"Document: {doc_title}")
+    if breadcrumb:
+        lines.append(f"Section: {breadcrumb}")
+
+    meta["doc_title"] = doc_title  # also kept as metadata (useful for filtering/debugging later)
+    meta["section_path"] = breadcrumb
+    if lines:
+        chunk.page_content = "\n".join(lines) + "\n\n" + chunk.page_content
+    return chunk
+
 
 if os.path.exists(REPO_PATH):
     repo = Repo(REPO_PATH)
@@ -55,7 +87,6 @@ try:
         embedding_function=embeddings,
         persist_directory=PERSIST_DIR,
     )
-
 except Exception as e:
     print(f"Failed to initialize Chroma: {e}")
     raise
@@ -85,12 +116,11 @@ stale = modified + deleted
 if stale:
     try:
         vector_store.delete(where={"source": {"$in": stale}})
-
     except Exception as e:
         print(f"Failed to delete stale documents: {e}")
         raise
 
-# 4. Split + embed only added/modified files
+# 4. Split + add context header + embed only added/modified files
 to_process = [current[s] for s in added + modified]
 
 if to_process:
@@ -108,25 +138,24 @@ if to_process:
         chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP
     )
     splits = text_splitter.split_documents(md_splits)
+
+    # Add the header AFTER splitting: every chunk gets it, and it doesn't eat into chunk_size
+    # or get split away from the text it describes.
+    splits = [add_context_header(c) for c in splits]
+
     try:
         vector_store.add_documents(splits)
-
     except Exception as e:
         print(f"Failed to insert documents into Chroma: {e}")
         raise
 
-# 5. Save manifest only after everything succeeded
+# 5. Save manifest only after everything succeeded (write it, atomically)
+manifest["config"] = CONFIG
 manifest["files"] = current_hashes
 os.makedirs(PERSIST_DIR, exist_ok=True)
-try:
-    with open(MANIFEST_PATH) as f:
-        manifest = json.load(f)
-
-except FileNotFoundError:
-    print("Manifest does not exist. Creating a new one.")
-
-except json.JSONDecodeError:
-    print("Manifest contains invalid JSON.")
-    raise
+tmp_path = MANIFEST_PATH + ".tmp"
+with open(tmp_path, "w") as f:
+    json.dump(manifest, f, indent=2)
+os.replace(tmp_path, MANIFEST_PATH)  # a crash mid-write can't leave a corrupt manifest
 
 print("Index up to date")

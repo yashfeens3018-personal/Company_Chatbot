@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-11-04T04:34:38",
+  "judge_model": "open-mistral-7b",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "ragas_version": "0.4.3",
+  "source": "graph run via src.company_project.AI_Chat.chat",
+  "n_answerable": 40,
+  "n_scored": 38,
+  "n_skipped": 2,
+  "skipped": [
+    {
+      "id": "q017",
+      "reason": "no retrieved chunks (intent=Database_Query)"
+    },
+    {
+      "id": "q023",
+      "reason": "no retrieved chunks (intent=Database_Query)"
+    }
+  ],
+  "overall": {
+    "faithfulness": {
+      "mean": 0.9245617507109634,
+      "n_valid": 38,
+      "n_nan": 0
+    },
+    "answer_relevancy": {
+      "mean": 0.8218704983706017,
+      "n_valid": 38,
+      "n_nan": 0
+    },
+    "llm_context_precision_with_reference": {
+      "mean": 0.680324074015729,
+      "n_valid": 36,
+      "n_nan": 2
+    },
+    "context_recall": {
+      "mean": 0.9451754385964911,
+      "n_valid": 38,
+      "n_nan": 0
+    }
+  },
+  "by_question_type": {
+    "direct": {
+      "n": 10,
+      "faithfulness": 0.9075,
+      "answer_relevancy": 0.7643623813766076,
+      "llm_context_precision_with_reference": 0.737499999940625,
+      "context_recall": 0.9
+    },
+    "multi-part": {
+      "n": 10,
+      "faithfulness": 0.9438505257175333,
+      "answer_relevancy": 0.8032753044939653,
+      "llm_context_precision_with_reference": 0.3555555555251852,
+      "context_recall": 0.9416666666666667
+    },
+    "paraphrased": {
+      "n": 9,
+      "faithfulness": 0.9059082892416226,
+      "answer_relevancy": 0.8335172457864427,
+      "llm_context_precision_with_reference": 0.6944444443888889,
+      "context_recall": 0.9444444444444444
+    },
+    "specific": {
+      "n": 9,
+      "faithfulness": 0.9407407407407408,
+      "answer_relevancy": 0.8947829852554613,
+      "llm_context_precision_with_reference": 0.9583333332416666,
+      "context_recall": 1.0
+    }
+  }
+}
