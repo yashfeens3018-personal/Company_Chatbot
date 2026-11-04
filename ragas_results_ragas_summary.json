@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-04T04:34:38",
+  "timestamp": "2026-11-04T18:35:00",
   "judge_model": "open-mistral-7b",
   "embedding_model": "BAAI/bge-small-en-v1.5",
   "ragas_version": "0.4.3",
@@ -19,22 +19,22 @@
   ],
   "overall": {
     "faithfulness": {
-      "mean": 0.9245617507109634,
-      "n_valid": 38,
-      "n_nan": 0
+      "mean": 0.8889695139695138,
+      "n_valid": 37,
+      "n_nan": 1
     },
     "answer_relevancy": {
-      "mean": 0.8218704983706017,
+      "mean": 0.8339444092394289,
       "n_valid": 38,
       "n_nan": 0
     },
     "llm_context_precision_with_reference": {
-      "mean": 0.680324074015729,
+      "mean": 0.6892636683740814,
       "n_valid": 36,
       "n_nan": 2
     },
     "context_recall": {
-      "mean": 0.9451754385964911,
+      "mean": 0.9342105263157895,
       "n_valid": 38,
       "n_nan": 0
     }
@@ -42,30 +42,30 @@
   "by_question_type": {
     "direct": {
       "n": 10,
-      "faithfulness": 0.9075,
-      "answer_relevancy": 0.7643623813766076,
-      "llm_context_precision_with_reference": 0.737499999940625,
+      "faithfulness": 0.8612362637362638,
+      "answer_relevancy": 0.7610310643618894,
+      "llm_context_precision_with_reference": 0.7916666666075,
       "context_recall": 0.9
     },
     "multi-part": {
       "n": 10,
-      "faithfulness": 0.9438505257175333,
-      "answer_relevancy": 0.8032753044939653,
-      "llm_context_precision_with_reference": 0.3555555555251852,
-      "context_recall": 0.9416666666666667
+      "faithfulness": 0.912608225108225,
+      "answer_relevancy": 0.8852920703642427,
+      "llm_context_precision_with_reference": 0.3183421516573559,
+      "context_recall": 0.95
     },
     "paraphrased": {
       "n": 9,
-      "faithfulness": 0.9059082892416226,
-      "answer_relevancy": 0.8335172457864427,
-      "llm_context_precision_with_reference": 0.6944444443888889,
-      "context_recall": 0.9444444444444444
+      "faithfulness": 0.8380351130351131,
+      "answer_relevancy": 0.799160835611959,
+      "llm_context_precision_with_reference": 0.679453262726624,
+      "context_recall": 0.8888888888888888
     },
     "specific": {
       "n": 9,
-      "faithfulness": 0.9407407407407408,
-      "answer_relevancy": 0.8947829852554613,
-      "llm_context_precision_with_reference": 0.9583333332416666,
+      "faithfulness": 0.9513888888888888,
+      "answer_relevancy": 0.8926898537032607,
+      "llm_context_precision_with_reference": 0.9895833332420139,
       "context_recall": 1.0
     }
   }

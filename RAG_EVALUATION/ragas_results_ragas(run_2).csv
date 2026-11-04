@@ -1,0 +1,2097 @@
+﻿id,question_type,user_input,retrieved_contexts,response,reference,faithfulness,answer_relevancy,llm_context_precision_with_reference,context_recall,intent,rewritten_query
+q001,direct,What is the annual learning budget for each employee?,"Document: Continuing Education
+Section: Continuing Education > Learning Budget
+
+Every employee has a company budget to support any learning activity that they want to pursue related to the work they do at Clef. This doesn’t need to be a class explicitly linked to their current role, but it should help them improve a skill that will be useful for them at Clef. Each employee has an annual budget of $4,000 which can be spent towards program fees/tuition, tickets, flights, and hotels for industry conferences, classes, mentorship programs, books, programs, videos, or other
+---
+Document: Continuing Education
+Section: Continuing Education > Learning Budget
+
+hotels for industry conferences, classes, mentorship programs, books, programs, videos, or other places that they feel will provide valuable learning experiences. These expenses should be discussed in one-on-ones and approved by the founder to whom the employee reports. This budget resets at the beginning of every calendar year and does not roll over.  The learning budget will be limited to $2,000 during the first year of implementation and for employees joining the company after the month of
+---
+Document: Continuing Education
+Section: Continuing Education > Learning Budget
+
+during the first year of implementation and for employees joining the company after the month of May in the calendar year.
+---
+Document: Continuing Education
+Section: Continuing Education > Learning Budget
+
+Employees can also use work hours to work on learning projects, though this should be limited to four hours a week.
+---
+Document: Continuing Education
+Section: Continuing Education > Speaker Support
+
+It makes Clef look great when our employees speak at industry conferences, so we love to support Clef employees who are invited to speak to their peers about their area of expertise. For each event, Clef will pay for the flights and hotel up to $1,000 dollars, and employees are each eligible for this benefit 4 times per year (this budget is separate from the learning budget). Employees should get approval from the founder they report to about which conferences are appropriate to speak at, and to
+---
+Document: Budgeting
+Section: Budgeting
+
+Budgeting (all spending except salaries, which, for the first 10 employees will not be included in these budgets) is done by the founders immediately after the company OKRs are set so that the budgets can reflect the company's goals for the quarter. The budgets will be quarterly and will initially be broken down into:  
+* Technical Infrastructure
+* Marketing
+* Business Development
+* Community Outreach
+* Security
+* Rent
+* Administration
+* Design Resources
+* Legal
+---
+Document: Budgeting
+Section: Budgeting
+
+* Community Outreach
+* Security
+* Rent
+* Administration
+* Design Resources
+* Legal  
+One person will be responsible for each area of spending, and all related expenses should be approved by that person. They will also be responsible for reporting the expenses at the end of the quarter.  
+The budget will be internally public so all employees can see where the company resources are going.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+**We offer a $5,000 referral bonus for any new hire that comes from an employee referral to help align company incentives with individual incentives.** All employees (except the founders) are eligible for the referral bonus. The referral date can’t be earlier than the date the job is posted and the hiring of the referred employee has to happen within 180 days (six months) of the initial referral. The referral must represent the candidate’s first contact with Clef, and only the first employee to","The **annual learning budget for each employee** at Clef is structured as follows:
+
+- **Standard annual budget**: **$4,000** (applies to most employees).
+- **First-year/limited budget**: **$2,000** for:
+  - Employees during the first year of implementation, or
+  - Employees joining the company **after May** in the calendar year.
+
+The budget covers expenses like:
+- Program fees/tuition
+- Conference tickets, flights, and hotels
+- Books, mentorship programs, videos, or other learning resources.
+
+**Key notes**:
+- The budget resets annually and does not roll over.
+- Expenses must be discussed in one-on-ones and approved by the reporting founder.","$4,000 per employee per year. It resets every calendar year and does not roll over. It is limited to $2,000 during the first year of implementation and for employees who join after May.",1.0,0.8298906492054751,0.9999999999,1.0,RAG_Query,What is the annual learning budget allocated per employee?
+q002,direct,How many weeks of paid new parent leave does Clef offer?,"Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Paid time off of any kind, including New Parent Leave, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has worked for Clef for 4 years will be eligible to take a sabbatical after 1 more year of work. If they took 12 weeks of new parent leave, when they returned they would still have 1 full year of work before they were eligible for their sabbatical.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Taking time off and recharging is critical to doing your best work at Clef, so in addition to the recognized [Holiday List](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Holiday%20List.md), Clef offers 3 weeks (15 days) of paid vacation every year that accrues 1.25 of a day per month of work. Employees should schedule their vacations, let the rest of the team know, and add it to their shared work calendar at least a week in advance.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+In California, State Disability Insurance and Paid Family Leave programs will pay part of an employees salary who are unable to work due to pregnancy and childbirth. It is illegal for an employer to overpay an employee while they are using those programs, so Clef will supplement them to maintain the employee's salary instead of paying the full salary on top of them.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+After every 5 years of working at Clef, employees are encouraged to take a one-quarter (12 contiguous weeks) paid sabbatical.  
+During this sabbatical, they should work on passion projects -- something outside the scope of their normal work that is interesting and exciting to them. This could be researching a topic of interest, working for the US Digital Service, helping a nonprofit, or something else altogether.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+To make sure that sabbatical is not overly disruptive to their team, employees should have taken fewer than twelve weeks of paid time off in the year before a sabbatical. They should also notify the team that they will be taking the sabbatical at least 4 weeks in advance.  
+There is an expectation that employees return to work at Clef after their sabbatical, and not use it as a soft exit from the company. We may set some policy to enforce this later.
+---
+Document: Welcome to Clef
+Section: Welcome to Clef > The Clef Team, Hours, and Office
+
+You should expect a typical workweek at Clef to be 45-50 hours. Most people show up between 9 and 10 and leave between 6 and 7. We don’t work weekends, but a lot of us host or go to events at night. This is to give you a sense of what’s normal here, but you should work the hours that are healthy and sustainable for you.
+---
+Document: Salary and Equity Compensation
+
+At Clef, we’re hoping to build a team that stays with the company and grows with us, so offering larger ownership of the company over a greater period of time aligns with our goals. If employees leave Clef before the 6 years, they will still own more of Clef than if we offered less equity that vested more quickly, but the longer vesting schedule makes our goal more explicit in the initial offer.",Clef offers **12 weeks of paid new parent leave** for all full-time employees after the birth or adoption of a child. This leave is available regardless of gender or sexual identity and must be taken within one year of the birth or adoption.,"12 weeks of paid leave for full-time employees after the birth or adoption of a child, to be taken within a year of the birth or adoption.",1.0,0.912151149499422,0.99999999995,1.0,RAG_Query,How many weeks of paid new parent leave does Clef offer?
+q003,direct,How much is the employee referral bonus?,"Document: Sourcing Candidates
+Section: Sourcing Candidates > Referrals
+
+We also offer a [$5,000 referral bonus](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Referral%20Bonuses.md) for any new hire that comes from an employee referral to help align company incentives with individual incentives.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+**We offer a $5,000 referral bonus for any new hire that comes from an employee referral to help align company incentives with individual incentives.** All employees (except the founders) are eligible for the referral bonus. The referral date can’t be earlier than the date the job is posted and the hiring of the referred employee has to happen within 180 days (six months) of the initial referral. The referral must represent the candidate’s first contact with Clef, and only the first employee to
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+candidate’s first 30 days of employment, and will be paid within 90 days of the referred employee’s first day. Any disputes or interpretations of this program should be sent to B.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+The referral must represent the candidate’s first contact with Clef, and only the first employee to refer a candidate can get the bonus. The referrer should send the candidate’s information to Brennen, should make an introduction to the candidate, and should expect to be engaged during the recruiting and interview process. The referring employee must still be employed by Clef during the hired candidate’s first 30 days of employment, and will be paid within 90 days of the referred employee’s
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+every month where we talk about which positions are open and go through everyone’s online networks looking for and thinking about candidates. Employees will do initial outreach to interesting connection, which will give us a good space to talk about how we start the recruiting process.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+Referrals from people who already work at Clef are one of the best signals we can get about whether or not a candidate will be successful at Clef. Clef employees understand Clef’s needs and what it’s like to work at Clef, and their relationship with the candidate means they know a lot more than we can learn during an interview process.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+In order to get good referrals, everyone needs to know which positions are open, know how to start the recruiting process, have time to search their network, and feel aligned with the company incentives. Open positions should be posted on getclef.com/about and also in the #hiring channel so that everyone sees who we’re trying to hire. We’ll host a company lunch with food on the second Tuesday of every month where we talk about which positions are open and go through everyone’s online networks
+---
+Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).","The **employee referral bonus** at Clef is **$5,000** for any new hire who is referred by an employee (excluding founders). The bonus applies under the following conditions:
+
+- The referral must be the candidate’s **first contact with Clef**.
+- The referred employee must be hired within **180 days (6 months)** of the initial referral.
+- The referring employee must still be employed by Clef during the referred candidate’s **first 30 days of employment**.
+- The bonus is paid **within 90 days** of the referred employee’s first day.
+- Only the **first employee to refer** the candidate is eligible.","$5,000 for any new hire that comes from an employee referral (all employees except the founders are eligible).",1.0,0.8143290278508936,0.99999999995,1.0,RAG_Query,What is the amount of the employee referral bonus offered by the company?
+q004,direct,How often do employees set their OKRs?,"Document: Objectives and Key Results
+Section: Tracking OKRs
+
+Every employee should keep track of their OKRs in their own Google Spreadsheet in the OKRs Folder. Within the spreadsheet, there should be a new sheet for each new quarter.  
+OKRS should be talked about every week in 1:1s to consider how each objective is progressing, places where help may be necessary, and how well they reflect current objectives.
+---
+Document: Objectives and Key Results
+Section: Setting OKRs
+
+Everyone at Clef sets their OKRs quarterly, writing them in the first week of the quarter and then evaluating them in the last week. At a startup it’s easy to focus on the immediate problems, but by setting our goals quarterly we ensure that everyone spends some time thinking about the challenges at least 3 months out.
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+and go over the company’s objectives. After this meeting, the new employee should write their OKRs for the rest of the quarter (this fractional quarter should be viewed as a sort of practice run). Another meeting to talk about the OKRs should be scheduled for the next day or two.
+---
+Document: Objectives and Key Results
+Section: Setting OKRs
+
+Each person should set 3 to 5 objectives for the quarter, and each objective should have a maximum of 4 key results. Each objective also has a Description explaining what it means and an Alignment that explains how it aligns with company-wide goals. Each key result should explain how it will be scored at the end of the quarter.
+---
+Document: Objectives and Key Results
+Section: Scoring and Evaluating OKRs
+
+OKRs should never be used in evaluating employee performance, and should be ambitious. An average score of 7 is ideal, and no one should ever get to a full 10. If they do, their goals were set too low.
+---
+Document: Objectives and Key Results
+
+Objectives and Key Results (OKRs) is a method for defining and keeping track of goals and their outcomes. They organize our goals by breaking them into high-level aspirations (objectives) and the measurable results that determine whether or not we’ve reached them (key results). OKRs are set at the company and individual level to help everyone see how their personal goals align with Clef’s goals, and also see how other people in the organization are working for the same outcomes from a different
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+After a week, the new employee should have their first one-on-one meeting. This meeting should go over all of the normal things that we cover in [One on Ones](https://docs.google.com/open?authuser=b%40getclef.com&id=1yVp1XzfjmHkwf_vQf-COInCHj2xd3b7ne_77YSleRgc), but should also probe about any gaps in their knowledge. Importantly, it should also cover [OKRs](https://docs.google.com/open?authuser=b%40getclef.com&id=1ZpDWejQiU5gDWz2mFPvOhdf1g2Xc6vu1kdrlCp3SimU), and go over the company’s
+---
+Document: Objectives and Key Results
+Section: Setting OKRs
+
+For every quarter, one goal should always be a learning or improvement objective. It should describe some skill or area of knowledge you want to expand, and then the concrete steps that you will complete in order to succeed at learning or improving it.","At **Clef**, employees set their **OKRs (Objectives and Key Results) quarterly**, following this process:
+
+- **When to set OKRs**:
+  - Employees write their OKRs in the **first week of each quarter**.
+  - For new employees, OKRs are set for the **fractional quarter** (remaining part of the first quarter) as a practice run, with a follow-up discussion within **1–2 days** of their first one-on-one meeting.
+
+- **Frequency of review**:
+  - OKRs are discussed **weekly in 1:1 meetings** to track progress, identify support needs, and ensure alignment with current objectives.
+
+- **Evaluation period**:
+  - OKRs are evaluated in the **last week of the quarter**.
+
+This aligns with the company’s approach to balancing immediate priorities with long-term planning.",Quarterly: OKRs are written in the first week of the quarter and evaluated in the last week.,1.0,0.8238750075327594,0.5833333333041666,1.0,RAG_Query,"How often do employees set their OKRs at the company, and what is the process for setting them?"
+q005,direct,What vesting schedule applies to employee equity at Clef?,"Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+The industry standard right now is 4 years, but at Clef, employees’ stock vests over 6 years. We offer much higher equity grants than the industry standard (about 2x in most cases), but it takes longer to earn them. This works out so that employees always come out ahead, even if they leave before their stock has fully vested, but helps us communicate that we’re looking for employees who want to build longer careers at Clef.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+helps keep the ownership of Clef stock to folks who have worked at the company for a meaningful amount of time.
+---
+Document: Salary and Equity Compensation
+
+At Clef, we’re hoping to build a team that stays with the company and grows with us, so offering larger ownership of the company over a greater period of time aligns with our goals. If employees leave Clef before the 6 years, they will still own more of Clef than if we offered less equity that vested more quickly, but the longer vesting schedule makes our goal more explicit in the initial offer.
+---
+Document: Salary and Equity Compensation
+
+The offer also comes with the option to take $5k less salary in exchange for ~.1% more equity.  
+At the beginning of each year (in January), we will adjust this rubric to make sure it stays at market rate.  
+Note: The three Clef founders' salaries do not follow this rubric and are all $50k per year.  
+##Equity
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+A cliff is a period at the beginning of the vesting period where your equity does not vest monthly, but instead vests at the end. At most companies, including Clef, this cliff happens at one year. This means that if you leave your job before you’ve worked for a whole year, none of your options will be vested. At the end of that year, you’ll vest the entire year’s worth of equity all at once. This helps keep the ownership of Clef stock to folks who have worked at the company for a meaningful
+---
+Document: Salary and Equity Compensation
+
+#Salary and Equity Compensation  
+The following policy will apply to compensation offers for the first 10 employees at Clef. After we have hired 10 people, we will likely revise the salary rubric and equity amount.  
+##Salary
+---
+Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+it (this situation is often referred to as ""golden handcuffs""). At Clef, we want our employees to keep the equity they earn, and we don't want to keep anyone working here if they're not happy, so we give employees the option to exercise their options up to 7 years after they leave Clef.","At **Clef**, employee equity vests over **6 years** with a **1-year cliff**. Here’s the breakdown based on the retrieved documents:
+
+- **Vesting Schedule**:
+  - **Total Vesting Period**: 6 years (longer than the industry standard of 4 years).
+  - **Cliff**: 1 year (no vesting until the employee completes their first year; at that point, the full year’s equity vests at once).
+
+- **Purpose**:
+  - The extended vesting aligns with Clef’s goal of fostering long-term careers by rewarding employees who stay and contribute meaningfully to the company.
+  - Even if an employee leaves before full vesting, they retain more equity than they would with a shorter vesting period (e.g., industry-standard 4 years).
+
+- **Equity Grant Size**:
+  - Employees receive **~0.9% of outstanding shares** (41,963 options) as part of their initial offer, with the option to increase this by reducing salary by **$5,000/year** (adding ~0.1% more equity).
+
+- **Key Notes**:
+  - The policy is designed to incentivize long-term commitment while ensuring employees benefit from their equity, even if they leave early.
+  - Founders’ salaries and equity are excluded from this standard policy.
+
+No database results were provided, so this answer is based solely on the documented policies.",Equity vests over 6 years with a 1-year cliff (the industry standard is 4 years with a 1-year cliff).,1.0,0.895166562691139,0.9999999999,1.0,RAG_Query,What is the vesting schedule for employee equity at Clef?
+q006,direct,What is Clef's mission statement?,"Document: Welcome to Clef
+Section: Welcome to Clef > The Basics about Clef
+
+**Clef is a values-driven company.** Hopefully you heard about this a lot during your interview process, but we take our values really seriously at Clef and they guide the decisions we make here. You can read more about the [Clef Values](https://github.com/clef/handbook/blob/master/Clef%20Values.md), but the short versions are:  
+* Be better today than yesterday  
+* Treat others the way they'd like to be treated  
+* Fight the default of exclusion
+---
+Document: Handbook Introduction
+Section: Clef Policies
+
+Welcome!  
+We are pleased to have you join Clef Inc. (“Clef” or the “Company”).  We are building a team that understands our mission and core values and will help us to advance these objectives.  The purpose of this handbook is to familiarize you with the way we do business and engage in the community.  Your suggestions, questions or comments are welcome at all times and will help us to improve as we grow.
+---
+Document: Welcome to Clef
+Section: Welcome to Clef > The Future
+
+Clef is a small company that is changing and improving rapidly. Today is about welcoming you and helping you join our team, but soon we’ll need your help growing and learning. Clef will be a very different company a year from today, and it’s hard to imagine what it will be like in 5 or 10. You will have a hand in building that company, and we’re so excited to have your help.
+---
+Document: Product Manifesto
+Section: Product Manifesto
+
+**At Clef, our core product value is clarity.**  
+Prioritizing clarity means that Clef will always be accessible and unscary for our users. It empowers them to feel in control of and protect their identity, as well as understand and engage with the concept of security online. Done with beauty, the experience of logging in with Clef creates a sense of magic and wonder that is impossible to fake.
+---
+Document: Welcome to Clef
+Section: Welcome to Clef > The Clef Team, Hours, and Office
+
+For now, Clef operates as a single team where everyone is working towards company-level goals. Since we’re still small, there’s not too much overhead in keeping up with everyone. There are still engineering-specific meetings, and marketing conversations that happen separately. But when we set our goals, we all think directly about how we contribute to the company goals. You’ll get to work with everyone at Clef in some capacity, and dip your fingers into all different kinds of thinking.
+---
+Document: Welcome to Clef
+Section: Welcome to Clef > The Basics about Clef
+
+**Our ambition is huge.** We want to build the identity standard for the Internet. This is a massive undertaking, and we have to be a little bit delusional to believe that we can do it. But every day we’re making progress and we’ve already taken this a lot further than anyone said was possible, so we’re used to making the impossible happen. This is hard, daunting work, but that’s how we make a dent on the world.
+---
+Document: Clef Values
+Section: Clef Core Values > Treat others the way they'd like to be treated.
+
+Our customers and teammates have different needs from our own, so we must consider their  perspectives to communicate effectively. We work best together when we empathize with one another, and we create the best product when we understand the people we are building for.
+---
+Document: Equal Opportunity Employment
+Section: Equal Opportunity Employment
+
+Clef is an Equal Opportunity Employer. The company supports diversity and inclusion in its core values and does not discriminate against qualified employees or applicants because of race, color, religion, gender identity, sex, sexual preference, sexual identity, pregnancy, national origin, ancestry, citizenship, age, marital status, physical disability, mental disability, medical condition, military status, or any other characteristic protected by federal or state law or local ordinance. When","Based on the retrieved document chunks, **Clef’s mission statement is not explicitly stated** in the provided materials. However, the following details from the documents suggest the company’s **ambition and guiding principles**:
+
+1. **From *Welcome to Clef > The Basics about Clef***:
+   *""Our ambition is huge. We want to build the **identity standard for the Internet**.""*
+
+2. **From *Product Manifesto***:
+   *""Our core product value is **clarity**—prioritizing accessibility, security, and empowering users to control their identity online.""*
+
+3. **From *Handbook Introduction***:
+   The handbook’s purpose is to *""familiarize [employees] with the way we do business and engage in the community""* while advancing Clef’s **mission and core values**.
+
+---
+**Summary of Implied Mission**:
+Clef aims to **redefine internet identity** by creating a **secure, user-friendly, and inclusive standard**—empowering individuals to protect and control their digital presence with clarity and ease.
+
+---
+**Note**: If you need the **exact formal mission statement** (e.g., from a corporate website or official handbook), please clarify or provide additional context. The current documents emphasize **values, ambition, and product philosophy** rather than a single declarative mission.",To empower everyone to own their identity online.,0.7,0.0,0.2916666666520833,0.0,RAG_Query,What is Clef's mission statement?
+q007,direct,Which week of the quarter is hack week?,"Document: Hack Weeks
+Section: Hack Weeks
+
+The sixth week of every quarter at Clef is a hack week. We stop working on our normal projects and create small teams to work on little projects that we are excited about and can finish in a week. Anyone can propose a project, and there are no rules about what is allowed to be worked on except that it should be related to Clef. Every employee decides what they want to work on, so projects that require more than one person also need to convince other employees to work with them. Anyone can work
+---
+Document: Hack Weeks
+Section: Hack Weeks
+
+Lunch should be ordered in or prepared as group so that everyone eats together. This is meant to be a communal week where everyone is working, talking, and thinking together. Getting projects finished in a week will be tight, and the goal is for everyone to work on projects that they’re excited about, so there should be a general buzz of energy.
+---
+Document: Hack Weeks
+Section: Hack Weeks
+
+We’ll also experiment with doing some of these hack weeks off site, and bringing in interesting speakers to spark some creativity at the beginning of the week.  
+At the end of the day on Friday, each team will present their project to the rest of the company, and then we’ll host a hack week celebration.
+---
+Document: Hack Weeks
+Section: Hack Weeks
+
+more than one person also need to convince other employees to work with them. Anyone can work on a project solo, but teams are encouraged and can be up to 4 people working on the same project. As much as possible, teams should be cross-organizational to give people a chance to work with folks who they don’t work with on a daily basis.
+---
+Document: Code of Conduct in the Community
+Section: Code of Conduct
+
+Participants asked to stop any harassing behavior are expected to comply immediately. Community members violating these rules may be sanctioned or removed from community spaces. If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact B (b@getclef.com) or one of the other founders immediately.  
+Adapted from the [Hack Code of Conduct](http://hackcodeofconduct.org/).
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+and go over the company’s objectives. After this meeting, the new employee should write their OKRs for the rest of the quarter (this fractional quarter should be viewed as a sort of practice run). Another meeting to talk about the OKRs should be scheduled for the next day or two.
+---
+Document: Onboarding
+Section: Before Arrival
+
+8. [A great explanation of Bitcoin](http://priceonomics.com/post/47135650437/are-bitcoins-the-future)  
+4. Payroll, benefits, etc. set up -- introduce to Patricia, who will manage this process  
+5. Put 3 events on whole team’s calendar -- NAME’s First Day, Team Lunch to welcome NAME, and Team Celebration of NAME’s First Day.
+---
+Document: Budgeting
+Section: Budgeting
+
+* Community Outreach
+* Security
+* Rent
+* Administration
+* Design Resources
+* Legal  
+One person will be responsible for each area of spending, and all related expenses should be approved by that person. They will also be responsible for reporting the expenses at the end of the quarter.  
+The budget will be internally public so all employees can see where the company resources are going.","**Answer:**
+Hack Week at Clef occurs in **the sixth week of every quarter**. This is explicitly stated in the retrieved document chunks under the ""Hack Weeks"" section.",The sixth week of every quarter.,0.5,0.8297402326776542,0.9999999999,1.0,RAG_Query,"What week of the quarter is designated as hack week, and are there any specific rules or guidelines about it?"
+q008,direct,How long should a weekly one on one meeting last?,"Document: One on Ones
+Section: One on Ones
+
+Every week, every member of the Clef team meets with their manager in an open ended meeting that lasts at least thirty minutes. The agenda for the one on one is set by the employee and its primary intention is to build a trusting relationship. This is not a status check-up or performance evaluation, it’s dedicated time where the manager is available to hear what each member of their team is excited or frustrated about, what is blocking or scaring them, and what’s going well or could use
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+After a week, the new employee should have their first one-on-one meeting. This meeting should go over all of the normal things that we cover in [One on Ones](https://docs.google.com/open?authuser=b%40getclef.com&id=1yVp1XzfjmHkwf_vQf-COInCHj2xd3b7ne_77YSleRgc), but should also probe about any gaps in their knowledge. Importantly, it should also cover [OKRs](https://docs.google.com/open?authuser=b%40getclef.com&id=1ZpDWejQiU5gDWz2mFPvOhdf1g2Xc6vu1kdrlCp3SimU), and go over the company’s
+---
+Document: Effective Meetings
+Section: Effective meetings and group work > Meeting Ettiquette > Meetings happen in regular hours
+
+All team members should make themselves available for face-to-face meetings between 10:30am-1:00p Pacific Time, as long as they are scheduled at least 24 hours in advance. If a meeting needs to happen outside of these hours, the meeting organizer should scheduled it a week in advance.
+---
+Document: One on Ones
+Section: One on Ones > Scheduling
+
+One on ones should be a recurring calendar event at the same time every week, but the schedule is meant to be regular, not rigid. The meeting can be moved if another event is happening at the same time or if the team member feels like they need more time on a given week. The important thing is that the manager makes it a priority to find time for the meeting.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Give the team heads up  
+You should give everyone on the team as much notice as possible, but at least 7 days. This will ensure everyone can plan their meetings and work accordingly.  
+Always take the following steps to let the team know:  
+* Post in #office with a @channel tag so everyone sees the notification
+* Communicate verbally with the people you work closest with
+* Update your calendar to mark which days you are working remotely  
+#### Plan & Prepare Beforehand
+---
+Document: Onboarding
+Section: The First Day
+
+* The employee should push something public live during their first day. That might be a code commit, a design change, or a blog post depending on their position, but publishing something is important. This ensures that they’re getting set up to contribute and that they don’t feel restricted while they get up to speed.  
+* The whole team should eat lunch out together, and this should be put on calendars as far in advance as possible so people don’t schedule other meetings.
+---
+Document: One on Ones
+Section: One on Ones > Scheduling
+
+Making time for one on ones helps every team member feel like their manager cares about the relationship with them and that their manager is prioritizing their needs.
+---
+Document: Onboarding
+Section: The First Day
+
+* The person in charge of onboarding should block out the whole day and plan to spend it with the new employee helping them get set up. In practice, they won’t need the attention for the entire day, but should never be stranded when they do need it.","Based on the retrieved document chunks, the recommended duration for a **weekly one-on-one meeting** at the company is:
+
+**At least 30 minutes.**
+The meeting is described as an **""open-ended""** session focused on building trust, discussing challenges, successes, and personal concerns—not a status check or performance review. While 30 minutes is the minimum, the schedule is flexible to accommodate longer discussions if needed.
+
+Key points from the documents:
+- *""Every week, every member of the Clef team meets with their manager in an open-ended meeting that lasts **at least thirty minutes**.""*
+- *""The meeting can be moved if another event is happening at the same time or if the team member feels like they need more time on a given week.""*",At least thirty minutes. One on ones happen every week between each team member and their manager.,0.875,0.8363194332734681,0.9999999999,1.0,RAG_Query,What is the recommended duration for a weekly one-on-one meeting at the company?
+q009,direct,How many interviews does each candidate go through?,"Document: Interview Process
+Section: Interview Process
+
+Every candidate should go through three interviews that help us find the right person for the job.
+---
+Document: Interview Process
+Section: Technical Interview —2 Hour
+
+The last 30 minutes should be used for questions and answers from both sides. This interview should filter out 50-70% of candidates (of the remaining 20%), and by the end of it, the lead interviewer should have an opinion on whether or not the candidate is the right person for the job.  
+This interview can take place over video chat, though we should work to have it in person when possible.
+---
+Document: Interview Process
+Section: Informal/Coffee —30 Minutes
+
+The idea is to spend 30 minutes getting to know the candidate and letting them ask questions about Clef and the position. This has screened about 80% of candidates so far, which seems about right. It should be pretty transparent if the candidate’s experience or interests are misaligned for the job.  
+This interview should also focus on selling Clef and recruiting promising candidates, as this is their first real contact with Clef and their desire to work here will be formed in this meeting.
+---
+Document: Interview Process
+Section: Technical Interview —2 Hour
+
+The technical interview is a chance to dive into the candidate’s ability at the job they’re interviewing for. The lead on this hire should prepare two exercises which will each take 45 minutes, one which goes into high level thinking for the position and the other which focuses on more low level implementation.
+---
+Document: Interview Process
+Section: Informal/Coffee —30 Minutes
+
+A resume or online profile can tell us a lot about what a candidate has done, but the first thing we need to find out is what they want to do next, and whether that matches what we’re looking for at Clef. This interview can happen over the phone, Skype, in the office, or out at a coffee shop.
+---
+Document: Interview Process
+Section: Informal/Coffee —30 Minutes
+
+This interview can take place over video chat, though we should work to have it in person when possible.
+---
+Document: Interview Process
+Section: Team Fit —Full Day
+
+Finally, the candidate should come in for a whole day of talking to and working with the team. In the morning they'll drill into a much more challenging problem than they had to deal with in their technical interview. We want to get a sense for how candidates handle something out of their comfort zone, how they ask for help, etc. It’s also important that candidates feel like they’ve earned their offer by the time they get it, so this part of the process should be hard!
+---
+Document: Interview Process
+Section: Team Fit —Full Day
+
+After the morning exercises, candidates go out to lunch with the team before coming back to the office for one on ones with everyone. As we get a little bigger, this might need to be one on twos to fit conversations into a reasonable amount of time.  
+This interview should always take place in the office, with all travel expenses covered by Clef.","Based on the retrieved document chunks, **each candidate goes through three interviews** as part of the interview process at Clef:
+
+1. **Informal/Coffee Interview (30 minutes)** – A casual meeting to assess alignment with the role and company culture.
+2. **Technical Interview (2 hours)** – A structured assessment of the candidate’s technical skills through exercises.
+3. **Team Fit Interview (Full Day)** – A day-long immersion with the team to evaluate problem-solving, collaboration, and cultural fit.
+
+The overarching document explicitly states:
+*""Every candidate should go through **three interviews** that help us find the right person for the job.""*","Three: an informal coffee interview (30 minutes), a technical interview (2 hours) and a full-day team fit interview.",1.0,0.8817194164157844,0.0,1.0,RAG_Query,"What is the standard interview process for candidates, specifically how many interview rounds or stages are typically involved?"
+q010,direct,How many days of paid vacation do employees get each year?,"Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Employees also accrue 1 hour of sick leave for every 30 hours of work, but cannot accrue more than 5 days of sick leave.  
+Employees should report vacation and sick days to the founder they report to, who will mark it in the payroll system (which keeps track of accrued days and should include them on every pay stub).  
+Employees with chronic or terminal illnesses should talk with the founder they report to about their needs for remote work, flexible time, disability leave and/or other support.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Taking time off and recharging is critical to doing your best work at Clef, so in addition to the recognized [Holiday List](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Holiday%20List.md), Clef offers 3 weeks (15 days) of paid vacation every year that accrues 1.25 of a day per month of work. Employees should schedule their vacations, let the rest of the team know, and add it to their shared work calendar at least a week in advance.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+Paid time off of any kind, including Sabbatical, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has accrued 3 sick days before taking a 12 week sabbatical will still have 3 available sick days when they return.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Paid time off of any kind, including New Parent Leave, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has worked for Clef for 4 years will be eligible to take a sabbatical after 1 more year of work. If they took 12 weeks of new parent leave, when they returned they would still have 1 full year of work before they were eligible for their sabbatical.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+To make sure that sabbatical is not overly disruptive to their team, employees should have taken fewer than twelve weeks of paid time off in the year before a sabbatical. They should also notify the team that they will be taking the sabbatical at least 4 weeks in advance.  
+There is an expectation that employees return to work at Clef after their sabbatical, and not use it as a soft exit from the company. We may set some policy to enforce this later.
+---
+Document: Employee Proprietary Information and Inventions Assignment Agreement
+Section: Employee Proprietary Information and Inventions Assignment Agreement
+
+1. Employees, Consultants.  Employee agrees that during the term of the employment, and for a period of twelve (12) months immediately following the termination of employment  for any reason, whether with or without cause, Employee shall not, directly or indirectly, solicit, induce, recruit or encourage any of the Company’s employees or consultants to terminate their relationship with the Company, or attempt to solicit, induce, recruit, encourage or take away employees or consultants of the
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+candidate’s first 30 days of employment, and will be paid within 90 days of the referred employee’s first day. Any disputes or interpretations of this program should be sent to B.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.","Based on the retrieved document chunks, **employees at Clef receive 3 weeks (15 days) of paid vacation each year**. This vacation accrues at a rate of **1.25 days per month of work**.
+
+The policy also states that employees should schedule vacations in advance and communicate their time off to their team.","3 weeks (15 days) per year, accruing 1.25 days per month of work.",1.0,0.8204323346194801,0.49999999995,1.0,RAG_Query,How many days of paid vacation does the company offer to employees each year?
+q011,paraphrased,"If I get invited to talk at an industry conference, how much of my travel will the company pay for?","Document: Continuing Education
+Section: Continuing Education > Speaker Support
+
+It makes Clef look great when our employees speak at industry conferences, so we love to support Clef employees who are invited to speak to their peers about their area of expertise. For each event, Clef will pay for the flights and hotel up to $1,000 dollars, and employees are each eligible for this benefit 4 times per year (this budget is separate from the learning budget). Employees should get approval from the founder they report to about which conferences are appropriate to speak at, and to
+---
+Document: Continuing Education
+Section: Continuing Education > Learning Budget
+
+hotels for industry conferences, classes, mentorship programs, books, programs, videos, or other places that they feel will provide valuable learning experiences. These expenses should be discussed in one-on-ones and approved by the founder to whom the employee reports. This budget resets at the beginning of every calendar year and does not roll over.  The learning budget will be limited to $2,000 during the first year of implementation and for employees joining the company after the month of
+---
+Document: Continuing Education
+Section: Continuing Education > Learning Budget
+
+Every employee has a company budget to support any learning activity that they want to pursue related to the work they do at Clef. This doesn’t need to be a class explicitly linked to their current role, but it should help them improve a skill that will be useful for them at Clef. Each employee has an annual budget of $4,000 which can be spent towards program fees/tuition, tickets, flights, and hotels for industry conferences, classes, mentorship programs, books, programs, videos, or other
+---
+Document: Onboarding
+Section: Before Arrival
+
+8. [A great explanation of Bitcoin](http://priceonomics.com/post/47135650437/are-bitcoins-the-future)  
+4. Payroll, benefits, etc. set up -- introduce to Patricia, who will manage this process  
+5. Put 3 events on whole team’s calendar -- NAME’s First Day, Team Lunch to welcome NAME, and Team Celebration of NAME’s First Day.
+---
+Document: Continuing Education
+Section: Continuing Education > Speaker Support
+
+from the founder they report to about which conferences are appropriate to speak at, and to make sure that conference dates don’t interfere with important company dates.
+---
+Document: Employee Proprietary Information and Inventions Assignment Agreement
+Section: Employee Proprietary Information and Inventions Assignment Agreement
+
+the Company for any and all costs and expenses, including reasonable attorneys’ fees, incurred by the Company in enforcing Employee’s obligations hereunder.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+**We offer a $5,000 referral bonus for any new hire that comes from an employee referral to help align company incentives with individual incentives.** All employees (except the founders) are eligible for the referral bonus. The referral date can’t be earlier than the date the job is posted and the hiring of the referred employee has to happen within 180 days (six months) of the initial referral. The referral must represent the candidate’s first contact with Clef, and only the first employee to
+---
+Document: Employee Proprietary Information and Inventions Assignment Agreement
+Section: Employee Proprietary Information and Inventions Assignment Agreement
+
+and agreed that the Company shall be entitled, in the event of a breach or a threatened breach by Employee of any of the provisions of this Agreement, to a temporary restraining order, preliminary injunction and permanent injunction in order to prevent or restrain any such breach by Employee.  These remedies are in addition to any remedies available at equity or at law.  Employee agrees to reimburse the Company for any and all costs and expenses, including reasonable attorneys’ fees, incurred","If you are invited to speak at an industry conference, **Clef will cover your travel expenses**, including flights and hotel, up to **$1,000 per event**. This benefit is available **4 times per year** and is separate from the learning budget.
+
+To qualify, you must:
+- Get approval from the founder you report to regarding the appropriateness of the conference.
+- Ensure the conference dates do not conflict with important company dates.","Clef pays for flights and hotel up to $1,000 per event, for up to 4 events per year. This is separate from the learning budget and needs approval from the founder you report to.",0.8571428571428571,0.8352536362374919,0.9999999999,1.0,RAG_Query,How much does the company cover for travel expenses when an employee is invited to speak at an industry conference?
+q012,paraphrased,How much paid time off do I get when a close relative dies?,"Document: Other Protected Absences
+Section: Other Protected Absences > Bereavement Leave
+
+An employee who wishes to take time off due to the death of an immediate family member should notify the founder to whom they report. Paid bereavement leave will be granted up to three consecutive days for the death of a family member including the following:  spouse, domestic partner, cohabitant, child, stepchild, grandchild, parent, stepparent, mother-in-law, father-in-law, son-in-law, daughter-in-law, grandparent, great grandparent, or sibling.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Paid time off of any kind, including New Parent Leave, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has worked for Clef for 4 years will be eligible to take a sabbatical after 1 more year of work. If they took 12 weeks of new parent leave, when they returned they would still have 1 full year of work before they were eligible for their sabbatical.
+---
+Document: Other Protected Absences
+Section: Other Protected Absences > Jury Duty or Witness Summons
+
+Employees will be granted up to 3 days paid time to serve on a jury or as a witness.  In order to minimize disruption in the office, employees are requested to check in with the founder to whom they report when jury duty or witness testimony lasts less than four hours per day and may be requested to work remotely.  A copy of the jury duty or witness summons and all associated documents must be presented to the founder to whom you report as soon as reasonably possible.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Employees also accrue 1 hour of sick leave for every 30 hours of work, but cannot accrue more than 5 days of sick leave.  
+Employees should report vacation and sick days to the founder they report to, who will mark it in the payroll system (which keeps track of accrued days and should include them on every pay stub).  
+Employees with chronic or terminal illnesses should talk with the founder they report to about their needs for remote work, flexible time, disability leave and/or other support.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+All employees receive Short Term Disability Insurance and Long Term Disability Insurance. All employees are also covered by Death and Dismemberment Insurance coverage at one times earnings (with some age restrictions that start at age 65).  
+Clef offers a medical waiver allowance of $25 per month for employees who have other medical coverage and choose to waive medical coverage through TriNet.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+Your stock options expire 10 years after they were issued. You have 7 years to exercise your options after you stop working at Clef, but by law the options only count as ISOs for 90 days after you stop working. Once those 90 days are up, the options count as non-qualified stock options, so they count as income and are subject to income tax when you exercise them.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Taking time off and recharging is critical to doing your best work at Clef, so in addition to the recognized [Holiday List](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Holiday%20List.md), Clef offers 3 weeks (15 days) of paid vacation every year that accrues 1.25 of a day per month of work. Employees should schedule their vacations, let the rest of the team know, and add it to their shared work calendar at least a week in advance.","Based on the retrieved document chunks, here is the answer to your question:
+
+**Bereavement Leave Policy:**
+When a close relative dies, you are eligible for **up to 3 consecutive days of paid bereavement leave**. This applies to the death of an **immediate family member**, including:
+- Spouse
+- Domestic partner
+- Cohabitant
+- Child, stepchild, or grandchild
+- Parent, stepparent, mother-in-law, father-in-law, son-in-law, or daughter-in-law
+- Grandparent or great-grandparent
+- Sibling
+
+To take this leave, you should notify the founder to whom you report.","Up to three consecutive days of paid bereavement leave for the death of an immediate family member (spouse, domestic partner, child, parent, grandparent, sibling, in-laws, and so on).",1.0,0.7425887701321946,0.9999999999,1.0,RAG_Query,How much paid time off does the company offer when a close relative dies?
+q013,paraphrased,"If I leave the company, how long can I still buy my vested stock?","Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+The industry standard right now is 4 years, but at Clef, employees’ stock vests over 6 years. We offer much higher equity grants than the industry standard (about 2x in most cases), but it takes longer to earn them. This works out so that employees always come out ahead, even if they leave before their stock has fully vested, but helps us communicate that we’re looking for employees who want to build longer careers at Clef.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+Instead of giving you all of your options on day one, you get them over time. This process is called vesting and different companies offer vesting schedules of different lengths. If you had a basic 2 year vesting period, you would own a quarter of your stock after 6 months, half of your stock after a year, and all of it after 2 years.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+Your stock options expire 10 years after they were issued. You have 7 years to exercise your options after you stop working at Clef, but by law the options only count as ISOs for 90 days after you stop working. Once those 90 days are up, the options count as non-qualified stock options, so they count as income and are subject to income tax when you exercise them.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+it (this situation is often referred to as ""golden handcuffs""). At Clef, we want our employees to keep the equity they earn, and we don't want to keep anyone working here if they're not happy, so we give employees the option to exercise their options up to 7 years after they leave Clef.
+---
+Document: Salary and Equity Compensation
+
+At Clef, we’re hoping to build a team that stays with the company and grows with us, so offering larger ownership of the company over a greater period of time aligns with our goals. If employees leave Clef before the 6 years, they will still own more of Clef than if we offered less equity that vested more quickly, but the longer vesting schedule makes our goal more explicit in the initial offer.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+Traditionally, employers have made options expire quickly after employees stop working at the company because the company also has to pay tax on the options when they are non-qualified and considered income. However, this means that many cannot afford to exercise their options and so either a) leave the company and lose the equity they worked hard for or b) stay at the company until they can afford it (this situation is often referred to as ""golden handcuffs""). At Clef, we want our employees to
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+helps keep the ownership of Clef stock to folks who have worked at the company for a meaningful amount of time.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+However, there is a very significant increase in the tax burden of exercising options 90 days after leaving Clef that we cannot control. This means that while you have more options regarding your equity, you will lose a significant amount of your options' value if you wait. In weighing your different options, you should consult a tax attorney to help decide what path makes the most sense for you.","At Clef, if you leave the company, you have **7 years** to exercise your vested stock options. This window allows you to retain and potentially benefit from your equity even after leaving.
+
+Key details:
+- Your stock options expire **10 years after issuance**, but the **7-year exercise window** begins after you stop working at Clef.
+- For tax purposes, the options remain **Incentive Stock Options (ISOs)** for **90 days** after leaving. After that, they convert to **non-qualified stock options**, which are subject to income tax when exercised.
+- The company’s policy explicitly supports this flexibility to avoid ""golden handcuffs"" and ensure employees can exercise options even if they leave early.","Employees have 7 years after leaving to exercise vested options. However, the options only qualify as ISOs for 90 days after leaving; after that they are treated as non-qualified options and taxed as income when exercised.",0.8888888888888888,0.829944020676079,0.4166666666458333,1.0,RAG_Query,How long can an employee continue to purchase vested stock after leaving the company?
+q014,paraphrased,Can I expect messages I send from my work email address to stay private if I label them personal?,"Document: Employee Privacy
+Section: Employee Privacy > Use of the Email System for Personal Email
+
+The email system is intended for official Company business. If you send personal messages through the Company’s email system, you must exercise discretion as to the number and type of messages you send. You must also ensure that your personal use of the email system does not interfere in any way with your job duties or performance.
+---
+Document: Employee Privacy
+Section: Employee Privacy > Professional Tone and Content
+
+recipients. You should not send any email/message/update/etc. that you wouldn’t want our team, your family, or our competitors to read.
+---
+Document: Employee Privacy
+Section: Employee Privacy > Email Is Not Private
+
+Email messages, including attachments, sent and received from a Clef email address are the property of Clef. We reserve the right to access, monitor, read, and/or copy email messages at any time, for any reason. You should not expect privacy for any email you send using your Clef email, including messages that you consider to be personal or label with a designation such as “Personal” or “Private.”
+---
+Document: Employee Privacy
+Section: Employee Privacy > Email and Internet Privacy
+
+Clef email and Internet are not being actively monitored by anyone, but because they are company resources that are managed according to company policy, you should not expect privacy from either. The company has both the ability and the right to look at employee usage for both in order to protect employee safety and wellbeing, as well as company property and interests.
+---
+Document: Employee Privacy
+Section: Employee Privacy > Professional Tone and Content
+
+We expect you to exercise discretion in using electronic communications equipment. When you send email using a Clef email address or Clef social account, you are representing Clef. Make sure that your messages are professional and appropriate, in tone and content. Remember, although email or social media may seem like a private conversation, they can be printed, saved, and forwarded to unintended recipients. You should not send any email/message/update/etc. that you wouldn’t want our team, your
+---
+Document: Employee Privacy
+Section: Employee Privacy > All Conduct Rules Apply to Email
+
+All of our policies and rules of conduct apply to employee use of the email system. This means, for example, that you may not use the email system to send harassing or discriminatory messages, including messages with explicit sexual content or pornographic images; to send threatening messages; or to reveal company trade secrets.
+---
+Document: Employee Privacy
+Section: Employee Privacy > Email Security
+
+the body of the email; it may have been transmitted automatically, without the sender’s knowledge.
+---
+Document: Employee Privacy
+Section: Employee Privacy > Email Security
+
+To avoid email viruses, phishing for account information, and other threats, employees should not open email attachments from people and businesses they don’t recognize, particularly if the email appears to have been forwarded multiple times or has a nonexistent or peculiar subject heading. Even if you know the sender, do not open an email attachment that has a strange name or is not referenced in the body of the email; it may have been transmitted automatically, without the sender’s knowledge.","No, you **cannot** expect messages sent from your work email address to remain private, even if you label them as ""personal.""
+
+According to the company's **Employee Privacy Policy** (specifically in the section *""Email Is Not Private""*):
+- **All emails sent from a company email address (including those marked ""Personal"" or ""Private"") are the property of the company.**
+- The company **reserves the right to access, monitor, read, or copy emails at any time for any reason.**
+- You should **not assume privacy** for any messages sent via your work email, regardless of labeling.
+
+The policy also emphasizes that:
+- Emails can be **saved, forwarded, or printed** without your knowledge.
+- Even if the system is not actively monitored, the company retains the ability to review usage for **safety, security, and compliance purposes**.
+
+For full details, refer to the **Employee Privacy Policy** under *""Email Is Not Private""* and *""Email and Internet Privacy.""*","No. Email sent or received on a Clef address is company property and can be accessed, monitored, read or copied at any time, even if labeled ""Personal"" or ""Private"".",1.0,0.9298054806328353,0.9999999999833333,1.0,RAG_Query,What is the company's policy on privacy for messages sent from work email addresses that are labeled as personal?
+q015,paraphrased,How does a new hire get to wrap up their first day with the team?,"Document: Interview Process
+Section: Team Fit —Full Day
+
+Finally, the candidate should come in for a whole day of talking to and working with the team. In the morning they'll drill into a much more challenging problem than they had to deal with in their technical interview. We want to get a sense for how candidates handle something out of their comfort zone, how they ask for help, etc. It’s also important that candidates feel like they’ve earned their offer by the time they get it, so this part of the process should be hard!
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+After a week, the new employee should have their first one-on-one meeting. This meeting should go over all of the normal things that we cover in [One on Ones](https://docs.google.com/open?authuser=b%40getclef.com&id=1yVp1XzfjmHkwf_vQf-COInCHj2xd3b7ne_77YSleRgc), but should also probe about any gaps in their knowledge. Importantly, it should also cover [OKRs](https://docs.google.com/open?authuser=b%40getclef.com&id=1ZpDWejQiU5gDWz2mFPvOhdf1g2Xc6vu1kdrlCp3SimU), and go over the company’s
+---
+Document: Onboarding
+Section: The First Day
+
+* The employee should push something public live during their first day. That might be a code commit, a design change, or a blog post depending on their position, but publishing something is important. This ensures that they’re getting set up to contribute and that they don’t feel restricted while they get up to speed.  
+* The whole team should eat lunch out together, and this should be put on calendars as far in advance as possible so people don’t schedule other meetings.
+---
+Document: Onboarding
+Section: Onboarding
+
+This document is about the general priorities and policies for how we as a company bring new employees onto the team. As a new person on the team, if you have questions about starting at Clef, check out [Your First Day at Clef](https://docs.google.com/document/d/1vvJfWH7lP808mAlKPr8JwUx0HvkiidzS_bkwB8wqA7M).  
+We may also create specific onboarding recommendations for different roles in the future.
+---
+Document: Interview Process
+Section: Team Fit —Full Day
+
+After the morning exercises, candidates go out to lunch with the team before coming back to the office for one on ones with everyone. As we get a little bigger, this might need to be one on twos to fit conversations into a reasonable amount of time.  
+This interview should always take place in the office, with all travel expenses covered by Clef.
+---
+Document: Onboarding
+Section: The First Day
+
+* The day should end at 5, and at the end of the day, the new employee has the option of how to celebrate (a team high five, a drink out, or dinner). They should pick one before the day starts so the team can plan, but they can also change their answer at the end of the day.
+---
+Document: Onboarding
+Section: The First Day
+
+* The new employee should arrive to a desk with their new computer, monitor, keyboard, mouse, etc. set up and ready for them. So far, we have opened the computer, updated software and installed tools, then reboxed it (because the unboxing process of a new computer is nice, but this helps save them annoying time on the first day). There should also be a nice note signed by the team, a copy of Daring Greatly, and anything else that feels welcoming or personal to them.
+---
+Document: Onboarding
+Section: The First Day
+
+A new employee’s first day is critical to making them feel welcome at Clef. The goals of the first day are to help them get set up, situated, and comfortable with the team. It is the responsibility of the person who led their hiring process to make sure that happens.  
+Some guidelines for the first day:  
+* The day should start at 10:00 — this lowers the commute stress and gives us time to set up their desk and get the team ready for them.","Here’s how a new hire can wrap up their first day with the team at your company, based on the retrieved document chunks:
+
+### **How the First Day Ends**
+1. **Team Celebration Option**
+   - The new employee has the choice of how to celebrate the end of their first day, such as:
+     - A team high five
+     - A drink out
+     - Dinner
+   - They should select their preference **before the day starts** (or can change it at the end of the day).
+   - The team will plan accordingly to accommodate their choice.
+
+2. **Day Ends at 5 PM**
+   - The first day officially concludes at **5:00 PM**, allowing time for the celebration.
+
+---
+**Key Notes:**
+- The focus of the first day is on making the new hire feel **welcome, set up, and comfortable** with the team.
+- The hiring manager or team lead is responsible for ensuring a smooth and positive experience.","They choose one of three options: a group high five and cheer, a drink or dessert nearby, or dinner nearby. They should pick before the day starts so the team can plan, but can change their answer at the end of the day.",0.8571428571428571,0.9315566105235371,0.16666666665,0.5,RAG_Query,"How does a new hire typically wrap up their first day with the team? Include details about company culture, team integration, or any formal or informal processes."
+q016,paraphrased,How quickly does the team need to get back to someone who applies directly through the website?,"Document: Sourcing Candidates
+Section: Sourcing Candidates > Inbound Applications
+
+Every inbound application should receive a response from the Clef team within 3 days so that they feel heard and like they were able to reach us personally.  
+Note: We use Workable to manage candidates, but when you ""Disqualify"" a candidate on Workable, it does not send the candidate an email or let them know that they have been disqualified. You should always send the candidate an email before you Disqualify them.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Give the team heads up  
+You should give everyone on the team as much notice as possible, but at least 7 days. This will ensure everyone can plan their meetings and work accordingly.  
+Always take the following steps to let the team know:  
+* Post in #office with a @channel tag so everyone sees the notification
+* Communicate verbally with the people you work closest with
+* Update your calendar to mark which days you are working remotely  
+#### Plan & Prepare Beforehand
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Slack
+
+#### Slack Status  
+There are 4 states in which a teammate can be in on Slack:  
+1. *Active (green)*. Similar to when someone is sitting at their desk in the office, they are considered available and can be expected to respond in the range of a few minutes to an hour.
+2. *Do not disturb (green)*. This teammate is at their computer, but focusing. Expect a response when they are done with whatever they are focusing on, but don't wait for them.
+---
+Document: Interview Process
+Section: Technical Interview —2 Hour
+
+The last 30 minutes should be used for questions and answers from both sides. This interview should filter out 50-70% of candidates (of the remaining 20%), and by the end of it, the lead interviewer should have an opinion on whether or not the candidate is the right person for the job.  
+This interview can take place over video chat, though we should work to have it in person when possible.
+---
+Document: Objectives and Key Results
+Section: Examples
+
+* Interview 20 users after they go through the onboarding experience (% completion)  
+* Pick 3 places where we can make the biggest improvements and write specs for all three improvements by July 31 (-2 points for each day late)  
+* Ship those improvements by September 15 (-3 points for each week late)  
+* Increase conversion through signup process by 10%, starting at 50% (% completion)
+---
+Document: Interview Process
+Section: Team Fit —Full Day
+
+Finally, the candidate should come in for a whole day of talking to and working with the team. In the morning they'll drill into a much more challenging problem than they had to deal with in their technical interview. We want to get a sense for how candidates handle something out of their comfort zone, how they ask for help, etc. It’s also important that candidates feel like they’ve earned their offer by the time they get it, so this part of the process should be hard!
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Pro-active checkins
+
+*Proactively communicate. As Kate Garklavs, a content designer who lives in Portland, puts it: “Because I'm remote, I've taken to sending short, proactive progress updates to my teams (""Hey, all — wanted to let you know that I finished writing XYZ and sent it to so-and-so for approval — should hear back by Friday.""), even when daily standups aren't required. By sending these short updates throughout the day, I hope to keep folks in the loop with regards to what I've been up to.”*
+---
+Document: Onboarding
+Section: Before Arrival
+
+2. Signed [Proprietary Information and Inventions Assignment Agreement](https://docs.google.com/document/d/10RI3ne-OLjU8cwuwVuYA3H_pQdEW1pioz1zIAJ3nOLY)  
+2. Creating accounts  
+3. Google Apps account  
+1. Gmail [NAME@getclef.com](mailto:NAME@getclef.com)  
+2. Google Drive (base folders should be pre-configured for them)  
+3. Calendar (follow team’s calendars)  
+4. Two-factor auth should be set up with them  
+4. Slack  
+5. Trello  
+3. Background reading","The team is expected to respond to applicants who apply directly through the website **within 3 days**. This ensures candidates feel heard and valued in the process.
+
+*(Source: **Sourcing Candidates > Inbound Applications**, Document ID: `4df8fa50-aaa7-4bbf-8624-92f1baa0c539`)*",Every inbound application should receive a response from the Clef team within 3 days.,0.75,0.8989892527033128,0.9999999999,1.0,RAG_Query,What is the standard response time for the team to get back to someone who applies directly through the website?
+q018,paraphrased,What part of the day should everyone keep free for in-person meetings?,"Document: Onboarding
+Section: The First Day
+
+* The employee should push something public live during their first day. That might be a code commit, a design change, or a blog post depending on their position, but publishing something is important. This ensures that they’re getting set up to contribute and that they don’t feel restricted while they get up to speed.  
+* The whole team should eat lunch out together, and this should be put on calendars as far in advance as possible so people don’t schedule other meetings.
+---
+Document: Onboarding
+Section: The First Day
+
+* The person in charge of onboarding should block out the whole day and plan to spend it with the new employee helping them get set up. In practice, they won’t need the attention for the entire day, but should never be stranded when they do need it.
+---
+Document: Policy Changes
+Section: Policy Changes > Continuing Work
+
+B will be blocking out a few hours every week on Friday mornings to look through and respond to issues, create proposals based on feedback, schedule time to talk about changes as a team, and merge in changes that are ready. Regular work will make sure that issues don’t stagnate, and any team member is welcome to create proposals or contribute to research on policies that they’re interested in.  
+During our weekly team lunch, B will summarize open issues and proposals.
+---
+Document: Effective Meetings
+Section: Effective meetings and group work > Meeting Ettiquette > Meetings happen in regular hours
+
+All team members should make themselves available for face-to-face meetings between 10:30am-1:00p Pacific Time, as long as they are scheduled at least 24 hours in advance. If a meeting needs to happen outside of these hours, the meeting organizer should scheduled it a week in advance.
+---
+Document: Policy Changes
+Section: Policy Changes > Discussion Meetings
+
+Every proposal should have an open meeting for feedback from the team. B will schedule these, and will be there for all of these discussions. Everyone is invited to all of these discussions, though attendance is not required. Participation in these conversations is really important because this is the best place for us to get a sense of how different team members relate to or will be impacted by a certain policy.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+* You will have a distraction-free environment to work in
+* You will have a quiet, private place to take phone calls and meetings
+* You will be able to work a full workday every day you're working remotely  
+#### Co-working Space Subsidies
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Transparency > Public Calendars
+
+Work calendars should be shared to make scheduling meetings really easy and also to let the rest of the team see where we’re spending our time. Personal calendars often have sensitive information, and should be kept separate. Work calendars are documentation of how we’re budgeting our hours and are useful for the rest of the team.
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Calendar Updates
+
+If you're working remotely or from home, you should put a calendar event indicating where you are working from for all the time you are out of the office.","Based on the retrieved document chunks, the company policy specifies the following time slot for in-person meetings:
+
+**All team members should keep the following time free for in-person meetings:**
+- **10:30 AM to 1:00 PM Pacific Time** (as long as the meeting is scheduled at least 24 hours in advance).
+
+Meetings outside of this window require scheduling at least a week in advance. This policy is outlined in the *Effective Meetings* document under ""Meeting Etiquette > Meetings happen in regular hours.""","10:30am to 1:00pm Pacific Time, for meetings scheduled at least 24 hours in advance. Meetings outside these hours should be scheduled a week in advance.",0.8,0.7253718861156031,0.249999999975,1.0,RAG_Query,What part of the day should the company keep free for in-person meetings according to company policies?
+q019,paraphrased,What share of my family's health insurance premiums does the company cover?,"Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+We offer medical, dental, and vision coverage at Clef for employees and their dependents. Through TriNet, many plans are available to all employees, and Clef has chosen a baseline plan for which it contributes 85% of the cost for all employee policies and 50% for dependents. The available plans range in cost, and if employees choose a plan that is more expensive than the baseline plan, they will be responsible for the difference. All employees are eligible for coverage on the first of the month
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity
+
+There are currently **4,662,658** shares of Clef common stock outstanding.  
+Our 409A Valuation Report, which discusses the price per share of employee shares, is available (to employees only) [here](https://drive.google.com/open?id=0Bwj0rVaUQUXPaXREcklsZ0xuNTA). Any employee with questions about the report, our share price, or valuation should ask B.
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+All employees receive Short Term Disability Insurance and Long Term Disability Insurance. All employees are also covered by Death and Dismemberment Insurance coverage at one times earnings (with some age restrictions that start at age 65).  
+Clef offers a medical waiver allowance of $25 per month for employees who have other medical coverage and choose to waive medical coverage through TriNet.
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+Clef’s priorities with benefits are wellness and education, so it’s important that we offer our employees great medical coverage and disability insurance.
+---
+Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercise Prices and 409a Valuations
+
+The lower the exercise price for Common Stock, the more money your options will earn you, so it’s in our best interest to make this price really low. Traditionally, companies would divide the Preferred Stock price by 10 or more and use that price, but the IRS decided that was unfair, so now private companies are required to undergo something called a 409a valuation to determine the exercise price of our stock. The valuation is good for a whole year or until we raise more money. (We are
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+responsible for the difference. All employees are eligible for coverage on the first of the month following their hire date. These policies are all managed through TriNet, which is where you can find more details about the plans, costs, and coverage.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+The industry standard right now is 4 years, but at Clef, employees’ stock vests over 6 years. We offer much higher equity grants than the industry standard (about 2x in most cases), but it takes longer to earn them. This works out so that employees always come out ahead, even if they leave before their stock has fully vested, but helps us communicate that we’re looking for employees who want to build longer careers at Clef.","Based on the retrieved document chunks, **Clef covers the following share of your family's health insurance premiums**:
+
+- **85% for employee-only policies**
+- **50% for dependent coverage** (spouse/children)
+
+This applies to the **baseline medical, dental, and vision plans** offered through TriNet. If you choose a more expensive plan than the baseline, you will be responsible for the additional cost difference. All employees are eligible for coverage starting the first of the month following their hire date.",On the baseline plan Clef pays 50% of the cost for dependents (and 85% for the employee). Employees pay the difference if they choose a more expensive plan.,1.0,0.7617222892814737,0.9999999999,1.0,RAG_Query,What share or percentage of my family's health insurance premiums does the company cover?
+q020,paraphrased,Can I trade some salary for a bigger ownership stake?,"Document: Salary and Equity Compensation
+
+All new employees should also check out our [Guide to Your Equity](https://github.com/clef/handbook/blob/master/Hiring%20Documents/Guide%20to%20Your%20Equity.md), which walks through the nuances of owning Clef stock options.
+---
+Document: Salary and Equity Compensation
+
+At Clef, we’re hoping to build a team that stays with the company and grows with us, so offering larger ownership of the company over a greater period of time aligns with our goals. If employees leave Clef before the 6 years, they will still own more of Clef than if we offered less equity that vested more quickly, but the longer vesting schedule makes our goal more explicit in the initial offer.
+---
+Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).
+---
+Document: Salary and Equity Compensation
+
+The offer also comes with the option to take $5k less salary in exchange for ~.1% more equity.  
+At the beginning of each year (in January), we will adjust this rubric to make sure it stays at market rate.  
+Note: The three Clef founders' salaries do not follow this rubric and are all $50k per year.  
+##Equity
+---
+Document: Salary and Equity Compensation
+
+#Salary and Equity Compensation  
+The following policy will apply to compensation offers for the first 10 employees at Clef. After we have hired 10 people, we will likely revise the salary rubric and equity amount.  
+##Salary
+---
+Document: Salary and Equity Compensation
+
+Traditional salary negotiations are also heavily biased because they rely on individual gut feelings and negotiation. This favors candidates who come from more privileged backgrounds and are afforded more confidence during the hiring process.  
+To avoid that bias, and to better align motivations, we have a standard rubric that determines all employee salaries. Everyone in the company falls into one of four options based on their job description and years of past experience as follows:  
+<table>
+---
+Document: Salary and Equity Compensation
+
+These equity grants are larger than industry standard, but also vest over a longer period of time. Employee equity vests over 6 years with a 1 year cliff (while 4 years with a 1 year cliff is standard).
+---
+Document: Salary and Equity Compensation
+
+##Salary  
+Fair compensation is critical to making Clef a desirable place to work and helping our employees lead happy, healthy lives inside and outside of the office. When used as a motivational tool, though, it can incentivize the wrong kind of optimizations. Our goal with salary is that it checks the box of ""enough"" for folks who are excited about working at Clef (because of the people, product, and opportunity for growth) and then fades into the background.","Yes, you can trade some salary for a bigger ownership stake at Clef.
+
+According to the company’s **Salary and Equity Compensation** policy:
+- Every employee is offered **41,963 Clef stock options** (~0.9% of outstanding shares).
+- You have the option to reduce your salary by **$5,000 per year** in exchange for **4,663 additional options** (~0.1% more equity), bringing your total ownership to **~1% of outstanding shares**.
+
+This trade-off is explicitly documented as part of the compensation structure. The policy also notes that equity vests over **6 years with a 1-year cliff**, which is longer than industry standards.","Yes. Employees can take $5k less salary per year in exchange for about 0.1% more equity (4,663 additional options).",1.0,0.846423265775457,0.4166666666458333,1.0,RAG_Query,"Can employees trade salary for a bigger ownership stake? What are the company's policies on equity compensation, vesting, and salary-equity trade-offs?"
+q021,specific,How many stock options is each employee offered?,"Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Dilution
+
+You can also be diluted as we give equity to employees. Clef gives stock option grants to new employees out of an option pool, or a group of options that the Clef board of directors creates all at once. This means that you will not be diluted each time we hire a new employee, but only when we need to create a new option pool. Clef’s current option pool is intended to cover the first 10 hires (after the three founders) before it needs to be refreshed. For some high-level executive hires, the
+---
+Document: Salary and Equity Compensation
+
+All new employees should also check out our [Guide to Your Equity](https://github.com/clef/handbook/blob/master/Hiring%20Documents/Guide%20to%20Your%20Equity.md), which walks through the nuances of owning Clef stock options.
+---
+Document: Salary and Equity Compensation
+
+#Salary and Equity Compensation  
+The following policy will apply to compensation offers for the first 10 employees at Clef. After we have hired 10 people, we will likely revise the salary rubric and equity amount.  
+##Salary
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity
+
+There are currently **4,662,658** shares of Clef common stock outstanding.  
+Our 409A Valuation Report, which discusses the price per share of employee shares, is available (to employees only) [here](https://drive.google.com/open?id=0Bwj0rVaUQUXPaXREcklsZ0xuNTA). Any employee with questions about the report, our share price, or valuation should ask B.
+---
+Document: Salary and Equity Compensation
+
+The offer also comes with the option to take $5k less salary in exchange for ~.1% more equity.  
+At the beginning of each year (in January), we will adjust this rubric to make sure it stays at market rate.  
+Note: The three Clef founders' salaries do not follow this rubric and are all $50k per year.  
+##Equity
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+it (this situation is often referred to as ""golden handcuffs""). At Clef, we want our employees to keep the equity they earn, and we don't want to keep anyone working here if they're not happy, so we give employees the option to exercise their options up to 7 years after they leave Clef.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Stock Options
+
+The reason we give stock options instead of straight stock is that it keeps you from being taxed on the stock until you actually use it.  
+If we gave you $10,000 worth of Clef stock today, you would have to pay thousands of dollars in taxes this year. If we give you options for $10,000 worth of stock, you don’t have to pay any taxes until you exercise them (more on exercising later).","Based on the retrieved document chunks, here is the answer to your question:
+
+**Each new employee at Clef is offered:**
+- **41,963 Clef stock options** (~0.9% of outstanding shares, including the option pool).
+- The option to reduce their salary by **$5,000/year** in exchange for an additional **4,663 stock options** (~0.1% more, totaling ~1% of outstanding shares).
+
+This applies to the first 10 employees after the three founders. After 10 hires, the equity policy may be revised.","41,963 Clef stock options (about 0.9% of outstanding shares).",1.0,0.7349911361372925,0.9999999999,1.0,RAG_Query,How many stock options are offered to each employee as part of the company's equity compensation policy?
+q022,specific,What is the salary for a technical employee with more than 5 years of experience?,"Document: Salary and Equity Compensation
+
+<table>
+<tr>
+<td>Years Experience</td>
+<td>Technical</td>
+<td>Non-Technical</td>
+</tr>
+<tr>
+<td>More than 5 Years Experience</td>
+<td>$120k</td>
+<td>$100k</td>
+</tr>
+<tr>
+<td>Less than 5 Years Experience</td>
+<td>$100k</td>
+<td>$70k</td>
+</tr>
+</table>  
+We count experience as any time doing the same category of job at a company similar to Clef (such that the experience is relevant to the job being offered at Clef).
+---
+Document: Sourcing Candidates
+Section: Sourcing Candidates > Referrals
+
+We also offer a [$5,000 referral bonus](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Referral%20Bonuses.md) for any new hire that comes from an employee referral to help align company incentives with individual incentives.
+---
+Document: Salary and Equity Compensation
+
+These equity grants are larger than industry standard, but also vest over a longer period of time. Employee equity vests over 6 years with a 1 year cliff (while 4 years with a 1 year cliff is standard).
+---
+Document: Salary and Equity Compensation
+
+The offer also comes with the option to take $5k less salary in exchange for ~.1% more equity.  
+At the beginning of each year (in January), we will adjust this rubric to make sure it stays at market rate.  
+Note: The three Clef founders' salaries do not follow this rubric and are all $50k per year.  
+##Equity
+---
+Document: Salary and Equity Compensation
+
+#Salary and Equity Compensation  
+The following policy will apply to compensation offers for the first 10 employees at Clef. After we have hired 10 people, we will likely revise the salary rubric and equity amount.  
+##Salary
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+**We offer a $5,000 referral bonus for any new hire that comes from an employee referral to help align company incentives with individual incentives.** All employees (except the founders) are eligible for the referral bonus. The referral date can’t be earlier than the date the job is posted and the hiring of the referred employee has to happen within 180 days (six months) of the initial referral. The referral must represent the candidate’s first contact with Clef, and only the first employee to
+---
+Document: Interview Process
+Section: Technical Interview —2 Hour
+
+The technical interview is a chance to dive into the candidate’s ability at the job they’re interviewing for. The lead on this hire should prepare two exercises which will each take 45 minutes, one which goes into high level thinking for the position and the other which focuses on more low level implementation.
+---
+Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).","Based on the retrieved document chunks, the salary for a **technical employee with more than 5 years of experience** at Clef is:
+
+**$120,000 per year**.
+
+*(Source: [Salary and Equity Compensation.md](Employment Policies\Salary and Equity Compensation.md), Table under ""Years Experience"" section.)*",$120k.,0.8333333333333334,0.8777030155777318,,1.0,RAG_Query,What is the salary range or band for a technical employee with more than 5 years of experience?
+q024,specific,"How much money has Clef raised to date, and in what form?","Document: Guide to Your Equity
+Section: Guide to Your Equity > Outstanding Convertible Notes
+
+$175,000 was raised on notes with a cap of $5m  
+$1,683,555 was raised on notes with a cap of $6m  
+Anyone is always welcome to ask B, our CEO, any questions they have about their options, Clef’s fundraising, or anything else related to equity at Clef. However, everyone should also consult a lawyer before making important financial decisions, especially regarding their equity because there are complex legal and tax requirements that may apply.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity
+
+There are currently **4,662,658** shares of Clef common stock outstanding.  
+Our 409A Valuation Report, which discusses the price per share of employee shares, is available (to employees only) [here](https://drive.google.com/open?id=0Bwj0rVaUQUXPaXREcklsZ0xuNTA). Any employee with questions about the report, our share price, or valuation should ask B.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Classes of Stock
+
+bought, then $10m would go back to the Series A investors before anyone else got any money back. If Clef was sold for $10m or less, that would mean that everyone with common stock (founders and employees) would get nothing. If Clef sold for $15m, then $5m would be distributed among the common stockholders.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Co-working Space Subsidies  
+Working remotely can add a financial burden on an individual. At the same time, it is also a privilege. While Clef is on its seed extension, Clef will subsidize co-working space costs for up to $10/day. Once Clef reaches profitability or raises its next major fundraising round, we will revisit this subsidy.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercise Prices and 409a Valuations
+
+The exercise price is how much Clef stock was worth when you received the stock option grant. Figuring out the right number for this (one that keeps the IRS happy, but also helps make option grants valuable) is important. Investors in Clef get *Preferred Stock* with some special privileges (more on that below) so we don’t want to use the same valuation they paid to price your Common Stock.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Outstanding Convertible Notes
+
+Clef has raised $1,858,555 to date, all as convertible notes.  
+A convertible note is a popular way for startups to raise money because it lets us delay picking a valuation for a company. Instead of selling equity for a fixed price, we borrow the money as debt. Then, next time we raise money, that debt converts to equity at a discount. The discount rewards the initial investors for investing in the company early, and usually comes in 2 forms: a discount and a cap.
+---
+Document: Continuing Education
+Section: Continuing Education > Speaker Support
+
+It makes Clef look great when our employees speak at industry conferences, so we love to support Clef employees who are invited to speak to their peers about their area of expertise. For each event, Clef will pay for the flights and hotel up to $1,000 dollars, and employees are each eligible for this benefit 4 times per year (this budget is separate from the learning budget). Employees should get approval from the founder they report to about which conferences are appropriate to speak at, and to
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Stock Options
+
+At Clef, we give equity grants in the form of Incentive Stock Options (ISOs). It’s called an option because you have the *option* to buy Clef stock later at the same price it was worth when the option was granted. So if a share of Clef stock is worth $1 today and we grow so it’s worth $20 in a few years, you’ll still be able to buy it for $1 (and then sell it immediately for a profit of $19).","Based on the retrieved document chunks, **Clef has raised a total of $1,858,555 to date**, and **all of this funding has been raised in the form of convertible notes**.
+
+### Breakdown of Convertible Notes:
+- **$175,000** raised on notes with a **$5M cap**.
+- **$1,683,555** raised on notes with a **$6M cap**.
+
+Convertible notes are a form of debt that converts to equity (typically preferred stock) during a future funding round, often with a discount or valuation cap.","$1,858,555, all raised as convertible notes.",1.0,0.9385183927593331,0.6666666666333333,1.0,RAG_Query,"How much money has Clef raised to date, and in what form?"
+q025,specific,"At what rate does sick leave accrue, and what is the maximum?","Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Employees also accrue 1 hour of sick leave for every 30 hours of work, but cannot accrue more than 5 days of sick leave.  
+Employees should report vacation and sick days to the founder they report to, who will mark it in the payroll system (which keeps track of accrued days and should include them on every pay stub).  
+Employees with chronic or terminal illnesses should talk with the founder they report to about their needs for remote work, flexible time, disability leave and/or other support.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+Paid time off of any kind, including Sabbatical, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has accrued 3 sick days before taking a 12 week sabbatical will still have 3 available sick days when they return.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Taking time off and recharging is critical to doing your best work at Clef, so in addition to the recognized [Holiday List](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Holiday%20List.md), Clef offers 3 weeks (15 days) of paid vacation every year that accrues 1.25 of a day per month of work. Employees should schedule their vacations, let the rest of the team know, and add it to their shared work calendar at least a week in advance.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Paid time off of any kind, including New Parent Leave, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has worked for Clef for 4 years will be eligible to take a sabbatical after 1 more year of work. If they took 12 weeks of new parent leave, when they returned they would still have 1 full year of work before they were eligible for their sabbatical.
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+All employees receive Short Term Disability Insurance and Long Term Disability Insurance. All employees are also covered by Death and Dismemberment Insurance coverage at one times earnings (with some age restrictions that start at age 65).  
+Clef offers a medical waiver allowance of $25 per month for employees who have other medical coverage and choose to waive medical coverage through TriNet.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.
+---
+Document: Other Protected Absences
+Section: Other Protected Absences > Pregnancy Disability Leave
+
+California law entitles a childbearing employee to take Pregnancy Disability Leave (PDL) if they are disabled because of pregnancy, childbirth, or a related medical condition, including prenatal care and severe morning sickness. The length of leave will be up to 4 months or the equivalent number of days the employee would normally work within the 4-month period.  Intermittent leave or a reduced work schedule may be taken.  Employees should give notice to the founder to whom they report.
+---
+Document: Other Protected Absences
+Section: Other Protected Absences > Bereavement Leave
+
+An employee who wishes to take time off due to the death of an immediate family member should notify the founder to whom they report. Paid bereavement leave will be granted up to three consecutive days for the death of a family member including the following:  spouse, domestic partner, cohabitant, child, stepchild, grandchild, parent, stepparent, mother-in-law, father-in-law, son-in-law, daughter-in-law, grandparent, great grandparent, or sibling.","Based on the retrieved document chunks, here’s the answer to your question about sick leave accrual and maximum:
+
+**Sick Leave Accrual and Maximum:**
+- Employees accrue **1 hour of sick leave for every 30 hours worked**.
+- The **maximum accrued sick leave** is **5 days** (or 40 hours, assuming an 8-hour workday).
+
+Employees should report sick days to their direct founder, who will track them in the payroll system. Sick leave does not accrue additional time if other paid leave (e.g., sabbatical, new parent leave) is taken.","1 hour of sick leave per 30 hours worked, capped at 5 days of accrued sick leave.",0.8333333333333334,0.8901962868878339,0.9999999999,1.0,RAG_Query,"What is the rate at which sick leave accrues for employees, and what is the maximum amount of sick leave allowed?"
+q026,specific,What is the daily co-working space subsidy for remote work?,"Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Co-working Space Subsidies  
+Working remotely can add a financial burden on an individual. At the same time, it is also a privilege. While Clef is on its seed extension, Clef will subsidize co-working space costs for up to $10/day. Once Clef reaches profitability or raises its next major fundraising round, we will revisit this subsidy.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+* You will have a distraction-free environment to work in
+* You will have a quiet, private place to take phone calls and meetings
+* You will be able to work a full workday every day you're working remotely  
+#### Co-working Space Subsidies
+---
+Document: Working Remotely
+Section: Working Remotely > Scope
+
+This policy is written in the context of our current company setup, which is that every employee works in the same office for the most of the work week. Specifically, this document addresses working from home on a regular basis and/or working remotely for up to one week out of any given month. It does not address:  
+* A fully remote employee
+* An employee who works from the office 1wk/month or is remote for the majority of their time
+* A team that is distributed
+---
+Document: Working Remotely
+Section: Working Remotely > Approach
+
+The benefits are primarily ones of flexibility: as individuals, we are able to work when we want to and where we want to. This lets us do our best work and contribute to our team in a custom-crafted framework that lets us lead more fulfilling lives. The costs are primarily ones of communication: being out of the office means more base-line work and incidental complexity for all employees. More is required of both the remote employee and the employees in the office to keep in sync, collaborate,
+---
+Document: Working Remotely
+Section: Working Remotely > Approach
+
+We treat working remotely as a privilege that comes with both benefits and costs.
+---
+Document: Working Remotely
+Section: Working Remotely > Scope
+
+* A team that is distributed  
+If and when the current company setup changes, we should address the above situations. For the purpose of this document, we interpret remote work as as a co-located employee of Clef working from home or from somewhere irregular.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+If you're planning to work remotely for more than two consecutive days, or you're planning to work remotely from a place that's not your home (i.e. from a partner's home in a different city), you'll need to follow these additional guidelines. Even more than standard remote work, working remotely for an extended period of time is a privilege — it **will** require a large amount of extra work from you to make sure that the team is effective with you working remotely.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Give the team heads up  
+You should give everyone on the team as much notice as possible, but at least 7 days. This will ensure everyone can plan their meetings and work accordingly.  
+Always take the following steps to let the team know:  
+* Post in #office with a @channel tag so everyone sees the notification
+* Communicate verbally with the people you work closest with
+* Update your calendar to mark which days you are working remotely  
+#### Plan & Prepare Beforehand","The **daily co-working space subsidy for remote work** at Clef is **up to $10 per day**, provided the company is still in its **seed extension phase**.
+
+This subsidy applies to co-working space costs and may be revisited once Clef reaches profitability or completes its next major fundraising round. The policy is outlined in the **Extended Remote Work** section of the company's *Working Remotely* document.",Up to $10 per day while Clef is on its seed extension. It will be revisited once Clef reaches profitability or raises its next major round.,0.8,0.9115440259803375,0.9999999999,1.0,RAG_Query,What is the daily co-working space subsidy amount for remote work employees?
+q027,specific,How much is the monthly allowance for waiving Clef's medical coverage?,"Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+All employees receive Short Term Disability Insurance and Long Term Disability Insurance. All employees are also covered by Death and Dismemberment Insurance coverage at one times earnings (with some age restrictions that start at age 65).  
+Clef offers a medical waiver allowance of $25 per month for employees who have other medical coverage and choose to waive medical coverage through TriNet.
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+We offer medical, dental, and vision coverage at Clef for employees and their dependents. Through TriNet, many plans are available to all employees, and Clef has chosen a baseline plan for which it contributes 85% of the cost for all employee policies and 50% for dependents. The available plans range in cost, and if employees choose a plan that is more expensive than the baseline plan, they will be responsible for the difference. All employees are eligible for coverage on the first of the month
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Taking time off and recharging is critical to doing your best work at Clef, so in addition to the recognized [Holiday List](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Holiday%20List.md), Clef offers 3 weeks (15 days) of paid vacation every year that accrues 1.25 of a day per month of work. Employees should schedule their vacations, let the rest of the team know, and add it to their shared work calendar at least a week in advance.
+---
+Document: Salary and Equity Compensation
+
+The offer also comes with the option to take $5k less salary in exchange for ~.1% more equity.  
+At the beginning of each year (in January), we will adjust this rubric to make sure it stays at market rate.  
+Note: The three Clef founders' salaries do not follow this rubric and are all $50k per year.  
+##Equity
+---
+Document: Healthcare and Disability Insurance
+Section: Healthcare and Disability Insurance
+
+Clef’s priorities with benefits are wellness and education, so it’s important that we offer our employees great medical coverage and disability insurance.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Co-working Space Subsidies  
+Working remotely can add a financial burden on an individual. At the same time, it is also a privilege. While Clef is on its seed extension, Clef will subsidize co-working space costs for up to $10/day. Once Clef reaches profitability or raises its next major fundraising round, we will revisit this subsidy.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+**We offer a $5,000 referral bonus for any new hire that comes from an employee referral to help align company incentives with individual incentives.** All employees (except the founders) are eligible for the referral bonus. The referral date can’t be earlier than the date the job is posted and the hiring of the referred employee has to happen within 180 days (six months) of the initial referral. The referral must represent the candidate’s first contact with Clef, and only the first employee to","Based on the retrieved document chunks, the **monthly allowance for waiving Clef's medical coverage** is:
+
+**$25 per month** for employees who have other medical coverage and choose to waive Clef’s medical coverage through TriNet.",$25 per month for employees who have other medical coverage and waive coverage through TriNet.,1.0,0.931575220589087,0.9999999999,1.0,RAG_Query,What is the monthly allowance amount for waiving Clef's medical coverage?
+q028,specific,How many shares of Clef common stock are currently outstanding?,"Document: Guide to Your Equity
+Section: Guide to Your Equity
+
+There are currently **4,662,658** shares of Clef common stock outstanding.  
+Our 409A Valuation Report, which discusses the price per share of employee shares, is available (to employees only) [here](https://drive.google.com/open?id=0Bwj0rVaUQUXPaXREcklsZ0xuNTA). Any employee with questions about the report, our share price, or valuation should ask B.
+---
+Document: Salary and Equity Compensation
+
+##Equity  
+Every employee will be offered 41,963 Clef stock options (~.9% of outstanding shares, including the option pool these are drawn from). As mentioned above, they can also choose to reduce their salary by $5k/year in exchange for 4,663 more options (an additional ~.1%, totaling ~1% of outstanding shares).
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Classes of Stock
+
+bought, then $10m would go back to the Series A investors before anyone else got any money back. If Clef was sold for $10m or less, that would mean that everyone with common stock (founders and employees) would get nothing. If Clef sold for $15m, then $5m would be distributed among the common stockholders.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Outstanding Convertible Notes
+
+$175,000 was raised on notes with a cap of $5m  
+$1,683,555 was raised on notes with a cap of $6m  
+Anyone is always welcome to ask B, our CEO, any questions they have about their options, Clef’s fundraising, or anything else related to equity at Clef. However, everyone should also consult a lawyer before making important financial decisions, especially regarding their equity because there are complex legal and tax requirements that may apply.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity
+
+Owning stock in Clef gives you a stake in our success. As Clef grows and increases in value, you will own a piece of that growth and increased value. Clef is pretty small today, but if things go well, your stock could be worth many times more. However, you are gambling with this portion of your compensation -- if Clef decreases in value, then your options won’t be worth anything.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercise Prices and 409a Valuations
+
+The exercise price is how much Clef stock was worth when you received the stock option grant. Figuring out the right number for this (one that keeps the IRS happy, but also helps make option grants valuable) is important. Investors in Clef get *Preferred Stock* with some special privileges (more on that below) so we don’t want to use the same valuation they paid to price your Common Stock.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Stock Options
+
+At Clef, we give equity grants in the form of Incentive Stock Options (ISOs). It’s called an option because you have the *option* to buy Clef stock later at the same price it was worth when the option was granted. So if a share of Clef stock is worth $1 today and we grow so it’s worth $20 in a few years, you’ll still be able to buy it for $1 (and then sell it immediately for a profit of $19).
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Dilution
+
+When Clef raises money from outside investors, it needs to create new stock to sell those investors. You will own the same number of shares as you did before, but there will be more total shares of Clef available, so you will own a smaller percent of the company -- this is called dilution.","As of the latest available information in the retrieved documents, **there are currently 4,662,658 shares of Clef common stock outstanding**. This figure is explicitly stated in the **""Guide to Your Equity""** document.","4,662,658 shares.",1.0,0.9999999999999082,0.9999999999,1.0,RAG_Query,How many shares of Clef common stock are currently outstanding?
+q029,specific,How much advance notice must be given before taking a sabbatical?,"Document: Sabbatical
+Section: Sabbatical
+
+To make sure that sabbatical is not overly disruptive to their team, employees should have taken fewer than twelve weeks of paid time off in the year before a sabbatical. They should also notify the team that they will be taking the sabbatical at least 4 weeks in advance.  
+There is an expectation that employees return to work at Clef after their sabbatical, and not use it as a soft exit from the company. We may set some policy to enforce this later.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+The sabbatical should be a time of self-improvement and exploration with a central activity or theme. At the end of the sabbatical, the employee should put together a presentation about their sabbatical and present it to the team when they get back to the office.  
+The sabbatical is meant to help further our core value of improvement by letting the employee explore and learn about another area of interest. It may also help some employees avoid burnout from working on one thing for too long.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+After every 5 years of working at Clef, employees are encouraged to take a one-quarter (12 contiguous weeks) paid sabbatical.  
+During this sabbatical, they should work on passion projects -- something outside the scope of their normal work that is interesting and exciting to them. This could be researching a topic of interest, working for the US Digital Service, helping a nonprofit, or something else altogether.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+Paid time off of any kind, including Sabbatical, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has accrued 3 sick days before taking a 12 week sabbatical will still have 3 available sick days when they return.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Paid time off of any kind, including New Parent Leave, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has worked for Clef for 4 years will be eligible to take a sabbatical after 1 more year of work. If they took 12 weeks of new parent leave, when they returned they would still have 1 full year of work before they were eligible for their sabbatical.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Give the team heads up  
+You should give everyone on the team as much notice as possible, but at least 7 days. This will ensure everyone can plan their meetings and work accordingly.  
+Always take the following steps to let the team know:  
+* Post in #office with a @channel tag so everyone sees the notification
+* Communicate verbally with the people you work closest with
+* Update your calendar to mark which days you are working remotely  
+#### Plan & Prepare Beforehand
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Employees should give the rest of the team as much notice as possible before they take new parent leave, though there is no requirement for how far in advance notification needs to be given. Parenthood can be unexpected and sensitive, but the more that a team can anticipate the absence, the easier it will be to handle.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+You need your manager's approval before you can work remotely for an extended period of time. This check-in should happen at least two weeks in advance, before you make any travel arrangements, and you should come prepared with a plan for how you will handle the logistics and extra communication work involved in extended remote work. In order for an employee to work remotely for an extended period of time, they should have demonstrated in the past that they are effective working remotely and","Based on the retrieved document chunks, the **advance notice required for taking a sabbatical at Clef is at least 4 weeks** before the start date. This ensures minimal disruption to the team and allows for proper planning.
+
+The policy also includes the following related conditions:
+- Employees should have taken **fewer than 12 weeks of paid time off in the year prior** to the sabbatical.
+- The sabbatical is expected to be a **one-quarter (12 contiguous weeks) paid leave** after every 5 years of employment.",At least 4 weeks' notice to the team.,1.0,0.8550538212174773,0.9999999999,1.0,RAG_Query,What is the advance notice requirement for taking a sabbatical at the company?
+q030,specific,How many hours does a typical workweek at Clef involve?,"Document: Welcome to Clef
+Section: Welcome to Clef > The Clef Team, Hours, and Office
+
+You should expect a typical workweek at Clef to be 45-50 hours. Most people show up between 9 and 10 and leave between 6 and 7. We don’t work weekends, but a lot of us host or go to events at night. This is to give you a sense of what’s normal here, but you should work the hours that are healthy and sustainable for you.
+---
+Document: Vacation and Sick Leave
+Section: Vacation and Sick Leave
+
+Taking time off and recharging is critical to doing your best work at Clef, so in addition to the recognized [Holiday List](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Holiday%20List.md), Clef offers 3 weeks (15 days) of paid vacation every year that accrues 1.25 of a day per month of work. Employees should schedule their vacations, let the rest of the team know, and add it to their shared work calendar at least a week in advance.
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+The first week of working at Clef should be focused on learning -- learning the company norms, learning how to work with everyone, learning the tools we use, etc. New employees should be contributing a little bit all week, but the expectation is that they ask questions and get set up, not that they immediately assume leadership.
+---
+Document: Welcome to Clef
+Section: Welcome to Clef > The Clef Team, Hours, and Office
+
+For now, Clef operates as a single team where everyone is working towards company-level goals. Since we’re still small, there’s not too much overhead in keeping up with everyone. There are still engineering-specific meetings, and marketing conversations that happen separately. But when we set our goals, we all think directly about how we contribute to the company goals. You’ll get to work with everyone at Clef in some capacity, and dip your fingers into all different kinds of thinking.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+After every 5 years of working at Clef, employees are encouraged to take a one-quarter (12 contiguous weeks) paid sabbatical.  
+During this sabbatical, they should work on passion projects -- something outside the scope of their normal work that is interesting and exciting to them. This could be researching a topic of interest, working for the US Digital Service, helping a nonprofit, or something else altogether.
+---
+Document: Hack Weeks
+Section: Hack Weeks
+
+The sixth week of every quarter at Clef is a hack week. We stop working on our normal projects and create small teams to work on little projects that we are excited about and can finish in a week. Anyone can propose a project, and there are no rules about what is allowed to be worked on except that it should be related to Clef. Every employee decides what they want to work on, so projects that require more than one person also need to convince other employees to work with them. Anyone can work
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+To make sure that sabbatical is not overly disruptive to their team, employees should have taken fewer than twelve weeks of paid time off in the year before a sabbatical. They should also notify the team that they will be taking the sabbatical at least 4 weeks in advance.  
+There is an expectation that employees return to work at Clef after their sabbatical, and not use it as a soft exit from the company. We may set some policy to enforce this later.","A typical workweek at Clef involves **45–50 hours**. Most employees arrive between **9 and 10 AM** and leave between **6 and 7 PM**, though weekends are not worked. Events at night may occur, but the core workweek remains standard office hours. The policy emphasizes flexibility to ensure hours are sustainable for individuals.","45-50 hours. Most people arrive between 9 and 10 and leave between 6 and 7, and the team does not work weekends.",1.0,0.9134649681501491,0.9999999999,1.0,RAG_Query,What is the typical number of hours per week that employees at Clef are expected to work?
+q031,multi-part,What are Clef's four core values?,"Document: Clef Values
+Section: Clef Core Values > Treat others the way they'd like to be treated.
+
+Our customers and teammates have different needs from our own, so we must consider their  perspectives to communicate effectively. We work best together when we empathize with one another, and we create the best product when we understand the people we are building for.
+---
+Document: Welcome to Clef
+Section: Welcome to Clef > The Basics about Clef
+
+**Clef is a values-driven company.** Hopefully you heard about this a lot during your interview process, but we take our values really seriously at Clef and they guide the decisions we make here. You can read more about the [Clef Values](https://github.com/clef/handbook/blob/master/Clef%20Values.md), but the short versions are:  
+* Be better today than yesterday  
+* Treat others the way they'd like to be treated  
+* Fight the default of exclusion
+---
+Document: Product Manifesto
+Section: Product Manifesto
+
+**At Clef, our core product value is clarity.**  
+Prioritizing clarity means that Clef will always be accessible and unscary for our users. It empowers them to feel in control of and protect their identity, as well as understand and engage with the concept of security online. Done with beauty, the experience of logging in with Clef creates a sense of magic and wonder that is impossible to fake.
+---
+Document: Clef Values
+Section: Clef Core Values > Fight the default of exclusion.
+
+Inequality and exclusion are the defaults of our industry. Without intentional effort, we will inherit those failings and worsen the problem. Building a diverse team is a moral imperative and we build a better business and product by bringing different perspectives to the table. We look for voices unlike our own because they are the only ones that help us grow.
+---
+Document: Clef Values
+Section: Clef Core Values > We succeed together when we trust each other.
+
+Trust is the currency that powers every interaction on teams. Only when we trust each other can we share the candid feedback and opinions that let us be creative and successful. We give our coworkers deep visibility into how our decisions are made and easy outlets to help them give input and guide our course. When we build trust through good communication, we create an environment for better communication in the future.
+---
+Document: Continuing Education
+Section: Continuing Education
+
+One of Clef’s core values is “Be better today than yesterday,” so it’s important that we support our employees’ efforts to learn, grow, and improve. These are some of the key benefits of working at Clef, and are central to our company culture.
+---
+Document: Clef Values
+Section: Clef Core Values > Be better today than yesterday.
+
+Being better is more important than being the ""best"", because ""best"" means complacency and better means progress. We are always improving. Improvement requires reflection, so we take ownership of our mistakes and question our habits.
+---
+Document: Handbook Introduction
+Section: Clef Policies
+
+Welcome!  
+We are pleased to have you join Clef Inc. (“Clef” or the “Company”).  We are building a team that understands our mission and core values and will help us to advance these objectives.  The purpose of this handbook is to familiarize you with the way we do business and engage in the community.  Your suggestions, questions or comments are welcome at all times and will help us to improve as we grow.","Clef’s **four core values** are explicitly listed in the retrieved documents as follows:
+
+1. **Be better today than yesterday**
+   *(Continuous improvement, reflection, and progress over complacency.)*
+
+2. **Treat others the way they’d like to be treated**
+   *(Empathy, perspective-taking, and effective communication.)*
+
+3. **Fight the default of exclusion**
+   *(Intentional inclusion, diversity, and challenging systemic inequality.)*
+
+4. **We succeed together when we trust each other**
+   *(Transparency, collaboration, and trust as the foundation for creativity and success.)*
+
+These values are central to Clef’s company culture and decision-making.",(1) Be better today than yesterday. (2) Treat others the way they'd like to be treated. (3) Fight the default of exclusion. (4) We succeed together when we trust each other.,1.0,0.9966332456844311,0.0,1.0,RAG_Query,What are Clef's four core values?
+q032,multi-part,What are the three stages of the interview process and how long does each take?,"Document: Interview Process
+Section: Interview Process
+
+Every candidate should go through three interviews that help us find the right person for the job.
+---
+Document: Interview Process
+Section: Technical Interview —2 Hour
+
+The technical interview is a chance to dive into the candidate’s ability at the job they’re interviewing for. The lead on this hire should prepare two exercises which will each take 45 minutes, one which goes into high level thinking for the position and the other which focuses on more low level implementation.
+---
+Document: Interview Process
+Section: Informal/Coffee —30 Minutes
+
+The idea is to spend 30 minutes getting to know the candidate and letting them ask questions about Clef and the position. This has screened about 80% of candidates so far, which seems about right. It should be pretty transparent if the candidate’s experience or interests are misaligned for the job.  
+This interview should also focus on selling Clef and recruiting promising candidates, as this is their first real contact with Clef and their desire to work here will be formed in this meeting.
+---
+Document: Interview Process
+Section: Informal/Coffee —30 Minutes
+
+A resume or online profile can tell us a lot about what a candidate has done, but the first thing we need to find out is what they want to do next, and whether that matches what we’re looking for at Clef. This interview can happen over the phone, Skype, in the office, or out at a coffee shop.
+---
+Document: Interview Process
+Section: Technical Interview —2 Hour
+
+The last 30 minutes should be used for questions and answers from both sides. This interview should filter out 50-70% of candidates (of the remaining 20%), and by the end of it, the lead interviewer should have an opinion on whether or not the candidate is the right person for the job.  
+This interview can take place over video chat, though we should work to have it in person when possible.
+---
+Document: Interview Process
+Section: Informal/Coffee —30 Minutes
+
+This interview can take place over video chat, though we should work to have it in person when possible.
+---
+Document: Objectives and Key Results
+Section: Examples
+
+* Interview 20 users after they go through the onboarding experience (% completion)  
+* Pick 3 places where we can make the biggest improvements and write specs for all three improvements by July 31 (-2 points for each day late)  
+* Ship those improvements by September 15 (-3 points for each week late)  
+* Increase conversion through signup process by 10%, starting at 50% (% completion)
+---
+Document: Interview Process
+Section: Interview Process
+
+Before they are interviewed, the candidate should show some relevant work that will help give us an initial screen and something to talk about in the first coffee interview. They should also get a blurb about Clef, the position, and our values so that they can self-screen if our culture doesn’t match the kind of company they want to work for. **Values in particular should be emphasized here so that they understand how important they are to the Clef team and make sure they align.**","Based on the retrieved document chunks from **Operations Documents\Interview Process.md**, the **three stages of the interview process** at Clef are as follows:
+
+### **1. Informal/Coffee Interview (30 minutes)**
+   - **Purpose**: Get to know the candidate, assess alignment with the role and company values, and allow the candidate to ask questions about Clef.
+   - **Screening Effectiveness**: Has screened ~80% of candidates so far.
+   - **Format**: Can be conducted over video chat, phone, in-office, or at a coffee shop.
+   - **Key Focus**: Determine if the candidate’s goals and experience match the role, while also selling Clef to attract promising talent.
+
+### **2. Technical Interview (2 hours total)**
+   - **Purpose**: Assess the candidate’s technical skills and problem-solving abilities for the role.
+   - **Structure**:
+     - Two exercises (each ~45 minutes):
+       - One focusing on **high-level thinking** for the position.
+       - One focusing on **low-level implementation**.
+     - Final 30 minutes for **Q&A** (candidate and interviewer).
+   - **Screening Effectiveness**: Filters out **50–70%** of remaining candidates (after the coffee interview).
+   - **Format**: Primarily via video chat, though in-person is preferred when possible.
+
+### **3. (Implied) Final Decision Stage**
+   - While not explicitly named in the chunks, the **technical interview** concludes with the interviewer forming an opinion on whether the candidate is the right fit (based on the 50–70% screening rate).
+   - The **first coffee interview** acts as a preliminary filter (~80% of candidates are screened out early), and the **technical interview** further refines the pool.
+
+---
+**Summary of Duration**:
+- **Informal/Coffee**: 30 minutes
+- **Technical Interview**: 2 hours (including Q&A)
+- **Total Process**: ~2.5 hours (assuming sequential stages; no overlap mentioned).","(1) Informal/coffee interview, 30 minutes. (2) Technical interview, 2 hours (two 45-minute exercises plus 30 minutes of Q&A). (3) Team fit, a full day in the office with a harder problem, lunch and one-on-ones, with travel covered by Clef.",0.9444444444444444,0.8141846241220945,0.0,0.6666666666666666,RAG_Query,"What are the three stages of the interview process at the company, and how long does each stage typically take?"
+q033,multi-part,"How long is the sabbatical, and does taking new parent leave delay eligibility for it?","Document: New Parent Leave
+Section: New Parent Leave
+
+Paid time off of any kind, including New Parent Leave, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has worked for Clef for 4 years will be eligible to take a sabbatical after 1 more year of work. If they took 12 weeks of new parent leave, when they returned they would still have 1 full year of work before they were eligible for their sabbatical.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Clef offers 12 weeks of paid leave for all full time employees, regardless of gender or sexual identity, after the birth or adoption of a child. This time is for the new parent to welcome the newborn or newly adopted child or children into their home and family. The leave should be taken within a year after the birth or adoption of the child.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+To make sure that sabbatical is not overly disruptive to their team, employees should have taken fewer than twelve weeks of paid time off in the year before a sabbatical. They should also notify the team that they will be taking the sabbatical at least 4 weeks in advance.  
+There is an expectation that employees return to work at Clef after their sabbatical, and not use it as a soft exit from the company. We may set some policy to enforce this later.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+After every 5 years of working at Clef, employees are encouraged to take a one-quarter (12 contiguous weeks) paid sabbatical.  
+During this sabbatical, they should work on passion projects -- something outside the scope of their normal work that is interesting and exciting to them. This could be researching a topic of interest, working for the US Digital Service, helping a nonprofit, or something else altogether.
+---
+Document: Sabbatical
+Section: Sabbatical
+
+Paid time off of any kind, including Sabbatical, does not accrue additional paid time off in the form of vacation days, sick days, or time towards sabbatical. For instance, an employee who has accrued 3 sick days before taking a 12 week sabbatical will still have 3 available sick days when they return.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+Employees should give the rest of the team as much notice as possible before they take new parent leave, though there is no requirement for how far in advance notification needs to be given. Parenthood can be unexpected and sensitive, but the more that a team can anticipate the absence, the easier it will be to handle.
+---
+Document: Other Protected Absences
+Section: Other Protected Absences > Pregnancy Disability Leave
+
+California law entitles a childbearing employee to take Pregnancy Disability Leave (PDL) if they are disabled because of pregnancy, childbirth, or a related medical condition, including prenatal care and severe morning sickness. The length of leave will be up to 4 months or the equivalent number of days the employee would normally work within the 4-month period.  Intermittent leave or a reduced work schedule may be taken.  Employees should give notice to the founder to whom they report.
+---
+Document: New Parent Leave
+Section: New Parent Leave
+
+In California, State Disability Insurance and Paid Family Leave programs will pay part of an employees salary who are unable to work due to pregnancy and childbirth. It is illegal for an employer to overpay an employee while they are using those programs, so Clef will supplement them to maintain the employee's salary instead of paying the full salary on top of them.","Here’s the answer based on the retrieved document chunks:
+
+**Sabbatical Duration:**
+- Employees at Clef are eligible for a **one-quarter (12 contiguous weeks) paid sabbatical** after every **5 years of service**.
+
+**Effect of New Parent Leave on Sabbatical Eligibility:**
+- Taking **New Parent Leave (12 weeks)** does **not** delay sabbatical eligibility. For example:
+  - An employee who has worked for 4 years would need **1 more year of work** to qualify for sabbatical, regardless of taking 12 weeks of New Parent Leave.
+  - Paid time off (including sabbatical or New Parent Leave) does **not** accrue toward sabbatical eligibility or other paid time off (e.g., vacation/sick days).
+
+**Key Clarification:**
+- Sabbatical eligibility is based solely on **years of service**, not on time taken for other leaves. New Parent Leave counts as active employment but does not reset the sabbatical timer.","The sabbatical is one quarter (12 contiguous weeks) of paid time after every 5 years of work. Paid time off of any kind, including new parent leave, does not accrue time toward a sabbatical, so the leave effectively pauses the clock (e.g. a 4-year employee who takes 12 weeks of leave still needs 1 full year of work after returning).",1.0,0.8553546549297758,0.6999999999766667,1.0,RAG_Query,"What is the duration of the sabbatical, and does taking new parent leave delay eligibility for it?"
+q034,multi-part,What do I need to do before working remotely for more than two consecutive days?,"Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+If you're planning to work remotely for more than two consecutive days, or you're planning to work remotely from a place that's not your home (i.e. from a partner's home in a different city), you'll need to follow these additional guidelines. Even more than standard remote work, working remotely for an extended period of time is a privilege — it **will** require a large amount of extra work from you to make sure that the team is effective with you working remotely.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Give the team heads up  
+You should give everyone on the team as much notice as possible, but at least 7 days. This will ensure everyone can plan their meetings and work accordingly.  
+Always take the following steps to let the team know:  
+* Post in #office with a @channel tag so everyone sees the notification
+* Communicate verbally with the people you work closest with
+* Update your calendar to mark which days you are working remotely  
+#### Plan & Prepare Beforehand
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+You need your manager's approval before you can work remotely for an extended period of time. This check-in should happen at least two weeks in advance, before you make any travel arrangements, and you should come prepared with a plan for how you will handle the logistics and extra communication work involved in extended remote work. In order for an employee to work remotely for an extended period of time, they should have demonstrated in the past that they are effective working remotely and
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Plan & Prepare Beforehand  
+It's your responsibility to both make sure you are effective and don't let your teammates down — regardless of the location you work from. This means that you should plan & prepare in your free time before you leave to work remotely.  
+A non-exhaustive list of things to ensure are in order are:  
+* You will have a fast, consistent wi-fi connection
+* You will have a distraction-free environment to work in
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+#### Extended remote work  
+***An extended remote work period includes anything longer than 2 days or any period of time where we work from somewhere irregular.***
+---
+Document: Working Remotely
+Section: Working Remotely > Scope
+
+This policy is written in the context of our current company setup, which is that every employee works in the same office for the most of the work week. Specifically, this document addresses working from home on a regular basis and/or working remotely for up to one week out of any given month. It does not address:  
+* A fully remote employee
+* An employee who works from the office 1wk/month or is remote for the majority of their time
+* A team that is distributed
+---
+Document: Working Remotely
+Section: Working Remotely > Approach
+
+When we work remotely, it's our responsibility to accept the benefits graciously, and go above and beyond to not let the costs affect our work or the work of our teammates. A remote workday:  
+* is not shorter than a day at the office
+* is not less productive
+* is not an excuse for missing commitments (be they meetings or deadlines).  
+Even when we aren't in the office, our teammates are still counting on us and it is our responsibility to make sure we are exceeding their expectations.
+---
+Document: Working Remotely
+Section: Working Remotely > Policies > Extended Remote Work
+
+* You will have a distraction-free environment to work in
+* You will have a quiet, private place to take phone calls and meetings
+* You will be able to work a full workday every day you're working remotely  
+#### Co-working Space Subsidies","Before working remotely for **more than two consecutive days** (or from an irregular location), you must follow these steps based on your company’s **Extended Remote Work** policy:
+
+### **1. Obtain Manager Approval**
+   - You **must** get approval from your manager **at least two weeks in advance** before making any travel arrangements.
+   - Come prepared with a **detailed plan** explaining how you’ll handle logistics, communication, and productivity during the extended period.
+   - Your manager will assess whether you’ve demonstrated **effectiveness in remote work** in the past.
+
+### **2. Give the Team Adequate Notice**
+   - Provide **at least 7 days’ notice** (or as much as possible) to ensure team planning.
+   - **Notify the team** by:
+     - Posting in the **#office channel** with a **@channel tag** to ensure visibility.
+     - Communicating **verbally** with your closest collaborators.
+     - Updating your **calendar** to reflect remote workdays.
+
+### **3. Plan & Prepare Thoroughly**
+   - Ensure you have:
+     - A **fast, consistent Wi-Fi connection**.
+     - A **distraction-free, quiet environment** for work.
+     - A **private space** for phone calls and meetings.
+   - Confirm you can **work a full workday every day** without interruptions.
+
+### **4. Demonstrate Commitment to Productivity**
+   - Extended remote work is a **privilege**, not a right—you must ensure your absence doesn’t disrupt teamwork or productivity.
+   - Your remote days should be **as productive and accountable** as office days (no shorter hours, missed deadlines, or reduced output).
+
+---
+**Key Notes:**
+- This policy applies to **any extended remote period** (beyond 2 days) or **irregular locations** (e.g., a partner’s home in another city).
+- The policy assumes most employees work in-office for the majority of the week, so extended remote work requires extra effort to maintain collaboration.","Get your manager's approval at least two weeks in advance, before making travel plans, with a plan for logistics and extra communication. Give the team at least 7 days' notice by posting in #office with an @channel tag, telling close collaborators verbally, and marking your calendar. Make sure you have reliable wi-fi, a distraction-free space and a quiet place for calls. Schedule a retrospective with your manager for after you return.",0.8235294117647058,0.8859232798065801,0.49999999995,0.75,RAG_Query,What are the policies and steps required before an employee can work remotely for more than two consecutive days?
+q035,multi-part,"How are OKRs scored, and what average score is considered ideal?","Document: Objectives and Key Results
+Section: Scoring and Evaluating OKRs
+
+OKRs should never be used in evaluating employee performance, and should be ambitious. An average score of 7 is ideal, and no one should ever get to a full 10. If they do, their goals were set too low.
+---
+Document: Objectives and Key Results
+Section: Scoring and Evaluating OKRs
+
+OKRs are scored at the end of the quarter, with a score generated for each Key Result. The average of the key results give a score for each Objective, and the average scores of the Objectives gives an overall score for the quarter.  
+A key result can be scored in any way that makes sense for the result, but there are a few common ways to score a Key Result:
+---
+Document: Objectives and Key Results
+
+Objectives and Key Results (OKRs) is a method for defining and keeping track of goals and their outcomes. They organize our goals by breaking them into high-level aspirations (objectives) and the measurable results that determine whether or not we’ve reached them (key results). OKRs are set at the company and individual level to help everyone see how their personal goals align with Clef’s goals, and also see how other people in the organization are working for the same outcomes from a different
+---
+Document: Objectives and Key Results
+Section: Scoring and Evaluating OKRs
+
+* **% completion** -- if the goal is to do some number of actions, or achieve some number of results (post 3 blog posts or get 300 views), then the Key Result can be scored according to the % that were completed. Posting 2 results out of 3 would earn a score of ⅔ x 10 (because 10 is the total possible number of points) or a 6.7.
+---
+Document: Objectives and Key Results
+Section: Scoring and Evaluating OKRs
+
+* **Deviation** -- if you are trying to hit a precise target, and do not want to go above or below it, then the score can be based on how far off you were.  
+The scoring method should be included with each key result. If two people independently evaluated your OKRs at the same time, they should be sure to get the same scores because the criteria for evaluation should be unambiguous.
+---
+Document: Objectives and Key Results
+Section: Scoring and Evaluating OKRs
+
+for being late. If the penalty for an item is -2 points per day, then finishing it 3 days late gives a score of 4.
+---
+Document: Objectives and Key Results
+Section: Setting OKRs
+
+Each person should set 3 to 5 objectives for the quarter, and each objective should have a maximum of 4 key results. Each objective also has a Description explaining what it means and an Alignment that explains how it aligns with company-wide goals. Each key result should explain how it will be scored at the end of the quarter.
+---
+Document: Objectives and Key Results
+Section: Tracking OKRs
+
+Every employee should keep track of their OKRs in their own Google Spreadsheet in the OKRs Folder. Within the spreadsheet, there should be a new sheet for each new quarter.  
+OKRS should be talked about every week in 1:1s to consider how each objective is progressing, places where help may be necessary, and how well they reflect current objectives.","Here’s the concise answer based on the retrieved document chunks:
+
+### **How OKRs Are Scored**
+1. **Scoring Process**:
+   - OKRs are evaluated at the end of the quarter.
+   - Each **Key Result (KR)** is scored individually (e.g., % completion, deviation from target, or penalties for delays).
+   - The **average score of KRs** determines the score for each **Objective**.
+   - The **average score of Objectives** gives the overall quarterly score.
+
+2. **Scoring Methods for Key Results**:
+   - **% Completion**: If a KR is to achieve a specific number of actions (e.g., ""post 3 blog posts""), scoring is based on the percentage completed (e.g., 2/3 posts = **6.7/10**).
+   - **Deviation**: For precise targets, scoring reflects how far the result deviated from the goal (e.g., hitting a revenue target of $100K but only reaching $90K).
+   - **Penalties**: Late delivery or missed milestones can deduct points (e.g., **-2 points/day** for delays).
+
+3. **Ideal Score**:
+   - An **average score of 7** per quarter is considered ideal.
+   - A perfect score (**10**) is discouraged, as it suggests goals were set too conservatively.
+
+4. **Key Notes**:
+   - OKRs are **not used for employee performance evaluations**.
+   - Scoring criteria for each KR should be **clear and unambiguous** to ensure consistency in evaluation.
+
+---
+**No database results were provided**, so this answer is based solely on the documented policies.","Each key result gets a score, the average of an objective's key results is the objective score, and the average of the objectives is the overall quarterly score. Common methods are % completion, due date and deviation. An average of 7 is ideal and nobody should reach 10, otherwise goals were too low. OKRs are never used to evaluate employee performance.",1.0,0.8981821846569454,0.9999999999,1.0,RAG_Query,"How are OKRs scored at the company, and what is considered an ideal average score?"
+q036,multi-part,What do the different Slack statuses mean for how quickly I should expect a response?,"Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Slack
+
+#### Slack Status  
+There are 4 states in which a teammate can be in on Slack:  
+1. *Active (green)*. Similar to when someone is sitting at their desk in the office, they are considered available and can be expected to respond in the range of a few minutes to an hour.
+2. *Do not disturb (green)*. This teammate is at their computer, but focusing. Expect a response when they are done with whatever they are focusing on, but don't wait for them.
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Slack
+
+3. *Do not disturb (gray). *This teammate is away from their computer and off work. Expect a response the next work day.
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Slack
+
+4. *Away*. This teammate is off work or temporarily away. Check the #office channel — when a user goes away, whether it's during their work day or when the day is ending, they should post a message letting the team know they are stepping out. If they posted a message in #office saying they were stepping away but coming back, expect a response when they get back. If they posted a message saying they were done for the day, you should expect a response the next work day.
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Slack
+
+#### Slack Names  
+Slack names are an easy way to communicate where you are located and when you are away from your desk. If you are working from home, taking PTO, or sick, you should update your Slack last name to reflect name to reflect this.  
+#### Slack Status  
+There are 4 states in which a teammate can be in on Slack:
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Pro-active checkins
+
+When we're all in the office, it's easy to see when a teammate is around or available. When an individual is out of the office, this visibility immediately drops to 0.  When we're working remotely, it's our responsibility to let our teammates know when we're around and available.  
+**Doing this is as easy as posting a message in Slack to say when you drop in or leave.**
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Friday #Updates
+
+Every Friday, everyone on the team posts an update in the #updates channel in Slack that includes:  
+* What they accomplished this week
+* What they hope to accomplish next week  
+This makes it easy to keep in the loop on projects and also keeps everyone at Clef accountable to everyone else to do their part.
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Transparency > Public Slack Channels
+
+Almost all Slack conversation should happen in public Slack channels where the rest of the team can see it. You may not subscribe to or pay attention to every channel, but conversations that happen in public channels are searchable and readable by the whole team, so when someone wants to know how we decided on some course of action, Slack gives them a place to look back at the conversation.
+---
+Document: Communication and Transparency
+Section: Communication and Transparency > Communication > Pro-active checkins
+
+**Doing this is as easy as posting a message in Slack to say when you drop in or leave.**  
+It's also a good idea to be proactive about letting teammates know what you're working on and how it's going. 18F has a great paragraph on this:","Here’s a clear breakdown of the **Slack statuses** and what they imply for response times, based on the retrieved document chunks:
+
+---
+
+### **Slack Statuses & Expected Response Times**
+1. **Active (green)**
+   - *Status*: Available and working.
+   - *Response time*: Expect a reply within **a few minutes to an hour**.
+
+2. **Do Not Disturb (green)**
+   - *Status*: At their computer but focused (e.g., deep in work).
+   - *Response time*: No immediate reply—wait until they finish their task. Don’t expect an instant response.
+
+3. **Do Not Disturb (gray)**
+   - *Status*: Away from their computer and **off work** (e.g., not at their desk).
+   - *Response time*: Expect a reply **the next work day**.
+
+4. **Away**
+   - *Status*: Off work or temporarily away (e.g., stepping out, leaving for the day).
+   - *Response time*:
+     - If they posted in **#office** saying they’re stepping away but returning, expect a reply **when they’re back**.
+     - If they posted they’re done for the day, expect a reply **the next work day**.
+
+---
+**Key Note**: For the ""Away"" status, always check the **#office channel** for their announcement to clarify their return time.","Active (green): available, response within minutes to an hour. Do not disturb (green): at computer but focusing, a response when done. Do not disturb (gray): away and off work, response the next work day. Away: off work or temporarily away; check #office, and expect a response on return or the next work day.",0.9,0.9202179648296981,0.0,1.0,RAG_Query,"What do the different Slack statuses (e.g., Active, Away, Do Not Disturb) mean, and how quickly should I expect a response based on each status?"
+q037,multi-part,"What does the referral program pay, who is eligible, when is it paid, and where are open positions posted?","Document: Referral Bonuses
+Section: Referral Bonuses
+
+candidate’s first 30 days of employment, and will be paid within 90 days of the referred employee’s first day. Any disputes or interpretations of this program should be sent to B.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+In order to get good referrals, everyone needs to know which positions are open, know how to start the recruiting process, have time to search their network, and feel aligned with the company incentives. Open positions should be posted on getclef.com/about and also in the #hiring channel so that everyone sees who we’re trying to hire. We’ll host a company lunch with food on the second Tuesday of every month where we talk about which positions are open and go through everyone’s online networks
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+**We offer a $5,000 referral bonus for any new hire that comes from an employee referral to help align company incentives with individual incentives.** All employees (except the founders) are eligible for the referral bonus. The referral date can’t be earlier than the date the job is posted and the hiring of the referred employee has to happen within 180 days (six months) of the initial referral. The referral must represent the candidate’s first contact with Clef, and only the first employee to
+---
+Document: Sourcing Candidates
+Section: Sourcing Candidates > Referrals
+
+We also offer a [$5,000 referral bonus](https://github.com/clef/handbook/blob/master/Benefits%20and%20Perks/Referral%20Bonuses.md) for any new hire that comes from an employee referral to help align company incentives with individual incentives.
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+The referral must represent the candidate’s first contact with Clef, and only the first employee to refer a candidate can get the bonus. The referrer should send the candidate’s information to Brennen, should make an introduction to the candidate, and should expect to be engaged during the recruiting and interview process. The referring employee must still be employed by Clef during the hired candidate’s first 30 days of employment, and will be paid within 90 days of the referred employee’s
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+every month where we talk about which positions are open and go through everyone’s online networks looking for and thinking about candidates. Employees will do initial outreach to interesting connection, which will give us a good space to talk about how we start the recruiting process.
+---
+Document: Sourcing Candidates
+Section: Sourcing Candidates > Referrals
+
+In order to get good referrals, everyone needs to know which positions are open, know how to start the recruiting process, have time to search their network, and feel aligned with the company incentives. Open positions should be posted on getclef.com/about and also in the #hiring channel so that everyone sees who we’re trying to hire. We’ll host a company lunch with food on the second Tuesday of every month where we talk about which positions are open and go through everyone’s online networks
+---
+Document: Referral Bonuses
+Section: Referral Bonuses
+
+Referrals from people who already work at Clef are one of the best signals we can get about whether or not a candidate will be successful at Clef. Clef employees understand Clef’s needs and what it’s like to work at Clef, and their relationship with the candidate means they know a lot more than we can learn during an interview process.","Here’s the answer based on the retrieved document chunks:
+
+### **Referral Program Details**
+1. **What does the referral program pay?**
+   - The company offers a **$5,000 referral bonus** for any new hire who comes from an employee referral.
+
+2. **Who is eligible?**
+   - **All employees (except the founders)** are eligible to receive the referral bonus.
+
+3. **When is it paid?**
+   - The referrer must still be employed by Clef during the referred candidate’s **first 30 days of employment**.
+   - Payment is made **within 90 days of the referred employee’s first day**.
+   - The referral must be made **after the job is posted** and the hiring must occur within **180 days (six months)** of the initial referral.
+
+4. **Where are open positions posted?**
+   - Open positions are posted on:
+     - **getclef.com/about**
+     - The **#hiring channel** (internal communication platform)
+   - Monthly company lunches (on the **second Tuesday of every month**) discuss open positions and encourage employees to search their networks.
+
+---
+**Note:** The database results could not be retrieved for this question. If you need additional details (e.g., specific eligibility criteria not covered in the documents), please clarify or provide additional context.","$5,000 per hire from an employee referral. All employees except founders are eligible. The referred person must be hired within 180 days, the referrer must still be employed during the hire's first 30 days, and payment comes within 90 days of the hire's first day. Open positions are posted on getclef.com/about and in the #hiring channel.",1.0,0.0,,1.0,Mixed:have both queries,What does the referral program pay? Who is eligible for the referral program? When is the referral payment made?
+q038,multi-part,"How many objectives and key results should each person set per quarter, and what kind of objective is required?","Document: Objectives and Key Results
+Section: Setting OKRs
+
+Each person should set 3 to 5 objectives for the quarter, and each objective should have a maximum of 4 key results. Each objective also has a Description explaining what it means and an Alignment that explains how it aligns with company-wide goals. Each key result should explain how it will be scored at the end of the quarter.
+---
+Document: Objectives and Key Results
+Section: Setting OKRs
+
+For every quarter, one goal should always be a learning or improvement objective. It should describe some skill or area of knowledge you want to expand, and then the concrete steps that you will complete in order to succeed at learning or improving it.
+---
+Document: Objectives and Key Results
+
+#Objectives and Key Results
+---
+Document: Objectives and Key Results
+Section: Examples
+
+* Lower the average wait time for a support ticket response  
+* Develop better networking skills  
+Key results are the measurable outcomes that define success for the objectives. **Key results must be measurable on a scale from 0-10**, so for the third example objective, the results might be:  
+* Interview 20 users after they go through the onboarding experience (% completion)
+---
+Document: Objectives and Key Results
+Section: Examples
+
+Objectives are the high level achievements you are shooting for, like:  
+* Grow our audience in the Bitcoin community  
+* Increase engagement with the content we produce  
+* Improve the first time experience of using Clef (onboarding)  
+* Speed up deploy process for our engineering team  
+* Lower the average wait time for a support ticket response  
+* Develop better networking skills
+---
+Document: Objectives and Key Results
+Section: Setting OKRs
+
+Everyone at Clef sets their OKRs quarterly, writing them in the first week of the quarter and then evaluating them in the last week. At a startup it’s easy to focus on the immediate problems, but by setting our goals quarterly we ensure that everyone spends some time thinking about the challenges at least 3 months out.
+---
+Document: Budgeting
+Section: Budgeting
+
+Budgeting (all spending except salaries, which, for the first 10 employees will not be included in these budgets) is done by the founders immediately after the company OKRs are set so that the budgets can reflect the company's goals for the quarter. The budgets will be quarterly and will initially be broken down into:  
+* Technical Infrastructure
+* Marketing
+* Business Development
+* Community Outreach
+* Security
+* Rent
+* Administration
+* Design Resources
+* Legal
+---
+Document: Objectives and Key Results
+Section: Tracking OKRs
+
+Every employee should keep track of their OKRs in their own Google Spreadsheet in the OKRs Folder. Within the spreadsheet, there should be a new sheet for each new quarter.  
+OKRS should be talked about every week in 1:1s to consider how each objective is progressing, places where help may be necessary, and how well they reflect current objectives.","Here’s the clear answer based on the retrieved document chunks:
+
+### **OKRs (Objectives and Key Results) Guidelines for Each Quarter**
+1. **Number of Objectives & Key Results**
+   - Each person should set **3 to 5 objectives** per quarter.
+   - Each objective should have **1 to 4 key results** (with a maximum of 4).
+   - Each key result must be **measurable on a scale of 0–10** and include a scoring method for the end of the quarter.
+
+2. **Types of Objectives Required**
+   - **General Objectives**: High-level achievements (e.g., ""Grow our audience in the Bitcoin community,"" ""Improve the first-time experience of using Clef"").
+   - **Learning/Improvement Objective**: **One objective per quarter must focus on skill development or knowledge expansion** (e.g., ""Develop better networking skills""). This should include:
+     - A description of the skill/area to improve.
+     - Concrete steps to achieve it (e.g., ""Interview 20 users after onboarding"" with a measurable metric like ""% completion"").
+
+3. **Additional Requirements**
+   - Each objective must include:
+     - A **description** explaining its purpose.
+     - An **alignment** to company-wide goals.
+   - OKRs are set **quarterly** (in the first week of the quarter) and evaluated in the last week.
+   - Progress is tracked weekly in 1:1s, with adjustments as needed.
+
+---
+**Sources**: [Setting OKRs](d9189310-8ba4-1ed-b558-8acd92d3e47f), [Examples](66daf43d-9b77-4349-99fe-7237709f3aa), [Learning Objective Requirement](ae724940-8fc4-453b-1bd26bdae5b1).","3 to 5 objectives per quarter, each with at most 4 key results. Each quarter one objective must be a learning or improvement objective.",1.0,0.8933104932727977,0.49999999995,1.0,RAG_Query,"How many objectives and key results should each person set per quarter, and what kind of objectives are required according to company policy?"
+q039,multi-part,"How does equity vesting work, and what happens if I leave before one year?","Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+Instead of giving you all of your options on day one, you get them over time. This process is called vesting and different companies offer vesting schedules of different lengths. If you had a basic 2 year vesting period, you would own a quarter of your stock after 6 months, half of your stock after a year, and all of it after 2 years.
+---
+Document: Salary and Equity Compensation
+
+These equity grants are larger than industry standard, but also vest over a longer period of time. Employee equity vests over 6 years with a 1 year cliff (while 4 years with a 1 year cliff is standard).
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+The industry standard right now is 4 years, but at Clef, employees’ stock vests over 6 years. We offer much higher equity grants than the industry standard (about 2x in most cases), but it takes longer to earn them. This works out so that employees always come out ahead, even if they leave before their stock has fully vested, but helps us communicate that we’re looking for employees who want to build longer careers at Clef.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Exercising Your Options
+
+Traditionally, employers have made options expire quickly after employees stop working at the company because the company also has to pay tax on the options when they are non-qualified and considered income. However, this means that many cannot afford to exercise their options and so either a) leave the company and lose the equity they worked hard for or b) stay at the company until they can afford it (this situation is often referred to as ""golden handcuffs""). At Clef, we want our employees to
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+helps keep the ownership of Clef stock to folks who have worked at the company for a meaningful amount of time.
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+A cliff is a period at the beginning of the vesting period where your equity does not vest monthly, but instead vests at the end. At most companies, including Clef, this cliff happens at one year. This means that if you leave your job before you’ve worked for a whole year, none of your options will be vested. At the end of that year, you’ll vest the entire year’s worth of equity all at once. This helps keep the ownership of Clef stock to folks who have worked at the company for a meaningful
+---
+Document: Guide to Your Equity
+Section: Guide to Your Equity > Vesting
+
+Vesting happens on a monthly basis (so you vest 1/72 of your options each month), but many vesting schedules include a cliff.
+---
+Document: Salary and Equity Compensation
+
+At Clef, we’re hoping to build a team that stays with the company and grows with us, so offering larger ownership of the company over a greater period of time aligns with our goals. If employees leave Clef before the 6 years, they will still own more of Clef than if we offered less equity that vested more quickly, but the longer vesting schedule makes our goal more explicit in the initial offer.","Here’s a clear and concise explanation of **equity vesting at Clef**, including what happens if you leave before one year, based on the retrieved document chunks:
+
+---
+
+### **How Equity Vesting Works at Clef**
+1. **Vesting Schedule**:
+   - Clef’s equity vests over **6 years** (longer than the industry standard of 4 years).
+   - There is a **1-year cliff**: You earn **nothing** until you complete the first year. At the end of that year, you vest **all of the equity allocated for that year** (not monthly).
+   - After the cliff, vesting continues **monthly** (1/72 of your total options per month) for the remaining 5 years.
+
+2. **Example Breakdown**:
+   - **Before 1 year**: No vested equity (due to the cliff).
+   - **At 1 year**: You vest **1/6th of your total equity** (the full year’s allocation at once).
+   - **After 1 year**: You vest an additional **1/72 of your total equity monthly** until full vesting at 6 years.
+
+3. **What Happens If You Leave Before 1 Year?**
+   - **You forfeit all unvested equity**. Since Clef has a 1-year cliff, leaving before completing that year means **no vested shares** are yours.
+   - This policy aligns with Clef’s goal of encouraging long-term commitment (employees who stay longer than 1 year still benefit from higher total ownership compared to industry standards).
+
+4. **Why the Longer Vesting?**
+   - Clef offers **larger equity grants** (about **2x the industry standard**) but spreads them over 6 years to:
+     - Ensure employees are incentivized to stay long-term.
+     - Avoid ""golden handcuffs"" (where employees feel trapped because they can’t afford to leave early).
+     - Retain ownership with those who contribute meaningfully over time.
+
+---
+
+### **Key Takeaways**
+- **No vesting until 1 year**: If you leave before completing your first year, **you lose all equity**.
+- **After 1 year**: You vest a portion (1/6th) immediately, then continue monthly vesting.
+- **Long-term benefit**: Even if you leave early, Clef’s higher grants mean you’d still own more than in shorter vesting schemes—but the cliff protects the company’s interest in long-term employees.","Equity vests over 6 years (the industry standard is 4) with a 1-year cliff, then monthly at 1/72 of the options. If you leave before one year, none of your options have vested. At one year you vest the whole first year at once.",0.9444444444444444,0.8788202510621529,0.49999999995,1.0,RAG_Query,"How does equity vesting work at the company, and what happens to an employee's vested equity if they leave before completing one year of employment?"
+q040,multi-part,"What are the key guidelines for a new hire's first day: start and end time, what they should publish, and who is responsible?","Document: Onboarding
+Section: The First Day
+
+* The employee should push something public live during their first day. That might be a code commit, a design change, or a blog post depending on their position, but publishing something is important. This ensures that they’re getting set up to contribute and that they don’t feel restricted while they get up to speed.  
+* The whole team should eat lunch out together, and this should be put on calendars as far in advance as possible so people don’t schedule other meetings.
+---
+Document: Onboarding
+Section: The First Day
+
+A new employee’s first day is critical to making them feel welcome at Clef. The goals of the first day are to help them get set up, situated, and comfortable with the team. It is the responsibility of the person who led their hiring process to make sure that happens.  
+Some guidelines for the first day:  
+* The day should start at 10:00 — this lowers the commute stress and gives us time to set up their desk and get the team ready for them.
+---
+Document: Onboarding
+Section: The First Day
+
+* The new employee should arrive to a desk with their new computer, monitor, keyboard, mouse, etc. set up and ready for them. So far, we have opened the computer, updated software and installed tools, then reboxed it (because the unboxing process of a new computer is nice, but this helps save them annoying time on the first day). There should also be a nice note signed by the team, a copy of Daring Greatly, and anything else that feels welcoming or personal to them.
+---
+Document: Onboarding
+Section: The First Day
+
+* The person in charge of onboarding should block out the whole day and plan to spend it with the new employee helping them get set up. In practice, they won’t need the attention for the entire day, but should never be stranded when they do need it.
+---
+Document: Onboarding
+Section: The First Day
+
+* Everyone in the office should know that they are starting, their name, their gender pronouns, and what they’re doing. There is one person in charge of the onboarding process, but it is everyone’s responsibility individually to make the new employee feel welcome.
+---
+Document: Onboarding
+Section: The First Day
+
+* The day should end at 5, and at the end of the day, the new employee has the option of how to celebrate (a team high five, a drink out, or dinner). They should pick one before the day starts so the team can plan, but they can also change their answer at the end of the day.
+---
+Document: Onboarding
+Section: The First Week, Month, Beyond
+
+After a week, the new employee should have their first one-on-one meeting. This meeting should go over all of the normal things that we cover in [One on Ones](https://docs.google.com/open?authuser=b%40getclef.com&id=1yVp1XzfjmHkwf_vQf-COInCHj2xd3b7ne_77YSleRgc), but should also probe about any gaps in their knowledge. Importantly, it should also cover [OKRs](https://docs.google.com/open?authuser=b%40getclef.com&id=1ZpDWejQiU5gDWz2mFPvOhdf1g2Xc6vu1kdrlCp3SimU), and go over the company’s
+---
+Document: Onboarding
+Section: Onboarding
+
+This document is about the general priorities and policies for how we as a company bring new employees onto the team. As a new person on the team, if you have questions about starting at Clef, check out [Your First Day at Clef](https://docs.google.com/document/d/1vvJfWH7lP808mAlKPr8JwUx0HvkiidzS_bkwB8wqA7M).  
+We may also create specific onboarding recommendations for different roles in the future.","Here are the key guidelines for a new hire’s first day based on the provided **Onboarding.md** document:
+
+### **1. Start and End Time**
+- **Start time:** 10:00 AM (to reduce commute stress and allow setup time).
+- **End time:** 5:00 PM (flexible end-of-day celebration planned).
+
+### **2. What the New Hire Should Publish**
+- The new employee should **publish something public** (e.g., a code commit, design change, or blog post) to demonstrate contribution and ease into their role.
+
+### **3. Responsibilities**
+- **Primary Onboarding Lead:** The person who led the hiring process is responsible for ensuring the new hire feels welcome and is properly set up.
+- **Team’s Role:**
+  - The entire team should **eat lunch together** (scheduled in advance).
+  - **Everyone** in the office should know the new hire’s name, pronouns, and role.
+  - The onboarding lead should **block the entire day** to assist the new hire (though not necessarily for the full duration).
+  - The new hire’s desk should be **fully set up** (computer, tools, welcome note, and a copy of *Daring Greatly*).
+  - The team should **plan a celebratory activity** (e.g., high five, drink, or dinner) at the end of the day.
+
+### **Key Notes**
+- The new hire’s desk should be **ready with all equipment** (no unboxing on the first day).
+- The team should **avoid scheduling other meetings** during the first day to ensure focus on onboarding.","The day starts at 10:00 and ends at 5. The new hire should push something public live (a code commit, design change or blog post). The person who led their hiring process is responsible for making sure the day goes well, and the whole team has lunch together.",0.8260869565217391,0.8901263465751773,0.0,1.0,RAG_Query,"What are the key guidelines for a new hire's first day, including start and end times, what they should publish, and who is responsible for overseeing or managing these activities?"

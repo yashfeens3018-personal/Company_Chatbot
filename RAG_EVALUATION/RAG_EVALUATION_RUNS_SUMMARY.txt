@@ -35,7 +35,7 @@ b. Add a reranker
 c. Constrain the rewriter (Tell it to only clarify and never add instructions or detail.)
 d. Remove the “Based on the retrieved document chunks” preamble from the answer prompt. It may be feeding the judge’s “noncommittal” zeros.
 
-need to do this one at a time to see if things improved or not
+need to do this one at a time to see if things improve or not
 
 2. SECOND RUN
 I did (a) only here and it improved the values a lot. especially this fixed the contextual recall which means it improved the retrieval alot. Now, i need to fix the order of these chunks which i feel i can do this through the reranking.
@@ -52,3 +52,11 @@ By question type:
   multi-part   (n=10) faithfulness=0.94  answer_relevancy=0.80  llm_context_precision_with_reference=0.36  context_recall=0.94
   paraphrased  (n=9) faithfulness=0.91  answer_relevancy=0.83  llm_context_precision_with_reference=0.69  context_recall=0.94
   specific     (n=9) faithfulness=0.94  answer_relevancy=0.89  llm_context_precision_with_reference=0.96  context_recall=1.00
+
+Then, I tried reranker on top of retrieved chunks to make the contextual precision better, but it seemed to make things worse or not much of a difference(even though i tried different combinations of chunks), so i decided to remove it keeping the latency and improvement tradeoff in my mind.
+No reranker (K=8)	Reranker K=10→5	Reranker K=20→7
+faithfulness	0.93	0.90	0.89
+answer_relevancy	0.82	0.82	0.83
+precision	0.68	0.69	0.69
+recall	0.95	0.97	0.93
+multi-part precision	0.36	0.21	0.32

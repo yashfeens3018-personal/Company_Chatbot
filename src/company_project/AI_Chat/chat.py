@@ -14,9 +14,11 @@ from langgraph.graph import StateGraph,MessagesState,START,END
 from typing import TypedDict,List,Literal,Any
 from langchain_core.messages import HumanMessage, AIMessage
 from .Vector_db.vector_db import vector_store
+import logging
 
 load_dotenv()
 model=ChatMistralAI(model="open-mistral-7b",temperature=0)
+logger = logging.getLogger(__name__)
 
 RETRIEVAL_K = 8
 DEBUG=True
