@@ -1,0 +1,631 @@
+﻿answer,answerable,database_query,error,evidence_coverage@1,evidence_coverage@3,evidence_coverage@5,evidence_coverage@7,evidence_coverage@8,evidence_full@1,evidence_full@3,evidence_full@5,evidence_full@7,evidence_full@8,evidence_hit@1,evidence_hit@3,evidence_hit@5,evidence_hit@7,evidence_hit@8,file_hit@1,file_hit@3,file_hit@5,file_hit@7,file_hit@8,first_evidence_rank,id,intent,judge_reason,judge_verdict,mrr,question,question_type,response_category,rewritten_query,routed_to_rag,safe
+"The annual learning budget for each employee at Clef is **$4,000**, with the following exceptions:
+
+- **$2,000** for employees in their **first year of implementation** (likely the initial phase of the program).
+- **$2,000** for employees who **join the company after May** in the calendar year.
+
+The budget covers expenses like:
+- Program fees/tuition
+- Tickets (e.g., for conferences)
+- Flights and hotels
+- Books, programs, videos, or other learning resources
+
+Expenses must be discussed in one-on-ones and approved by the employee’s reporting founder. The budget resets annually and does not roll over.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q001,RAG_Query,"The chatbot answer accurately includes all key facts from the reference answer, such as the annual learning budget of **$4,000 per employee per year**, the exceptions of **$2,000 for the first year of implementation and for employees joining after May**, and the clarification that the budget **resets annually and does not roll over**. The chatbot also provides additional context about approved expenses and the approval process, which aligns with the reference's intent without being contradictory or missing critical details.",correct,1.0,What is the annual learning budget for each employee?,direct,answered,What is the annual learning budget allocated per employee?,True,
+**Clef offers 12 weeks of paid new parent leave** for all full-time employees after the birth or adoption of a child. This leave is available regardless of gender or sexual identity and must be taken within one year of the child’s birth or adoption. The leave is intended for welcoming the child into the home and family.,True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q002,RAG_Query,"The chatbot answer includes all the key facts from the reference answer: it correctly states that Clef offers 12 weeks of paid new parent leave for full-time employees after the birth or adoption of a child. It also clarifies that the leave must be taken within one year of the event, which aligns with the reference. Additionally, the chatbot provides extra context (e.g., inclusivity regarding gender or sexual identity) that does not contradict the reference and adds value without altering the core facts. Thus, the answer is accurate and correct.",correct,1.0,How many weeks of paid new parent leave does Clef offer?,direct,answered,How many weeks of paid new parent leave does Clef offer according to company policy?,True,
+"The **employee referral bonus** at Clef is **$5,000** for any new hire who comes from an employee referral.
+
+### Key Details:
+- **Eligibility**: All employees (except founders) are eligible.
+- **Referral Rules**:
+  - The referral must be the candidate’s **first contact** with Clef.
+  - The hiring must occur within **180 days (6 months)** of the referral.
+  - The referring employee must still be employed during the referred candidate’s **first 30 days**.
+- **Payment**: The bonus is paid within **90 days** of the referred employee’s first day.
+- **Process**: The referrer should send candidate details to Brennen and actively participate in the recruiting process.",True,,,0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,2,q003,RAG_Query,"The chatbot answer correctly states the amount of the employee referral bonus ($5,000) and mentions that it applies to new hires from employee referrals. However, it omits several key details provided in the reference answer, including:
+
+1. The eligibility criteria (all employees except founders are eligible).
+2. Additional referral rules such as:
+   - The referral must be the candidate’s first contact with Clef.
+   - The hiring must occur within 180 days of the referral.
+   - The referring employee must still be employed during the referred candidate’s first 30 days.
+3. The payment timeline (bonus is paid within 90 days of the referred employee’s first day).
+4. The process for claiming the bonus (referrer should send candidate details to Brennen and participate in recruiting).
+
+While the chatbot answer is accurate on the primary fact, it lacks critical context and specifics that are essential for a complete and accurate response.",partially_correct,0.5,How much is the employee referral bonus?,direct,answered,What is the amount of the employee referral bonus offered by the company?,True,
+"Based on the retrieved document chunks, here’s the answer to your question:
+
+**Employees at Clef set their OKRs quarterly.**
+- OKRs are written in the **first week of the quarter** and evaluated in the **last week**.
+- Each quarter, employees create a new sheet in their Google Spreadsheet for tracking their OKRs.
+
+Additionally, **OKRs are discussed weekly in 1:1 meetings** to review progress, identify areas needing help, and ensure alignment with current objectives.",True,,,0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,2,q004,RAG_Query,"The chatbot answer includes all the key facts from the reference answer: it confirms that OKRs are set quarterly, specifies that they are written in the first week of the quarter and evaluated in the last week, and does not contradict the reference. Additionally, it provides extra context (e.g., tracking in Google Spreadsheets and weekly 1:1 discussions) that does not contradict the reference answer.",correct,0.5,How often do employees set their OKRs?,direct,answered,How often do employees set their OKRs at the company?,True,
+"At **Clef**, employee equity vests over **6 years** with the following key details:
+
+- **Vesting Schedule**: Equity vests monthly over a **6-year period** (longer than the industry standard of 4 years).
+- **Cliff Period**: There is a **1-year cliff**, meaning no equity vests until the employee completes their first year. If an employee leaves before this, they receive **no vested equity**.
+- **Ownership Alignment**: The extended vesting schedule encourages long-term commitment to Clef, ensuring ownership remains with employees who stay for a meaningful duration.
+- **Equity Grants**: Clef offers **higher equity grants** (about **2x the industry standard**) to compensate for the longer vesting period, ensuring employees still benefit even if they leave early.
+
+### Key Documents Referenced:
+- *""Guide to Your Equity""* (Vesting section)
+- *""Salary and Equity Compensation""* (Policy details)
+
+No database results were available for additional specifics.",True,,,0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,True,True,True,True,True,,q005,RAG_Query,"The chatbot answer accurately includes all the key facts from the reference answer, such as the 6-year vesting schedule with a 1-year cliff, and clarifies additional details like the monthly vesting, cliff implications, and alignment with long-term commitment. It also provides context about equity grants and references supporting documents, which aligns with the reference answer's intent without contradiction.",correct,0.0,What vesting schedule applies to employee equity at Clef?,direct,answered,What is the vesting schedule for employee equity at Clef?,True,
+"Based on the retrieved document chunks, **Clef’s mission is not explicitly stated as a single formal mission statement** in the provided materials. However, the following key elements from the documents collectively reflect Clef’s **ambition, purpose, and guiding principles**:
+
+1. **Core Ambition**:
+   *""Our ambition is huge. We want to build the identity standard for the Internet.""*
+   (From: *Welcome to Clef > The Basics about Clef*)
+
+2. **Product Value**:
+   *""At Clef, our core product value is **clarity**.""*
+   Prioritizing clarity means making identity management accessible, empowering users to control and protect their digital identity with a seamless, magical experience.
+   (From: *Product Manifesto*)
+
+3. **Guiding Values** (not a mission but foundational):
+   - Be better today than yesterday
+   - Treat others the way they’d like to be treated
+   - Fight the default of exclusion
+   (From: *Welcome to Clef > The Basics about Clef* and *Clef Values*)
+
+4. **Company Culture**:
+   Clef is a values-driven company focused on building a team aligned with its objectives, emphasizing growth, collaboration, and community engagement.
+   (From: *Handbook Introduction*)
+
+---
+**Summary**:
+While Clef does not provide a single formal ""mission statement"" in the retrieved documents, its **overarching purpose** revolves around **redefining digital identity** through **clarity, accessibility, and empowerment**, with a bold ambition to set the standard for the internet. The company’s values and culture further drive this mission by fostering inclusivity, continuous improvement, and a collaborative approach.
+
+For a more precise or official mission statement, additional documentation (e.g., a dedicated ""About Us"" or ""Mission"" page) would be needed. Would you like me to check for this in another source?",True,,,0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,,q006,RAG_Query,"The chatbot answer does not directly align with the reference answer, which states Clef's mission as 'To empower everyone to own their identity online.' Instead, the chatbot provides a detailed breakdown of Clef's ambition, values, and guiding principles but does not explicitly confirm or refute the reference answer. While the chatbot's response highlights key themes like clarity, accessibility, and empowerment, it lacks a direct, concise restatement of the reference's mission statement. Thus, it is partially correct as it touches on related concepts but does not fully match the reference.",partially_correct,0.0,What is Clef's mission statement?,direct,answered,What is Clef's mission statement?,True,
+"**Answer:**
+At Clef, **Hack Week occurs in the sixth week of every quarter**. This is explicitly stated in the company's documented policy on Hack Weeks.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q007,RAG_Query,"The chatbot answer contains the key fact that Hack Week occurs in the sixth week of every quarter, which matches the reference answer exactly. It also provides additional context (the company's documented policy) without contradicting or adding incorrect information.",correct,1.0,Which week of the quarter is hack week?,direct,answered,"What week of the quarter is designated as hack week, and are there any specific rules or guidelines about it?",True,
+"Based on the retrieved document chunks, the recommended duration for a **weekly one-on-one meeting** at Clef is:
+
+**At least 30 minutes**, with the meeting being open-ended to allow for meaningful discussion. The primary purpose is to build trust and provide space for employees to share their thoughts, concerns, and updates without it being a status check or performance evaluation.
+
+*(Source: [One on Ones.md](https://docs.google.com/open?authuser=b%40getclef.com&id=1yVp1XzfjmHkwf_vQf-COInCHj2xd3b7ne_77YSleRgc), Section: One on Ones)*",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q008,RAG_Query,"The chatbot answer includes the key fact that a weekly one-on-one meeting should last **at least 30 minutes**, which matches the reference answer. It also provides additional context about the purpose of the meeting (building trust, open discussion, etc.), which aligns with the implied intent of the reference answer. There is no contradictory or missing information that would invalidate the correctness of the chatbot's response.",correct,1.0,How long should a weekly one on one meeting last?,direct,answered,How long should a weekly one-on-one meeting last according to company policy?,True,
+,True,,"HTTPStatusError('Error response 429 while fetching https://api.mistral.ai/v1/chat/completions: {""object"":""error"",""message"":""Not enough capacity available for this request, please retry later."",""type"":""backend_out_of_capacity"",""param"":null,""code"":""3505"",""raw_status_code"":429}')",,,,,,,,,,,,,,,,,,,,,,q009,,,,,How many interviews does each candidate go through?,direct,,,,
+"Based on the retrieved document chunks, **employees at Clef receive 3 weeks (15 days) of paid vacation each year**. This vacation accrues at a rate of **1.25 days per month of work**.
+
+The policy also states that employees should schedule vacations in advance and communicate them to their team. No additional vacation days are accrued during other forms of paid leave (e.g., sabbatical or new parent leave).",True,,,0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,2,q010,RAG_Query,"The chatbot answer accurately includes all the key facts from the reference answer: it states that employees receive **3 weeks (15 days) of paid vacation per year** and that the vacation **accrues at a rate of 1.25 days per month of work**. Additionally, it does not include any contradictory information. The chatbot also adds a supplementary detail about scheduling vacations in advance, which is not contradictory and does not alter the core facts.",correct,0.5,How many days of paid vacation do employees get each year?,direct,answered,How many days of paid vacation does the company offer to employees each year?,True,
+"If you are invited to speak at an industry conference, **Clef will cover the following travel-related expenses**:
+
+- **Flights and hotel costs**, up to a **maximum of $1,000 per event**.
+- You are eligible for this benefit **4 times per year** (this is separate from the learning budget).
+- Approval from your reporting founder is required to confirm the conference’s appropriateness and ensure dates do not conflict with critical company events.
+
+*Note:* If you joined the company after **May in the first year of implementation**, your speaker support is limited to **two events** during that year. For all other employees, the $1,000 limit applies per event.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q011,RAG_Query,"The chatbot answer includes all the key facts from the reference answer and adds no contradictory information. It accurately states that Clef covers flights and hotel costs up to $1,000 per event, for up to 4 events per year, and that approval from the founder is required. Additionally, it clarifies the exception for employees who joined after May in the first year of implementation, which aligns with the implied context of the reference answer.",correct,1.0,"If I get invited to talk at an industry conference, how much of my travel will the company pay for?",paraphrased,answered,How much does the company typically reimburse employees for travel when they are invited to speak at an industry conference?,True,
+"When a close relative dies, you are eligible for **paid bereavement leave** under the company policy. Here’s the relevant information:
+
+- **Paid bereavement leave** is granted for up to **three consecutive days** for the death of an **immediate family member**, including:
+  - Spouse, domestic partner, cohabitant
+  - Child, stepchild, grandchild
+  - Parent, stepparent, mother-in-law, father-in-law, son-in-law, daughter-in-law
+  - Grandparent, great grandparent
+  - Sibling
+
+To access this leave, you should notify the founder to whom you report. No further details (e.g., accrual or additional conditions) are provided beyond this policy.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q012,RAG_Query,"The chatbot answer accurately includes all the key facts from the reference answer, such as the duration of paid bereavement leave (up to three consecutive days) and the definition of an immediate family member. It also provides additional clarity by explicitly listing examples of immediate family members, which aligns well with the reference. There are no contradictory or missing elements in the chatbot's response.",correct,1.0,How much paid time off do I get when a close relative dies?,paraphrased,answered,How much paid time off does the company provide when a close relative dies?,True,
+"At Clef, if you leave the company, you have **7 years** to exercise your vested stock options. This window allows you to retain and potentially benefit from the equity you earned during your employment, even after leaving.
+
+Key details:
+- Your options expire **10 years** after issuance (standard industry rule).
+- The **7-year exercise window** applies after you stop working at Clef.
+- However, there is a **tax implication**: After **90 days** of leaving, the options no longer qualify as **Incentive Stock Options (ISOs)** and become subject to income tax when exercised. Consulting a tax attorney is recommended to navigate this transition.",True,,,0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,3,q013,RAG_Query,"The chatbot answer correctly includes the key fact that employees have **7 years** after leaving to exercise vested options, which aligns with the reference answer. It also accurately mentions the **90-day window** after which the options no longer qualify as ISOs and become subject to income tax.
+
+However, the chatbot answer adds an extra detail about the **10-year expiration window after issuance**, which is not mentioned in the reference answer. While this may be a general industry rule, it is not part of the reference answer and could be seen as extraneous information in this context. This slight deviation reduces the accuracy of the chatbot's alignment with the reference answer.",partially_correct,0.3333333333333333,"If I leave the company, how long can I still buy my vested stock?",paraphrased,answered,How long can an employee continue to purchase vested stock after leaving the company?,True,
+"No, you **cannot** expect messages sent from your work email address to remain private, even if you label them as ""personal.""
+
+According to the company’s **Employee Privacy Policy** (specifically the section *""Email Is Not Private""*):
+- **All emails sent from a company email address (including those marked ""Personal"" or ""Private"") are the property of the company.**
+- The company **reserves the right to access, monitor, read, or copy emails at any time, for any reason.**
+- You should **not assume privacy** for any messages sent via your work email, regardless of content or labeling.
+
+Additionally, the policy emphasizes that:
+- The email system is primarily for **official business**, and personal use should be **discretionary** and **non-disruptive** to job duties.
+- Even if emails are not actively monitored, the company retains the **ability and right to review usage** for safety, security, and compliance purposes.
+
+**Key takeaway:** Labeling an email as ""personal"" does not guarantee confidentiality. Treat all work emails as potentially accessible to the company.",True,,,0.0,1.0,1.0,1.0,1.0,False,True,True,True,True,False,True,True,True,True,True,True,True,True,True,3,q014,RAG_Query,"The chatbot answer fully aligns with the reference answer and includes all key facts without any contradictions. It accurately states that emails sent from a work email address are company property, even if labeled 'personal' or 'private,' and that the company reserves the right to access or monitor them. The chatbot also provides additional context from the company's policy, reinforcing the lack of privacy expectations for work emails. Thus, the answer is comprehensive and correct.",correct,0.3333333333333333,Can I expect messages I send from my work email address to stay private if I label them personal?,paraphrased,answered,What is the company's policy on the privacy of messages sent from work email addresses when labeled as personal?,True,
+"Here’s how a new hire can wrap up their first day with the team at your company, based on the retrieved document chunks:
+
+### **End-of-Day Celebration**
+- The new employee has the option to choose how to celebrate the end of their first day, such as:
+  - A team high five
+  - A drink out
+  - Dinner
+- They should **pick their preference before the day starts** (or confirm it at the end of the day) so the team can plan accordingly.
+- The day officially ends at **5:00 PM**.
+
+### **Key Takeaways for a Positive Close**
+- The first day is designed to help the new hire feel **welcome, set up, and comfortable** with the team.
+- The celebration is a way to **acknowledge their contributions** (e.g., publishing something live) and reinforce team bonding.
+
+Would you like additional details on how the first day is structured beyond the wrap-up?",True,,,0.0,0.0,0.0,0.3333333333333333,0.3333333333333333,False,False,False,False,False,False,False,False,True,True,False,True,True,True,True,6,q015,RAG_Query,"The chatbot answer includes most of the key facts from the reference answer, such as the three options for wrapping up the first day (group high five/cheer, drink or dessert nearby, or dinner nearby) and the requirement to pick an option before the day starts (or confirm at the end of the day). However, it omits the explicit mention of the three distinct options as stated in the reference ('group high five and cheer,' 'drink or dessert nearby,' and 'dinner nearby'). Instead, it generalizes them as 'a team high five,' 'a drink out,' and 'dinner,' which slightly alters the phrasing. Additionally, the chatbot adds extra details not present in the reference, such as the official end time of the day (5:00 PM) and the purpose of the celebration (acknowledging contributions and reinforcing team bonding), which are not part of the reference answer.",partially_correct,0.16666666666666666,How does a new hire get to wrap up their first day with the team?,paraphrased,answered,"How does a new hire typically wrap up their first day with the team? Include details about company culture, team integration, or any formal or informal processes.",True,
+The team needs to respond to someone who applies directly through the website **within 3 days** to ensure the applicant feels heard and valued. This is explicitly stated in the **Sourcing Candidates** document under the *Inbound Applications* section.,True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q016,RAG_Query,"The chatbot answer includes the key fact from the reference answer ('within 3 days') and does not contradict it. It also provides additional context and references a specific document, which aligns with the requirement without altering or omitting critical information.",correct,1.0,How quickly does the team need to get back to someone who applies directly through the website?,paraphrased,answered,What is the standard response time for the team to get back to someone who applies directly through the website?,True,
+"Here is the complete list of **60 employees** from the database results, along with the **manager they report to** (identified by `manager_id`). The `manager_id` values correspond to the `employee_id` of their direct supervisor.
+
+---
+
+### **Employees and Their Managers**
+*(Sorted by `employee_id` for clarity)*
+
+1. **Stephanie Nielsen** (ID: 463) → Reports to **Michael Jenkins** (ID: 467)
+2. **Natalie Arroyo** (ID: 464) → Reports to **Brian Hernandez** (ID: 498)
+3. **Shannon Wright** (ID: 465) → Reports to **Sara Ryan** (ID: 478)
+4. **Chad Young** (ID: 466) → Reports to **Kayla Peterson** (ID: 462)
+5. **Michael Jenkins** (ID: 467) → Reports to **Angela Nelson** (ID: 473)
+6. **Robert Ramirez** (ID: 468) → Reports to **Brooke Holloway** (ID: 501)
+7. **Michelle Barrera** (ID: 469) → Reports to **Norman Stewart** (ID: 510)
+8. **Julie Brown** (ID: 470) → Reports to **Sean Young** (ID: 519)
+9. **Brooke Harvey** (ID: 471) → Reports to **Cory Farmer** (ID: 499)
+10. **Amanda Wagner** (ID: 472) → Reports to **Justin Heath** (ID: 500)
+11. **Angela Nelson** (ID: 473) → Reports to **Stephanie Nielsen** (ID: 463)
+12. **Scott Thornton** (ID: 474) → Reports to **Amanda Wagner** (ID: 472)
+13. **Jason Wright** (ID: 475) → Reports to **Darrell Waller** (ID: 477)
+14. **Michele Walker** (ID: 476) → Reports to **Michelle Barrera** (ID: 469)
+15. **Darrell Waller** (ID: 477) → Reports to **John Wells** (ID: 490)
+16. **Sara Ryan** (ID: 478) → Reports to **Shannon Wright** (ID: 465)
+17. **Heidi Spencer** (ID: 479) → Reports to **John Wells** (ID: 490)
+18. **Scott Lewis** (ID: 480) → Reports to **Christopher Williams** (ID: 502)
+19. **Dylan Williams** (ID: 481) → Reports to **Brooke Harvey** (ID: 471)
+20. **Dylan Watts** (ID: 482) → Reports to **Deborah Smith** (ID: 492)
+21. **Vanessa Larson** (ID: 483) → Reports to **Scott Thornton** (ID: 474)
+22. **Ronald Meadows** (ID: 484) → Reports to **Kayla Peterson** (ID: 462)
+23. **Jennifer Young** (ID: 485) → Reports to **Michele Walker** (ID: 476)
+24. **Perry Carrillo** (ID: 486) → Reports to **John Wells** (ID: 490)
+25. **Kayla Peterson** (ID: 462) → Reports to **Chad Young** (ID: 466)
+26. **Tina Ferguson** (ID: 488) → Reports to **John Wells** (ID: 490)
+27. **Thomas Bender** (ID: 487) → Reports to **Natalie Arroyo** (ID: 464)
+28. **Michael Osborn** (ID: 461) → Reports to **Tina Ferguson** (ID: 488)
+29. **Brian Hernandez** (ID: 498) → Reports to **Brooke Harvey** (ID: 471)
+30. **Cory Farmer** (ID: 499) → Reports to **Brooke Harvey** (ID: 471)
+31. **Justin Heath** (ID: 500) → Reports to **Sara Ryan** (ID: 478)
+32. **Deborah Smith** (ID: 492) → Reports to **Amanda Wagner** (ID: 472)
+33. **Melissa Rivas** (ID: 493) → Reports to **Brian Hernandez** (ID: 498)
+34. **Zachary Lee** (ID: 494) → Reports to **Michelle Barrera** (ID: 469)
+35. **Alyssa Coleman** (ID: 495) → Reports to **Nicholas Lewis** (ID: 489)
+36. **Brittany Wolf** (ID: 496) → Reports to **Scott Lewis** (ID: 480)
+37. **Heidi Martinez** (ID: 497) → Reports to **Heidi Spencer** (ID: 479)
+38. **Howard Richards** (ID: 503) → Reports to **Christopher Williams** (ID: 502)
+39. **Andrea Pennington** (ID: 505) → Reports to **Jennifer Whitney** (ID: 516)
+40. **Janice Perry** (ID: 506) → Reports to **Darren Young** (ID: 518)
+41. **Brooke Holloway** (ID: 501) → Reports to **Natalie Arroyo** (ID: 464)
+42. **Christopher Williams** (ID: 502) → Reports to **Scott Lewis** (ID: 480)
+43. **Tracy Hernandez** (ID: 507) → Reports to **Ronald Meadows** (ID: 484)
+44. **Paul Alvarado** (ID: 508) → Reports to **Michele Walker** (ID: 476)
+45. **Douglas Pitts** (ID: 509) → Reports to **Scott Lewis** (ID: 480)
+46. **Norman Stewart** (ID: 510) → Reports to **Stephanie Nielsen** (ID: 463)
+47. **Brandon Flynn** (ID: 511) → Reports to **Brian Hernandez** (ID: 498)
+48. **Jonathan Smith** (ID: 512) → Reports to **Michael Osborn** (ID: 461)
+49. **Daniel James** (ID: 513) → Reports to **Heidi Martinez** (ID: 497)
+50. **James King** (ID: 514) → Reports to **Ronald Meadows** (ID: 484)
+51. **Robert Gonzalez** (ID: 515) → Reports to **Heidi Spencer** (ID: 479)
+52. **Jennifer Whitney** (ID: 516) → Reports to **Andrea Pennington** (ID: 505)
+53. **Emily Chambers** (ID: 517) → Reports to **Jennifer Young** (ID: 485)
+54. **Darren Young** (ID: 518) → Reports to **Perry Carrillo** (ID: 486)
+55. **Sean Young** (ID: 519) → Reports to **Julie Brown** (ID: 470)
+56. **Jamie Gallegos** (ID: 520) → Reports to **Michael Jenkins** (ID: 467)
+
+---
+
+### **Key Observations**
+- **Top Managers**: Some employees (e.g., **Stephanie Nielsen**, **Natalie Arroyo**, **Shannon Wright**) manage multiple teams.
+- **Hierarchy**: The `manager_id` field directly links subordinates to their supervisors. For example:
+  - **Angela Nelson (ID: 473)** reports to **Stephanie Nielsen (ID: 463)**.
+  - **Scott Thornton (ID: 474)** reports to **Amanda Wagner (ID: 472)**, who in turn reports to **Justin Heath (ID: 500)**.
+- **No Missing Links**: Every employee in the list has a `manager_id` assigned, except for **top-level managers** (e.g., **Stephanie Nielsen**, **Natalie Arroyo**, **Kayla Peterson**), who likely report to higher-level executives not listed here.",True,List all employees along with their managers to show who each employee reports to.,,0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,,q017,Database_Query,"The reference answer states that 'Everyone reports to Mark, Jesse, or B,' which implies that there are only three top-level managers in the organization. However, the chatbot answer provides a detailed list of employees and their managers, showing a complex hierarchy with multiple top-level managers (e.g., Stephanie Nielsen, Natalie Arroyo, Kayla Peterson, etc.) and no clear indication that only Mark, Jesse, or B are the ultimate authorities. This contradicts the reference answer entirely.",incorrect,0.0,Which people do employees report to?,paraphrased,answered,,False,
+"Based on the retrieved document chunks, the company policy for **in-person meetings** is as follows:
+
+**Everyone should keep the time between 10:30 AM and 1:00 PM Pacific Time free for in-person meetings**, provided they are scheduled at least **24 hours in advance**. If a meeting requires outside these hours, it should be scheduled a week in advance.
+
+*(Source: **Effective Meetings > Meeting Etiquette > Meetings happen in regular hours**)*",True,,,0.0,0.0,1.0,1.0,1.0,False,False,True,True,True,False,False,True,True,True,False,False,True,True,True,4,q018,RAG_Query,"The chatbot answer accurately includes all the key facts from the reference answer. It states the correct time slot (10:30 AM to 1:00 PM Pacific Time) for in-person meetings, the requirement for scheduling at least 24 hours in advance, and the condition for meetings outside these hours (scheduled a week in advance). The chatbot answer is not contradictory and provides a clear, well-structured response.",correct,0.25,What part of the day should everyone keep free for in-person meetings?,paraphrased,answered,What part of the day should the company keep free for in-person meetings according to company policy?,True,
+"Based on the retrieved document chunks, **Clef covers the following share of your family's health insurance premiums**:
+
+- **85% of the cost for employee-only policies**
+- **50% of the cost for dependent coverage** (dental, vision, and medical)
+
+If you choose a plan more expensive than the baseline plan, you will be responsible for the difference in cost. All employees are eligible for coverage starting the first of the month following their hire date.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q019,RAG_Query,"The chatbot answer accurately reflects the key facts from the reference answer. It correctly states that Clef covers 85% of the cost for the employee and 50% of the cost for dependents, including dental, vision, and medical coverage. It also clarifies that employees pay the difference if they choose a more expensive plan, aligning perfectly with the reference. The additional detail about eligibility timing is not contradictory and does not affect the correctness of the core information.",correct,1.0,What share of my family's health insurance premiums does the company cover?,paraphrased,answered,What share or percentage of my family's health insurance premiums does the company cover?,True,
+"Yes, you can trade some salary for a bigger ownership stake at Clef.
+
+According to the company’s **Salary and Equity Compensation** policy:
+- Every employee receives **41,963 Clef stock options** (~0.9% of outstanding shares).
+- You have the option to reduce your salary by **$5,000 per year** in exchange for an additional **4,663 stock options** (~0.1% more, bringing your total to ~1% of outstanding shares).
+
+This trade-off is explicitly outlined in the policy and applies to all employees (except the three founders, whose salaries are fixed at $50,000/year). The equity vests over **6 years with a 1-year cliff**, which is longer than industry standards.",True,,,0.0,0.5,1.0,1.0,1.0,False,False,True,True,True,False,True,True,True,True,True,True,True,True,True,3,q020,RAG_Query,"The chatbot answer correctly states that employees can trade some salary for a bigger ownership stake and mentions the company's policy explicitly. However, it lacks key details from the reference answer, such as the specific amounts involved (e.g., $5,000 less salary for ~0.1% more equity or 4,663 additional options). While the chatbot provides additional context about the vesting schedule and exclusions for founders, it does not fully align with the precise numerical details in the reference answer.",partially_correct,0.3333333333333333,Can I trade some salary for a bigger ownership stake?,paraphrased,answered,"Can employees trade salary for a bigger ownership stake? What are the company's policies on equity compensation, vesting, and salary-equity trade-offs?",True,
+"Based on the retrieved document chunks, here is the answer to your question:
+
+**Each new employee at Clef is offered:**
+- **41,963 Clef stock options** (~0.9% of outstanding shares, including the option pool).
+- The option to reduce their salary by **$5,000/year** in exchange for an additional **4,663 stock options** (~0.1% more, totaling ~1% of outstanding shares).
+
+This policy applies to the **first 10 employees** at Clef. After that, the equity amount may be revised.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q021,RAG_Query,"The chatbot answer includes the key fact from the reference answer: **41,963 Clef stock options (about 0.9% of outstanding shares)**. However, it adds additional details that are not present in the reference answer, such as the option to reduce salary for extra stock options and the policy applying only to the first 10 employees. While these details are not contradictory, they are not part of the reference answer, making the chatbot's response partially correct.",partially_correct,1.0,How many stock options is each employee offered?,specific,answered,How many stock options are offered to each employee as part of the company's equity compensation policy?,True,
+"Based on the retrieved document chunks, the salary for a **technical employee with more than 5 years of experience** at Clef is:
+
+**$120,000 per year**.
+
+*(Source: [Salary and Equity Compensation.md](Employment Policies\Salary and Equity Compensation.md), Table under ""Years Experience"" section.)*",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q022,RAG_Query,"The chatbot answer includes the key fact from the reference answer ('$120k') and provides additional context, such as the source and formatting (e.g., '$120,000 per year'), without any contradictions or missing critical information.",correct,1.0,What is the salary for a technical employee with more than 5 years of experience?,specific,answered,What is the salary range or band for a technical employee with more than 5 years of experience?,True,
+"I am so sorry, i could not understand your previous request. Could you please make your query a bit more clear?",True,Retrieve the annual salary of each of the three founders from the employees table.,,0.0,0.0,0.0,0.0,0.0,False,False,False,False,False,False,False,False,False,False,False,False,False,False,False,,q023,Database_Query,canned fallback reply (clarification_fallback),incorrect,0.0,How much do the three founders earn per year?,specific,clarification_fallback,,False,
+"Based on the retrieved document chunks, **Clef has raised a total of $1,858,555 to date**, and **all of this funding has been raised in the form of convertible notes**.
+
+The document explicitly states:
+> *""Clef has raised $1,858,555 to date, all as convertible notes.""*
+
+This is the most accurate and up-to-date figure available in the provided materials. No other forms of funding (e.g., equity rounds, venture capital, or grants) are mentioned in the retrieved chunks.",True,,,0.0,0.0,0.0,1.0,1.0,False,False,False,True,True,False,False,False,True,True,True,True,True,True,True,6,q024,RAG_Query,"The chatbot answer accurately matches the reference answer in both the amount of money raised ($1,858,555) and the form of funding (convertible notes). It also cites the exact wording from the retrieved document, reinforcing the accuracy and reliability of the response. There are no contradictions or omissions in the chatbot's answer.",correct,0.16666666666666666,"How much money has Clef raised to date, and in what form?",specific,answered,"How much money has Clef raised to date, and in what form (e.g., funding rounds, investors, types of funding such as venture capital, grants, etc.)?",True,
+"Here’s the answer based on the retrieved document chunks:
+
+**Sick Leave Accrual and Maximum:**
+- Employees accrue **1 hour of sick leave for every 30 hours worked**.
+- The **maximum accrued sick leave** is **5 days** (or 40 hours, assuming 8-hour workdays).
+
+Employees should report sick days to their reporting founder, who will track them in the payroll system. Special accommodations (e.g., remote work, flexible time, or disability leave) for chronic or terminal illnesses should be discussed with the founder.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q025,RAG_Query,"The chatbot answer accurately includes all the key facts from the reference answer: it states that employees accrue '1 hour of sick leave for every 30 hours worked' and that the 'maximum accrued sick leave is 5 days (or 40 hours, assuming 8-hour workdays).' It does not contradict the reference and provides additional context about reporting sick days and accommodations, which is not contradictory or incorrect.",correct,1.0,"At what rate does sick leave accrue, and what is the maximum?",specific,answered,"What is the rate at which sick leave accrues for employees, and what is the maximum amount of sick leave allowed?",True,
+"The **daily co-working space subsidy for remote work** at Clef is currently **$10 per day**, provided during the company's seed extension phase. This subsidy applies to co-working space costs while working remotely.
+
+The policy notes that this subsidy will be revisited once Clef reaches profitability or completes its next major fundraising round.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q026,RAG_Query,"The chatbot answer accurately captures all the key facts from the reference answer. It includes the daily subsidy amount of **$10 per day**, the condition that it applies during Clef's seed extension phase, and the note that the policy will be revisited once Clef reaches profitability or raises its next major round. There are no contradictions or missing details.",correct,1.0,What is the daily co-working space subsidy for remote work?,specific,answered,What is the daily co-working space subsidy amount for remote work employees?,True,
+The monthly allowance for waiving Clef's medical coverage is **$25 per month** for employees who have other medical coverage and choose to waive the medical coverage through TriNet.,True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q027,RAG_Query,The chatbot answer contains all the key facts from the reference answer and is not contradictory. It accurately states that the monthly allowance for waiving Clef's medical coverage is **$25 per month** for employees who have other medical coverage and waive the coverage through TriNet.,correct,1.0,How much is the monthly allowance for waiving Clef's medical coverage?,specific,answered,What is the monthly allowance amount for waiving Clef's medical coverage?,True,
+"As of the latest information in the retrieved documents, **4,662,658 shares of Clef common stock are currently outstanding**. This figure is explicitly stated in the **""Guide to Your Equity""** document (chunk `6bdaf584-01e3-4ebb-8610-a7c164d74614`).",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q028,RAG_Query,"The chatbot answer includes the exact figure from the reference answer (4,662,658 shares) and provides additional context about the source of the information, which is not contradictory or missing any key facts. The answer is accurate and aligns perfectly with the reference.",correct,1.0,How many shares of Clef common stock are currently outstanding?,specific,answered,How many shares of Clef common stock are currently outstanding?,True,
+"Based on the retrieved document chunks, the policy for sabbatical advance notice at **Clef** is as follows:
+
+**Employees must notify their team at least 4 weeks in advance** before taking a sabbatical to minimize disruption.
+
+*(This is explicitly stated in the first document chunk under the ""Sabbatical"" section.)*",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q029,RAG_Query,"The chatbot answer accurately includes the key fact from the reference answer, stating that 'at least 4 weeks' notice must be given before taking a sabbatical. It also provides additional context from the retrieved document chunk, which aligns with the reference and does not contradict it. The answer is clear, precise, and consistent with the provided reference.",correct,1.0,How much advance notice must be given before taking a sabbatical?,specific,answered,What is the advance notice requirement for taking a sabbatical at the company?,True,
+"A typical workweek at Clef involves **45–50 hours** of work.
+
+Most employees tend to arrive between **9 and 10 AM** and leave between **6 and 7 PM**, though the company emphasizes working hours that are **healthy and sustainable for each individual**. Weekends are not worked, though some employees may attend or host events in the evenings.",True,,,1.0,1.0,1.0,1.0,1.0,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q030,RAG_Query,"The chatbot answer correctly includes the key fact that a typical workweek at Clef involves **45–50 hours** and that weekends are not worked. However, it adds an additional detail about the company emphasizing **healthy and sustainable working hours** and mentions that some employees may attend or host events in the evenings, which is not present in the reference answer. While these details are not contradictory, they are not part of the original reference answer, making the response partially correct.",partially_correct,1.0,How many hours does a typical workweek at Clef involve?,specific,answered,What is the typical number of hours in a workweek for employees at Clef?,True,
+"Based on the retrieved document chunks, **Clef’s four core values** are explicitly listed as:
+
+1. **Be better today than yesterday**
+2. **Treat others the way they’d like to be treated**
+3. **Fight the default of exclusion**
+4. **We succeed together when we trust each other**
+
+These values are detailed in the *Clef Values* document and emphasize continuous improvement, empathy, inclusion, and trust.",True,,,0.25,0.25,0.75,1.0,1.0,False,False,False,True,True,True,True,True,True,True,True,True,True,True,True,1,q031,RAG_Query,"The chatbot answer accurately restates all four core values from the reference answer without any contradictions or omissions. It also provides additional context about where these values are detailed, which aligns with the reference content.",correct,1.0,What are Clef's four core values?,multi-part,answered,What are Clef's four core values?,True,
+"Based on the retrieved document chunks, the **three stages of the interview process** at the company are as follows:
+
+1. **Informal/Coffee Interview (30 minutes)**
+   - Purpose: Get to know the candidate, assess alignment with the role and company values, and allow the candidate to ask questions.
+   - Screening effectiveness: Has screened ~80% of candidates so far.
+   - Format: Can be conducted over video chat or in person (preferred).
+
+2. **Technical Interview (2 hours total)**
+   - Structure:
+     - Two exercises (45 minutes each): one for high-level thinking, one for low-level implementation.
+     - Final 30 minutes for Q&A.
+   - Screening effectiveness: Filters out 50–70% of candidates, leaving ~20% for the final stage.
+   - Format: Primarily video chat, but in-person is preferred when possible.
+
+3. **Team Fit Interview (Full day)**
+   - Activities:
+     - Morning exercises (likely related to the role).
+     - Lunch with the team.
+     - One-on-one conversations with team members (may be one-on-twos for larger teams).
+   - Format: Always in-office, with travel expenses covered by the company.
+
+**Summary of durations**:
+- Informal/Coffee: **30 minutes**
+- Technical Interview: **2 hours**
+- Team Fit Interview: **Full day**",True,,,0.0,0.3333333333333333,0.6666666666666666,0.6666666666666666,0.6666666666666666,False,False,False,False,False,False,True,True,True,True,True,True,True,True,True,2,q032,RAG_Query,"The chatbot answer accurately captures all the key facts from the reference answer, including the three stages of the interview process and their respective durations. It also provides additional context and details without any contradictions or omissions of critical information.",correct,0.5,What are the three stages of the interview process and how long does each take?,multi-part,answered,What are the three stages of the interview process and how long does each stage typically take?,True,
+"Here’s the answer based on the retrieved document chunks:
+
+### **Sabbatical Duration**
+- Clef offers a **12-week (one-quarter) paid sabbatical** after every **5 years of continuous employment**.
+
+### **Does New Parent Leave Delay Sabbatical Eligibility?**
+- **No**, taking **New Parent Leave (12 weeks)** does **not** reset or delay sabbatical eligibility.
+- Example: An employee who has worked for **4 years** would need **1 more year** of work to qualify for sabbatical, regardless of taking **12 weeks of New Parent Leave** during that time.
+
+### **Key Clarifications**
+- Paid time off (including sabbatical or New Parent Leave) **does not accrue toward sabbatical eligibility** (e.g., sick days or sabbatical time do not count as service time for sabbatical).
+- The **12-week sabbatical** is granted **after 5 years of service**, not after 5 years plus any leave taken.",True,,,0.5,0.5,1.0,1.0,1.0,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q033,RAG_Query,"The chatbot answer correctly states that the sabbatical is a **12-week paid leave after every 5 years of continuous employment**, which aligns with the reference answer. However, the chatbot incorrectly claims that **New Parent Leave does not delay sabbatical eligibility** and that it **does not reset or delay** eligibility. The reference answer clarifies that **paid time off, including New Parent Leave, does not accrue toward sabbatical eligibility**, effectively pausing the clock. This means the leave **does delay eligibility** because the employee must still complete the full 5 years of work **after returning** from leave. The chatbot's phrasing is misleading and contradicts this nuance.",partially_correct,1.0,"How long is the sabbatical, and does taking new parent leave delay eligibility for it?",multi-part,answered,"What is the duration of the sabbatical policy, and does taking new parent leave delay or affect eligibility for sabbatical?",True,
+"Before working remotely for **more than two consecutive days** (or from an irregular location like a partner’s home), you must follow these key steps based on your company’s policies:
+
+### **1. Manager Approval**
+- Secure approval from your manager **at least two weeks in advance** before making any travel arrangements.
+- Come prepared with a detailed plan outlining how you’ll handle logistics and extra communication during the extended period.
+- Your manager may require proof that you’ve demonstrated remote work effectiveness in the past.
+
+### **2. Team Notification**
+- Provide **at least 7 days’ notice** to the team to allow them to adjust their schedules.
+- Follow these communication steps:
+  - Post in the **#office channel** with a **@channel tag** to notify everyone.
+  - Verbally inform the people you collaborate with most closely.
+  - Update your calendar to reflect the remote workdays.
+
+### **3. Preparation & Logistics**
+- Ensure you have:
+  - A **fast, consistent Wi-Fi connection**.
+  - A **distraction-free, quiet, and private workspace** (including a suitable area for calls/meetings).
+  - The ability to work a **full workday every day** you’re remote.
+- Plan ahead to avoid disrupting team productivity or missing commitments.
+
+### **4. Accountability & Expectations**
+- Extended remote work is a **privilege**, not a right, and requires extra effort to maintain team effectiveness.
+- Your remote workdays must meet the same standards as in-office days (no shorter hours, no reduced productivity, and no missed deadlines).
+
+---
+**Note:** Since no database results were provided, this answer is based solely on the retrieved policy documents. If you need additional details (e.g., specific approval forms or regional variations), let me know what further information is required.",True,,,0.0,0.6,0.8,0.8,0.8,False,False,False,False,False,False,True,True,True,True,True,True,True,True,True,2,q034,RAG_Query,"The chatbot answer aligns perfectly with the reference answer. It includes all the key requirements such as:
+
+1. Getting manager's approval at least two weeks in advance with a detailed plan for logistics and communication.
+2. Providing the team with at least 7 days' notice by posting in #office with an @channel tag, informing close collaborators verbally, and updating the calendar.
+3. Ensuring reliable Wi-Fi, a distraction-free and quiet workspace for calls.
+4. Scheduling a retrospective with the manager after returning.
+
+The chatbot answer also adds minor clarifications, such as emphasizing accountability and expectations, but these do not contradict the reference answer. The tone and structure are consistent with the reference.",correct,0.5,What do I need to do before working remotely for more than two consecutive days?,multi-part,answered,What are the policies and steps required before an employee can work remotely for more than two consecutive days?,True,
+"Here’s the answer based on the retrieved document chunks:
+
+### **How OKRs Are Scored**
+OKRs are scored at the end of each quarter using the following process:
+1. **Key Results Scoring**:
+   - Each **Key Result** is scored individually based on predefined criteria (e.g., % completion, deviation from a target, or penalties for delays).
+   - Common scoring methods include:
+     - **% Completion**: If a Key Result involves a fixed number of actions (e.g., ""post 3 blog posts""), the score is calculated as a percentage of completion (e.g., 2/3 completed = ~6.7/10).
+     - **Deviation**: If a precise target is set (e.g., revenue goal), scoring is based on how far the result deviated from the target.
+     - **Penalties**: Late delivery or missed milestones may incur point deductions (e.g., -2 points per day late).
+
+2. **Objective Scoring**:
+   - The **average score of all Key Results** under an Objective determines the Objective’s score.
+   - Example: If an Objective has 3 Key Results scored at 7, 8, and 6, the Objective’s score = (7 + 8 + 6) / 3 = **7**.
+
+3. **Quarterly Score**:
+   - The **average of all Objective scores** gives the overall quarterly score for the individual/company.
+
+---
+
+### **Ideal Average Score**
+- **Target**: An **average score of 7** is considered ideal for a quarter.
+- **Key Principle**: OKRs should be **ambitious but achievable**. A perfect score (10) suggests goals were set too low, as OKRs are not meant to be easy.
+
+---
+**Note**: No database results were provided for this question, so this answer is based solely on the documented policies.",True,,,0.3333333333333333,1.0,1.0,1.0,1.0,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q035,RAG_Query,"The chatbot answer accurately captures all key points from the reference answer. It correctly explains how OKRs are scored at the level of Key Results, Objectives, and quarterly averages, details common scoring methods like % completion, deviation, and penalties, and confirms that an average score of 7 is ideal. It also aligns with the reference by stating that OKRs should not be too easy (e.g., no one should reach 10) and clarifies that OKRs are not used to evaluate employee performance. The chatbot's answer is comprehensive and free of contradictions.",correct,1.0,"How are OKRs scored, and what average score is considered ideal?",multi-part,answered,"How are OKRs scored at the company, and what is considered an ideal average score?",True,
+"Here’s a clear breakdown of the **Slack statuses** and what they imply for response expectations, based on the retrieved document chunks:
+
+---
+
+### **Slack Statuses & Expected Response Times**
+There are **4 statuses** in Slack, each indicating different availability and response timelines:
+
+1. **Active (green)**
+   - *Meaning*: The teammate is available and at their computer (similar to being at their desk in the office).
+   - *Response time*: Expect a reply **within a few minutes to an hour**.
+
+2. **Do Not Disturb (green)**
+   - *Meaning*: The teammate is at their computer but **focused on work** (e.g., deep in a task).
+   - *Response time*: **No immediate reply**. Wait until they finish their focus session before expecting a response.
+
+3. **Do Not Disturb (gray)**
+   - *Meaning*: The teammate is **away from their computer and off work** (e.g., taking a break, leaving for the day).
+   - *Response time*: **Next work day**—do not expect a reply until they return.
+
+4. **Away**
+   - *Meaning*: The teammate is **off work or temporarily away** (e.g., stepping out, leaving early).
+   - *Response time*:
+     - If they posted in **#office** saying they’re stepping away but returning, expect a reply **when they get back**.
+     - If they posted they’re **done for the day**, expect a response **the next work day**.
+
+---
+### **Key Notes**
+- **Proactive communication**: Teammates should update their statuses (e.g., ""Away"" or ""Do Not Disturb"") and post messages in **#office** when leaving work or stepping out.
+- **Public channels**: Most Slack conversations happen in public channels for transparency, but statuses still apply to direct messages/DMs.
+
+---
+### **Summary Table**
+| **Status**               | **Icon Color** | **Availability**                          | **Expected Response Time**               |
+|--------------------------|----------------|-------------------------------------------|------------------------------------------|
+| Active                   | Green          | At computer, available                    | Few minutes to 1 hour                    |
+| Do Not Disturb (green)   | Green          | At computer, focused                      | After focus session ends                 |
+| Do Not Disturb (gray)    | Gray           | Away from computer, off work              | Next work day                           |
+| Away                     | N/A*           | Off work/temporarily away                 | When they return (or next day if leaving) |",True,,,0.5,1.0,1.0,1.0,1.0,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q036,RAG_Query,"The chatbot answer accurately captures all the key details from the reference answer. It correctly explains the meanings of each Slack status (Active, Do Not Disturb in green, Do Not Disturb in gray, and Away) and aligns with the expected response times for each. The chatbot also includes additional clarifications, such as the importance of proactive communication and the use of public channels, which are not contradictory and enhance understanding. The summary table further reinforces the accuracy of the response.",correct,1.0,What do the different Slack statuses mean for how quickly I should expect a response?,multi-part,answered,"What do the different Slack statuses (e.g., 'Available', 'Away', 'Do Not Disturb', etc.) mean, and how quickly should I expect a response from colleagues based on their status?",True,
+"Here’s the answer based on the retrieved document chunks:
+
+### **Referral Program Details**
+- **What does the referral program pay?**
+  The referral program offers a **$5,000 bonus** for any new hire who is referred by an employee.
+
+- **Who is eligible?**
+  **All employees (except founders)** are eligible to participate in the referral program.
+
+- **When is it paid?**
+  The bonus is paid **within 90 days of the referred employee’s first day of employment**, provided the referring employee is still employed during the referred candidate’s first 30 days.
+
+- **Additional eligibility rules:**
+  - The referral must be the **candidate’s first contact with Clef**.
+  - The hiring of the referred employee must occur **within 180 days (six months) of the initial referral**.
+  - The referring employee must actively engage in the recruiting and interview process.
+
+### **Where are open positions posted?**
+Open positions are posted in two places:
+1. **getclef.com/about**
+2. **The #hiring channel** (internal communication platform)
+
+Additionally, the company hosts a **monthly company lunch** (on the **second Tuesday of every month**) to discuss open positions and encourage referrals.
+
+---
+**Note:** The database results did not provide information about current open positions. If you need details on specific job openings, please clarify whether you’d like the latest listings or a specific department.",True,List all open positions and where they are posted.,,0.0,0.5,0.5,1.0,1.0,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,2,q037,Mixed:have both queries,"The chatbot answer accurately captures all key details from the reference answer without any contradictions. It correctly states:
+
+1. **What the referral program pays**: $5,000 per hire.
+2. **Eligibility**: All employees except founders are eligible.
+3. **When it is paid**: Within 90 days of the referred employee's first day, with additional conditions (e.g., referrer must still be employed during the first 30 days of the hire).
+4. **Additional eligibility rules**: The referral must be the candidate's first contact with Clef, and the hire must occur within 180 days.
+5. **Where open positions are posted**: On getclef.com/about and in the #hiring channel.
+
+The chatbot also includes an additional detail about the monthly company lunch, which is not contradictory and does not affect the correctness of the core information provided.",correct,0.5,"What does the referral program pay, who is eligible, when is it paid, and where are open positions posted?",multi-part,answered,"What does the referral program pay, who is eligible for the referral program, and when is the referral bonus paid?",False,
+"Here’s the answer based on the retrieved document chunks:
+
+### **OKR Guidelines for Each Person per Quarter**
+1. **Number of Objectives & Key Results**
+   - **Objectives**: Set **3 to 5 objectives** per quarter.
+   - **Key Results per Objective**: Each objective should have **1 to 4 key results** (with a maximum of 4).
+   - **Total Key Results**: This means each person should have **3–20 key results** (3 objectives × 1 KR = 3; 5 objectives × 4 KR = 20).
+
+2. **Types of Objectives Required**
+   - **General Objectives**: High-level achievements (e.g., ""Grow our audience in the Bitcoin community,"" ""Improve the first-time experience of using Clef"").
+   - **Learning/Improvement Objective**: **At least one objective per quarter** must focus on **skill development or knowledge expansion** (e.g., ""Develop better networking skills""). This should include:
+     - A description of the skill/area to improve.
+     - Concrete steps to achieve it.
+   - **Measurable Key Results**: Each key result must be **quantifiable** (e.g., ""Interview 20 users after onboarding"" or ""Lower average wait time for support tickets by 30%"").
+     - Key results should be scored on a **0–10 scale** at the end of the quarter.
+
+3. **Additional Notes**
+   - Objectives should include:
+     - A **description** explaining the objective’s purpose.
+     - An **alignment** to company-wide goals.
+   - OKRs are set **quarterly** (first week of the quarter) and evaluated (last week).
+   - Progress is tracked weekly in 1:1s and documented in a shared spreadsheet.
+
+---
+**No database results were provided**, so this answer is based solely on the documented policies.",True,,,0.5,1.0,1.0,1.0,1.0,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,1,q038,RAG_Query,"The chatbot answer accurately captures all key facts from the reference answer. It correctly states that each person should set **3 to 5 objectives per quarter**, with each objective having **1 to 4 key results** (and a maximum of 4 per objective). It also emphasizes that **at least one objective per quarter must be a learning or improvement objective**, aligning perfectly with the reference. The chatbot's answer is detailed, non-contradictory, and includes additional clarifications (e.g., measurability, scoring, and alignment) that further support the correctness of the response.",correct,1.0,"How many objectives and key results should each person set per quarter, and what kind of objective is required?",multi-part,answered,"How many objectives and key results should each person set per quarter, and what kind of objectives are required according to company policy?",True,
+"Here’s a clear and concise answer based on the retrieved document chunks about **equity vesting at Clef** and what happens if you leave before one year:
+
+---
+
+### **How Equity Vesting Works at Clef**
+1. **Vesting Schedule**:
+   - Clef’s equity vests over **6 years** (longer than the industry standard of 4 years).
+   - There is a **1-year cliff**: You earn **nothing** until you complete the first year. At the end of that year, you vest **all of the year’s equity at once** (not monthly).
+   - After the cliff, vesting continues **monthly** (e.g., 1/72 of your options vest each month for the remaining 5 years).
+
+2. **Why the Longer Vesting?**
+   - Clef offers **larger equity grants** (about **2x the industry standard**) but spreads them over a longer period to encourage long-term commitment.
+   - The goal is to align employees with the company’s vision of building a stable, long-term team.
+
+3. **What Happens If You Leave Before 1 Year?**
+   - **No vested equity**: If you leave before completing the 1-year cliff, **you forfeit all unvested options** (including the full year’s worth that would have vested at the cliff).
+   - This policy ensures ownership stays with employees who commit to a meaningful tenure.
+
+4. **Key Takeaway**:
+   - Even if you leave early, Clef’s **larger initial grants** mean you’d still own more than you would at a company with faster vesting (e.g., 4-year cliff). However, the full value is only earned after the 1-year mark.
+
+---
+
+### **Relevant Excerpts from Documents**
+- *""If you leave your job before you’ve worked for a whole year, **none of your options will be vested**.""* (**Document ID: edaeeed16051**)
+- *""A cliff is a period at the beginning of the vesting period where your equity does not vest monthly, but instead vests at the end. At Clef, this cliff happens at one year.""* (**Document ID: edaeeed16051**)
+- *""Employee equity vests over 6 years with a 1-year cliff.""* (**Document ID: 43c01bbe-67372ff26acd**)",True,,,0.0,0.3333333333333333,0.3333333333333333,1.0,1.0,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,3,q039,RAG_Query,"The chatbot answer accurately captures all the key details from the reference answer, including the 6-year vesting schedule with a 1-year cliff, the monthly vesting after the cliff, and the consequence of leaving before one year (no vested equity). It also aligns with the reference by stating that no equity vests until the 1-year mark, at which point the entire year's equity vests at once. The chatbot's explanation is clear, concise, and free of contradictions.",correct,0.3333333333333333,"How does equity vesting work, and what happens if I leave before one year?",multi-part,answered,"How does equity vesting work at the company, and what happens to an employee's vested equity if they leave before completing one year of employment?",True,
+"Here are the key guidelines for a new hire’s first day at the company, based on the retrieved document chunks:
+
+### **1. Start and End Time**
+- **Start Time:** The day should begin at **10:00 AM** (to reduce commute stress and allow time for setup).
+- **End Time:** The day should end at **5:00 PM**.
+
+### **2. What the New Hire Should Publish**
+- The new employee should **publish something public** on their first day (e.g., a code commit, design change, or blog post) to demonstrate their ability to contribute and feel included.
+
+### **3. Responsibilities**
+- **Primary Onboarding Lead:** The person who led the hiring process is responsible for ensuring the new hire feels welcome and is properly set up.
+- **Team’s Role:** Everyone in the office should:
+  - Know the new hire’s name, pronouns, and role.
+  - Help make them feel welcome (e.g., a welcoming note, a copy of *Daring Greatly*).
+  - Participate in team activities (e.g., lunch out together, end-of-day celebration).
+- **Onboarding Support:** The onboarding lead should block their entire day to assist the new hire, even if they don’t need constant attention.
+
+### **4. Additional First-Day Activities**
+- The team should eat lunch out together (scheduled in advance).
+- The new hire can choose how to celebrate the end of the day (e.g., team high five, drinks, or dinner) before or during the day.
+
+*(No database results were provided, so this answer is based solely on the retrieved document chunks.)*",True,,,0.25,0.75,0.75,1.0,1.0,False,False,False,True,True,True,True,True,True,True,True,True,True,True,True,1,q040,RAG_Query,"The chatbot answer accurately captures all the key guidelines from the reference answer without any contradictions. It includes:
+
+1. **Start and end time**: Matches the reference (10:00 AM to 5:00 PM).
+2. **What the new hire should publish**: Correctly states they should publish something public (e.g., code commit, design change, or blog post).
+3. **Responsibilities**: 
+   - The hiring lead ensures the day goes well.
+   - The team eats lunch together.
+   - Additional details like welcoming the new hire, team activities, and the onboarding lead's role are also included, aligning with the reference.
+
+The chatbot answer is comprehensive and adds minor clarifications (e.g., team activities, additional first-day activities) that are consistent with the spirit of the reference answer.",correct,1.0,"What are the key guidelines for a new hire's first day: start and end time, what they should publish, and who is responsible?",multi-part,answered,"What are the key guidelines for a new hire's first day, including start and end times, what they should publish, and who is responsible for overseeing or managing these activities?",True,
+"Based on the retrieved document chunks, **there is no explicit percentage mentioned for Clef’s match on employee 401(k) contributions** in the provided materials. The documents primarily discuss equity compensation (stock options), salary adjustments, vesting schedules, and dilution—not retirement contribution matching policies.
+
+### Key Points from the Documents:
+- **Equity details** (e.g., stock options, vesting, dilution) are covered, but **no mention of a 401(k) match percentage** appears.
+- The closest related topic is salary/equity trade-offs (e.g., reducing salary by $5k/year for additional options), but this does not address retirement contributions.
+
+### Next Steps:
+To answer your question fully, I would need:
+- **A database lookup for 401(k) policies** (e.g., via a tool query for ""401k match percentage"" or ""retirement contribution match"").
+- **Additional documents** (e.g., benefits handbooks or HR policies) not included in the retrieved chunks.
+
+Would you like me to proceed with a database lookup for this specific information? If so, please confirm the filters (e.g., department, employee tier) needed for the query.",False,,,,,,,,,,,,,,,,,,,,,,,,q041,RAG_Query,The company handbook and retrieved documents do not contain explicit information about Clef's match percentage on employee 401(k) contributions. The chatbot correctly identified the absence of this specific detail and clarified that only related topics like equity compensation or salary adjustments were covered.,,,What percentage does Clef match on employee 401(k) contributions?,unanswerable,grounded_decline,What percentage does the company match on employee 401(k) contributions?,True,True
+"Based on the retrieved document chunks, **Clef does not explicitly mention relocation assistance for new hires** in the provided policies or benefits documentation.
+
+The available information focuses on:
+- **Salary and equity compensation** (including salary adjustments and equity options).
+- **Benefits like paid leave, referral bonuses, co-working space subsidies, and continuing education support**.
+- **No details about relocation stipends, moving expenses, or housing assistance** are included in the chunks.
+
+If relocation assistance is part of Clef’s policy, it would require additional documentation or a database lookup to confirm. Could you clarify if you’d like me to check for other relevant sources?",False,,,,,,,,,,,,,,,,,,,,,,,,q042,RAG_Query,The company handbook or provided documentation does not contain explicit details about relocation assistance for new hires at Clef. The chatbot correctly identified this gap and clarified that no such information was available in the retrieved document chunks.,,,How much relocation assistance does Clef give new hires?,unanswerable,grounded_decline,What is the amount of relocation assistance provided to new hires at Clef?,True,True
+"Based on the retrieved document chunks, **there is no explicit policy in the provided materials regarding whether dogs or other pets are allowed in the Clef office**.
+
+The documents cover topics like:
+- **Complaint Policy** (open-door policy, workplace concerns)
+- **Employee Privacy** (workspace privacy, company property searches)
+- **Drug and Alcohol Policy** (office environment safety)
+- **Handbook Introduction** (general company values and policies)
+
+Since the question specifically asks about pets, and no such policy is mentioned in the retrieved chunks, I cannot confirm whether dogs or other pets are permitted.
+
+Would you like me to check for additional documents or policies that might address this?",False,,,,,,,,,,,,,,,,,,,,,,,,q043,RAG_Query,The chatbot correctly identified that the company handbook does not contain explicit information about whether dogs or other pets are allowed in the Clef office. It acknowledged the lack of specific policy details and avoided making assumptions or providing false information.,,,Are dogs or other pets allowed in the Clef office?,unanswerable,grounded_decline,What is the company policy regarding allowing dogs or other pets in the Clef office?,True,True
+"Based on the retrieved document chunks, **Clef does not explicitly mention reimbursing gym memberships or general fitness costs** in its current policies.
+
+The available information focuses on:
+- **Learning Budget** (up to **$4,000/year** for work-related education, including classes, conferences, books, and programs).
+- **Speaker Support** (for conference flights/hotel up to **$1,000/year**).
+- **Co-working space subsidies** (up to **$10/day** for remote work).
+- **Equity-related policies** (vesting, exercising options, etc.).
+
+No document chunk references reimbursing gym memberships, fitness classes, or other personal fitness expenses.
+
+Would you like me to check if this benefit is covered under a different policy or category? If so, please specify the relevant department or benefit type (e.g., ""Wellness,"" ""Health,"" or ""Flexible Spending"").",False,,,,,,,,,,,,,,,,,,,,,,,,q044,RAG_Query,The chatbot correctly identified that the company handbook does not contain explicit information about reimbursing gym memberships or fitness costs. It provided context about other benefits covered in the policies but did not claim to answer the specific question about fitness reimbursements.,,,Does Clef reimburse gym memberships or fitness costs?,unanswerable,grounded_decline,Does Clef reimburse gym memberships or fitness costs? What is the company policy regarding reimbursement for fitness expenses?,True,True
+"Based on the retrieved document chunks, **Clef’s policies do not explicitly state a severance pay amount for laid-off employees**. The provided documents cover topics such as:
+
+- **Salary and equity compensation** (including stock options and salary adjustments),
+- **At-will employment** (allowing termination without cause),
+- **Protected leaves of absence** (e.g., new parent leave, disability leave),
+- **Benefits and perks** (e.g., paid leave policies).
+
+However, **no mention of severance pay, severance duration, or termination benefits** is included in the available documents.
+
+### Next Steps:
+To provide the exact severance policy, I would need either:
+- A direct reference to Clef’s **termination/severance policy document** (if it exists), or
+- Confirmation from HR or legal records.
+
+Would you like me to check for additional documents or clarify if this is part of a broader policy not yet retrieved?",False,,,,,,,,,,,,,,,,,,,,,,,,q045,RAG_Query,The chatbot correctly identified that the company handbook does not contain explicit information about the severance pay amount for laid-off employees at Clef. It acknowledged the absence of such details while providing context about related policies. This aligns with the definition of 'abstained' as the information is not available or covered in the documents.,,,How much severance does Clef pay when an employee is laid off?,unanswerable,grounded_decline,What is the severance pay policy for employees who are laid off at Clef?,True,True
+"Based on the retrieved document chunks, **Clef’s policy on unused vacation days when an employee leaves is not explicitly stated**. The only relevant information provided is in the **""Vacation and Sick Leave""** document, which outlines how vacation accrues (1.25 days per month) but does not mention payouts for unused time upon separation.
+
+### Key Points from the Documents:
+1. **Vacation Accrual**:
+   - Employees earn **1.25 vacation days per month** of work.
+   - Total annual vacation: **3 weeks (15 days)**.
+   - *No mention of payouts for unused days.*
+
+2. **Other Policies (Irrelevant to Payouts)**:
+   - New Parent Leave, Sabbatical, and other leaves do not accrue additional PTO.
+   - No documents reference payouts for unused time upon resignation/termination.
+
+### Conclusion:
+The provided documents **do not confirm whether Clef pays out unused vacation days** when an employee leaves. For a definitive answer, you would need to check:
+- The company’s **handbook** (e.g., under ""Termination"" or ""Benefits"").
+- HR policies or a direct query to the HR team.
+
+Would you like me to search for additional documents or clarify if you have access to other sources?",False,,,,,,,,,,,,,,,,,,,,,,,,q046,RAG_Query,The chatbot correctly identified that the provided documents do not contain explicit information about whether Clef pays out unused vacation days when an employee leaves. It clarified that the relevant documents only outline vacation accrual but do not address payouts for unused time upon separation. The response aligns with the 'abstained' verdict as it does not provide a specific answer or claim to know the policy.,,,Does Clef pay out unused vacation days when an employee leaves?,unanswerable,grounded_decline,Does Clef pay out unused vacation days when an employee leaves the company?,True,True
+"Based on the retrieved document chunks, **Clef does not currently provide free parking or a commuter subsidy for employees**. The available policies mention:
+
+- **Co-working space subsidies** (up to **$10/day**) for employees working remotely, but this is limited to seed extension and may change upon profitability or fundraising.
+- No mention of parking, transit passes, commuter benefits, or other commuter-related subsidies in the provided documents.
+
+If you need details on other benefits (e.g., parking arrangements, commuter programs, or updates to policies), please clarify or provide additional context.",False,,,,,,,,,,,,,,,,,,,,,,,,q047,RAG_Query,"The chatbot correctly identified that the company handbook does not contain information about free parking or commuter subsidies for employees. It explicitly stated that the provided documents do not mention parking, transit passes, or commuter benefits, and only referenced unrelated policies like co-working space subsidies.",,,Does Clef provide free parking or a commuter subsidy for employees?,unanswerable,grounded_decline,Does Clef provide free parking or a commuter subsidy for employees? What are the company's policies regarding employee parking and commuting benefits?,True,True
+"The retrieved documents do **not** provide the **current exercise price per share** for Clef stock options. The available information explains the concept of exercise prices (e.g., the price at which options were granted) and the mechanics of stock options but does not specify the exact current exercise price.
+
+For the precise exercise price, you would need to:
+- **Access the 409A Valuation Report** (mentioned in the document as available to employees only via [this link](https://drive.google.com/open?id=0Bwj0rVaUQUXPaXREcklsZ0xuNTA)).
+- **Contact B** (as referenced in the document) for clarification on the valuation or share price.
+
+Would you like guidance on how to obtain this information?",False,,,,,,,,,,,,,,,,,,,,,,,,q048,RAG_Query,"The chatbot correctly identified that the company handbook does not contain the current exercise price per share for Clef stock options. It provided context about related information (e.g., mechanics of stock options) but explicitly stated that the specific exercise price is unavailable in the retrieved documents. The chatbot also suggested alternative sources for obtaining the information, which aligns with the requirement for abstaining when the answer is not covered.",,,What is the current exercise price per share for Clef stock options?,unanswerable,grounded_decline,What is the current exercise price per share for Clef stock options?,True,True
+"The retrieved document chunks and database results do **not** contain any explicit information about the **valuation of Clef’s Series A round**.
+
+The closest details provided relate to:
+- **Convertible notes** with valuation caps (e.g., $5M and $6M for earlier rounds).
+- **Preferred stock** privileges for investors.
+- **Common stock distribution thresholds** (e.g., $10M or $15M in hypothetical sale scenarios).
+
+However, **no direct mention of the Series A valuation amount** is found in the available documents or database results.
+
+Would you like me to check for additional records or clarify if you’re asking about a different funding round?",False,,,,,,,,,,,,,,,,,,,,,,,,q049,RAG_Query,"The chatbot correctly identified that the company handbook and available documents do not contain explicit information about the valuation of Clef's Series A round. It provided related details (e.g., valuation caps for convertible notes) but did not claim to answer the specific question about the Series A valuation.",,,What valuation did Clef's Series A round close at?,unanswerable,grounded_decline,What was the valuation amount for Clef's Series A funding round?,True,True
+"I am so sorry, i could not understand your previous request. Could you please make your query a bit more clear?",False,Count the number of employees currently working in the department named 'Clef'.,,,,,,,,,,,,,,,,,,,,,,,q050,Database_Query,,,,How many people currently work at Clef?,unanswerable,clarification_fallback,,False,True
