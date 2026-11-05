@@ -7,8 +7,8 @@ from pydantic import BaseModel
 from datetime import timedelta, timezone, datetime
 import os
 from pwdlib import PasswordHash
-from ..models import Employees, Department
-from ..database import SessionLocal
+from ..database.models import Employees, Department
+from ..database.database import SessionLocal
 from sqlalchemy import select
 
 ALGORITHM = 'HS256'

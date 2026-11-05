@@ -5,7 +5,8 @@ from langchain.tools import tool
 from ...queries.tickets import (
     get_ticket,
     get_ticket_stats,
-    get_unassigned_tickets,
+    get_employee_created_tickets,
+    get_employee_assigned_tickets,
     search_tickets,
 )
 
@@ -91,32 +92,31 @@ def search_tickets_tool(
 
 
 @tool
-def get_unassigned_tickets_tool(
-    status: str | None = None,
-    priority: str | None = None,
-    category: str | None = None,
-):
-    """List tickets that have no assignee, optionally filtered by ticket fields.
+def get_employee_created_tickets_tool(employee_id: int):
+    """List tickets created by the employee with the given ID.
 
-    Returns each ticket's ID, title, category, status, priority, creation
-    timestamp, and due timestamp. Optional status, priority, and category
-    values are validated against the same allowed values as ticket search;
-    matching is case-insensitive. With no filters, returns all unassigned
-    tickets.
+    Returns matching ticket records, including IDs, descriptions, status,
+    priority, lifecycle timestamps, creator ID, and assignee ID. Raises a
+    not-found error if the employee ID does not exist.
 
     Args:
-        status: Optional status: open, in progress, pending, resolved, or
-            closed.
-        priority: Optional priority: low, medium, high, or critical.
-        category: Optional category: it_support, hr, finance, facilities,
-            access_request, software, hardware, network, security, payroll,
-            leave, or other.
+        employee_id: Positive integer ID of the ticket creator.
     """
-    return get_unassigned_tickets(
-        status=status,
-        priority=priority,
-        category=category,
-    )
+    return get_employee_created_tickets(employee_id)
+
+
+@tool
+def get_employee_assigned_tickets_tool(employee_id: int):
+    """List tickets assigned to the employee with the given ID.
+
+    Returns matching ticket records, including IDs, descriptions, status,
+    priority, lifecycle timestamps, creator ID, and assignee ID. Raises a
+    not-found error if the employee ID does not exist.
+
+    Args:
+        employee_id: Positive integer ID of the ticket assignee.
+    """
+    return get_employee_assigned_tickets(employee_id)
 
 
 @tool

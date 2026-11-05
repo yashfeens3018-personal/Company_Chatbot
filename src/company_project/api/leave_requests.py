@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from ..queries.leave_requests import (
     get_leave_request,
     search_leave_requests,
-    get_current_leaves,
+    get_employee_leave_requests,
     create_leave_request,
     update_leave_request,
     delete_leave_request
@@ -30,9 +30,12 @@ def get_leave_requests_endpoint():
     return _call_leave_request_query(search_leave_requests)
 
 
-@router.get("/leave-requests/current")
-def get_current_leaves_endpoint():
-    return _call_leave_request_query(get_current_leaves)
+@router.get("/leave-requests/employee/{employee_id}")
+def get_employee_leave_requests_endpoint(employee_id:int=Path(...,gt=0)):
+    return _call_leave_request_query(
+        get_employee_leave_requests,
+        employee_id
+    )
 
 
 @router.delete("/leave-requests/{leave_request_id}")

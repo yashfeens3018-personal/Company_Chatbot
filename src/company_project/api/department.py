@@ -23,8 +23,6 @@ def get_department_endpoint(department_id:int):
 @router.get("/departments")
 def get_departments_endpoint(
     name:str=None,
-    budget_min:float=None,
-    budget_max:float=None,
     created_from:datetime=None,
     created_to:datetime=None,
     min_employees:int=None,
@@ -37,8 +35,6 @@ def get_departments_endpoint(
     return _call_department_query(
         get_departments,
         name=name,
-        budget_min=budget_min,
-        budget_max=budget_max,
         created_from=created_from,
         created_to=created_to,
         min_employees=min_employees,
@@ -57,7 +53,6 @@ class UpdateDepartment(BaseModel):
     id:int=Field(...,description="The id of the department whose record is to be updated",gt=0)
     name:str|None=Field(default=None,min_length=1,max_length=100)
     description:str|None=Field(default=None,min_length=1)
-    budget:float|None=Field(default=None, ge=0)
     
 @router.put("/departments")
 def update_department_endpoint(UpDep:UpdateDepartment):
@@ -65,19 +60,16 @@ def update_department_endpoint(UpDep:UpdateDepartment):
         update_department,
         id=UpDep.id,
         name=UpDep.name,
-        budget=UpDep.budget,
         description=UpDep.description)
 
 class CreateDepartment(BaseModel):
     name:str=Field(...,min_length=1,max_length=100)
     description:str|None=Field(default=None,min_length=1)
-    budget:float|None=Field(default=None,ge=0)
 
 @router.post("/departments")
 def create_department_endpoint(department:CreateDepartment):
     return _call_department_query(
         create_department,
         name=department.name,
-        description=department.description,
-        budget=department.budget
+        description=department.description
     )

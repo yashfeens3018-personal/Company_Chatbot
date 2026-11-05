@@ -5,17 +5,18 @@ from .tools.announcements import get_announcement_tool, search_announcements_too
 from .tools.department import get_department_info_tool, get_departments_tool
 from .tools.employees import get_employee_tool, search_employees_tool, get_employee_stats_tool
 from .tools.leave_balances import get_leave_balance_tool, search_leave_balances_tool
-from .tools.leave_requests import get_current_leaves_tool,get_leave_request_tool,search_leave_requests_tool
+from .tools.leave_requests import get_employment_tool,get_leave_request_tool,search_leave_requests_tool
 from .tools.project_members import get_employee_project_memberships_tool,get_project_member_tool,get_project_members_tool,search_project_members_tool
 from .tools.projects import get_employee_projects_tool,get_project_tool,get_project_stats_tool,search_projects_tool
 from .tools.ticket_comments import get_comment_tool,get_comment_count_tool,get_latest_ticket_comment_tool,get_ticket_comments_tool,search_ticket_comments_tool
-from .tools.tickets import get_ticket_tool,get_ticket_stats_tool,get_unassigned_tickets_tool,search_tickets_tool
+from .tools.tickets import get_ticket_tool,get_ticket_stats_tool,get_employee_created_tickets_tool,get_employee_assigned_tickets_tool,search_tickets_tool
 from langgraph.graph import StateGraph,MessagesState,START,END
 from typing import TypedDict,List,Literal,Any
 from langchain_core.messages import HumanMessage, AIMessage
 from .Vector_db.vector_db import vector_store
 import logging
 from datetime import date
+from ..auth.authorization import resolve_arguments, authorize, validate_policies
 
 load_dotenv()
 model=ChatMistralAI(model="open-mistral-7b",temperature=0)
@@ -43,14 +44,15 @@ tools=[
        get_department_info_tool, get_departments_tool,
        get_employee_tool, search_employees_tool, get_employee_stats_tool,
        get_leave_balance_tool, search_leave_balances_tool,
-       get_current_leaves_tool,get_leave_request_tool,search_leave_requests_tool,
+       get_employment_tool,get_leave_request_tool,search_leave_requests_tool,
        get_employee_project_memberships_tool,get_project_member_tool,get_project_members_tool,search_project_members_tool,
        get_employee_projects_tool,get_project_tool,get_project_stats_tool,search_projects_tool,
        get_comment_tool,get_comment_count_tool,get_latest_ticket_comment_tool,get_ticket_comments_tool,search_ticket_comments_tool,
-       get_ticket_tool,get_ticket_stats_tool,get_unassigned_tickets_tool,search_tickets_tool
+       get_ticket_tool,get_ticket_stats_tool,get_employee_created_tickets_tool,get_employee_assigned_tickets_tool,search_tickets_tool
     ]
 
 tools_by_names={tool.name: tool for tool in tools}
+validate_policies(tools_by_names)
 
 
 
@@ -85,6 +87,8 @@ class StateAgent(MessagesState):
     missing_arguments:List[str]|None=None
     selected_tool:str|None=None
     tool_arguments:dict|None=None
+    refers_to_self:bool|None=None
+    denial_reason:str|None=None
     user: User
 
 #getting the query from human and saving in messages, will add an edge between this and intent classification
@@ -112,9 +116,10 @@ def intent_classification(state:StateAgent):
     ============================================================
     Tables and what each row stores:
     - employees: one row per employee: employee_id, first_name, last_name, gender, email, phone_number, address, date_of_birth, date_joined, job_title, department_id, manager_id (that employee's own manager), salary (that employee's own salary), employment_status.
-    - departments: one row per department: department_id, name, description, budget, creation date. Each department also has counts of its employees, projects and announcements. This is the only place that holds information about a specific department.
+    - departments: one row per department: department_id, name, description, creation date. Each department also has counts of its employees, projects and announcements. Department budget values are not available through the current database tools.
     - leave_balances: one row per employee, leave type and year: total_days, used_days, remaining_days. Numbers only, no policy text.
     - leave_requests: one row per leave request: employee_id, leave_type (Annual, Sick, Casual, Unpaid, Maternity), start_date, end_date, reason, status (Pending, Approved, Rejected), approved_by.
+    For a specific employee's submitted leave requests, use get_employment_tool with only that employee's ID; it returns requests across all leave types and statuses.
     - assets: one row per company asset such as a laptop or phone: asset_tag, asset_type, brand, model, serial_number, purchase_date, purchase_cost, status, condition, warranty_expiry, assigned_to (an employee).
     - tickets: one row per support ticket: ticket_id, created_by, assigned_to, title, description, category, status, priority, due_at, resolved_at, closed_at.
     - ticket_comments: comments written on a ticket: ticket_id, author_id, comment, created_at.
@@ -122,9 +127,9 @@ def intent_classification(state:StateAgent):
     - project_members: which employee works on which project, with role and joined_at.
     - announcements: company or department announcements: title, content, created_by, department_id, published_at, expires_at.
 
-    The database holds ONLY these records. It never contains policies, rules, benefits, entitlements, procedures, company values, culture, or any explanation of how the company works. It also holds no company-level facts about money or ownership: no fundraising, valuation, share counts, stock option prices or equity terms, no salary bands, no benefit or contribution amounts. The only money values it stores are one employee's own salary, a department's budget and an asset's purchase cost. A question belongs to the database if its answer is stored in, or can be counted or listed from, these tables: a value for one particular record, OR a count, total, list or breakdown of records. Examples of such counts: how many employees the company has, how many employees are in a department or have a given status, how many tickets are open, which assets are unassigned.
+    The database holds ONLY these records. It never contains policies, rules, benefits, entitlements, procedures, company values, culture, or any explanation of how the company works. It also holds no company-level facts about money or ownership: no fundraising, valuation, share counts, stock option prices or equity terms, no salary bands, no benefit or contribution amounts. The money values available through database tools are one employee's own salary and an asset's purchase cost. Department budget values are not available through the current database tools. A question belongs to the database if its answer is available in, or can be counted or listed from, these tools: a value for one particular record, OR a count, total, list or breakdown of records. Examples of such counts: how many employees the company has, how many employees are in a department or have a given status, how many tickets are open, which assets are unassigned.
 
-    Named things are records. A named person, a named department (for example "Finance", "the Engineering department"), a project, an asset or a ticket is a specific record. When the user asks for "info", "details", "an overview", "a profile" or "to tell me about" such a named thing, or asks about its description, budget, headcount, projects or announcements, that is a database lookup. The user does not need to say "record" or "database".
+    Named things are records. A named person, a named department (for example "Finance", "the Engineering department"), a project, an asset or a ticket is a specific record. When the user asks for "info", "details", "an overview", "a profile" or "to tell me about" such a named thing, or asks about its description, headcount, projects or announcements, that is a database lookup. Do not claim or infer department budget values; the current database tools do not return them. The user does not need to say "record" or "database".
 
     ============================================================
     SOURCE B: COMPANY HANDBOOK (documents)
@@ -136,7 +141,7 @@ def intent_classification(state:StateAgent):
     - How the team works: company values, mission, product principles, OKRs, one on ones, effective meetings, hack weeks, communication and Slack etiquette, sharing files, budgeting, who people report to in general, onboarding and the first day.
     - Hiring: the interview process, sourcing candidates, changes to the handbook.
     Any question about what the company allows, requires or offers, how much, how long, how often, when, who is responsible, or how something is normally done belongs to the handbook. This includes questions whose answer is a number (an amount, a limit, a number of days, a percentage), because those numbers describe company rules, not stored records.
-    The handbook does NOT describe individual departments or teams, their budgets, headcount, projects or announcements.
+    The handbook does NOT describe individual departments or teams, their headcount, projects or announcements.
 
     ============================================================
     HOW TO DECIDE
@@ -151,7 +156,7 @@ def intent_classification(state:StateAgent):
        - Pay for a role, a level or a group of people (for example what founders or senior staff earn) is a handbook question. Pay of one named person is a database question.
        - Facts about the company as a whole (money raised, valuation, number of shares, option price, equity terms, which benefits or matching contributions exist) are handbook questions, even though they mention money, shares or employees.
        - How many employees, tickets, assets or projects exist right now is a database question (counted from records). How many days, weeks or people a policy allows is a handbook question.
-       - Information about a particular named department (what it does, its budget, size, projects, announcements) is a database question. How departments or teams work in general (for example how budgeting is done or how teams communicate) is a handbook question.
+       - Information about a particular named department (what it does, its size, projects or announcements) is a database question. Department budget values are unavailable through the current database tools. How departments or teams work in general (for example how budgeting is done or how teams communicate) is a handbook question.
     3. Mixed:have both queries: only when the message contains TWO different needs, a general policy part AND a record part (specific or counted). A question with several sub-questions that are all about handbook topics is still RAG_Query, not Mixed.
     4. Unclear: only when you cannot tell what is being asked at all, or when a question about one specific record gives no identifier and no "my" or "I". Counting or listing questions are never Unclear. A general question about the company is never Unclear. A question naming a department, person, project, asset or ticket is never Unclear.
     5. Irrelevant: not related to the company at all (small talk, weather, general trivia, writing help).
@@ -177,7 +182,7 @@ def intent_classification(state:StateAgent):
     - "How many tickets are still open?" -> Database_Query
     - "List all announcements." -> Database_Query
     - "Give me info about the Finance department." -> Database_Query (a named department is a specific record)
-    - "What is the Engineering department's budget and how many people work there?" -> Database_Query
+    - "How many people work in the Engineering department?" -> Database_Query
     - "Which departments have more than 10 employees?" -> Database_Query (a filtered list of records)
     - "What is the complaint procedure, and do I have any pending leave requests?" -> Mixed:have both queries
     - "What is the weather in Paris?" -> Irrelevant
@@ -263,6 +268,7 @@ class Infocheck(TypedDict):
     reason: str
     selected_tool: str | None
     available_arguments: dict
+    refers_to_self: bool
 
 
 #if database query then this node will run
@@ -295,6 +301,7 @@ def check_for_missing_info(state:StateAgent):
     - selected_tool: the exact name of the best matching tool, or None if no suitable tool exists.
     - reason: briefly explain why this tool best matches the query.
     - available_arguments: a dictionary of argument names and their values that are explicitly supported by the query.
+    - refers_to_self: true if the user is asking about themself ("my", "me", "I", "mine"), otherwise false. Never put the user's own employee id in available_arguments yourself; the application fills it in.
     """
     structured_model=model.with_structured_output(Infocheck)
     answer=structured_model.invoke(prompt)
@@ -303,11 +310,14 @@ def check_for_missing_info(state:StateAgent):
 
     if selected_tool is None:
         debug_print("check_for_missing_info: no matching tool",requested_tool=answer["selected_tool"],known_tools=list(tools_by_names))
-        return {'enough_info':False,'missing_arguments':[],'selected_tool':None,'tool_arguments':{}}
+        return {'enough_info':False,'missing_arguments':[],'selected_tool':None,'tool_arguments':{},'refers_to_self':False,'denial_reason':None}
 
-    available_arguments = answer["available_arguments"] or {}
     argument_schema = selected_tool.get_input_schema().model_json_schema()
     required_arguments = argument_schema.get("required", [])
+    refers_to_self = bool(answer.get("refers_to_self"))
+    available_arguments = resolve_arguments(
+        selected_tool.name, answer["available_arguments"] or {}, state["user"], refers_to_self, required_arguments
+    )
     missing_arguments = [
         argument for argument in required_arguments
         if argument not in available_arguments
@@ -315,9 +325,9 @@ def check_for_missing_info(state:StateAgent):
     debug_print("check_for_missing_info: argument check",selected_tool=selected_tool.name,tool_description=selected_tool.description,all_parameters=list(argument_schema.get("properties",{})),required_arguments=required_arguments,arguments_from_model=available_arguments,missing_arguments=missing_arguments,enough_info=len(missing_arguments)==0)
 
     if len(missing_arguments)==0:
-        return {'enough_info':True,'missing_arguments':[],'selected_tool':selected_tool.name,'tool_arguments':available_arguments}
+        return {'enough_info':True,'missing_arguments':[],'selected_tool':selected_tool.name,'tool_arguments':available_arguments,'refers_to_self':refers_to_self,'denial_reason':None}
     else:
-        return {'enough_info':False,'missing_arguments':missing_arguments,'selected_tool':selected_tool.name,'tool_arguments':available_arguments}
+        return {'enough_info':False,'missing_arguments':missing_arguments,'selected_tool':selected_tool.name,'tool_arguments':available_arguments,'refers_to_self':refers_to_self,'denial_reason':None}
 
 #is enough confitional edge for routing
 def is_info_enough(state:StateAgent):
@@ -330,6 +340,26 @@ def is_info_enough(state:StateAgent):
         route="final_answer" if mixed else "ask_for_missing_info"
     debug_print("is_info_enough (router)",selected_tool=state["selected_tool"],enough_info=state["enough_info"],missing_arguments=state["missing_arguments"],next_node=route)
     return route
+
+#authorization: runs right after check_for_missing_info, before asking for missing info or executing
+def authorize_tool(state:StateAgent):
+    if state["selected_tool"] is None:
+        return {"denial_reason":None}
+    decision=authorize(state["selected_tool"],state["tool_arguments"] or {},state["user"])
+    debug_print("authorize_tool",tool=state["selected_tool"],role=state["user"]["role"],arguments=state["tool_arguments"],allowed=decision.allowed,reason=decision.reason)
+    return {"denial_reason":None if decision.allowed else decision.reason}
+
+def access_denied(state:StateAgent):
+    debug_print("access_denied",reason=state.get("denial_reason"))
+    return {"messages":[AIMessage(content=f"Sorry, I can't do that. {state['denial_reason']}")]}
+
+def after_authorization(state:StateAgent):
+    if state.get("denial_reason"):
+        mixed=state["intent"]["intent"]=="Mixed:have both queries"
+        route="final_answer" if mixed else "access_denied"
+        debug_print("after_authorization (router)",denial_reason=state["denial_reason"],next_node=route)
+        return route
+    return is_info_enough(state)
 
 #this after the execute_tool
 def execute_tool(state:StateAgent):
@@ -352,7 +382,9 @@ def final_answer(state:StateAgent):
     record_count=len(result) if isinstance(result,list) else None
     count_note=f" The tool returned exactly {record_count} records." if record_count is not None else ""
     missing=", ".join(argument.replace("_"," ") for argument in state.get('missing_arguments') or [])
-    if state.get('Database_query') and not selected:
+    if state.get('denial_reason'):
+        lookup_note=f"The record lookup was refused for this user: {state['denial_reason']} There are no database results. Tell the user this part is not permitted for their role. Do not guess or reveal any record data."
+    elif state.get('Database_query') and not selected:
         lookup_note="The record part of the question could not be matched to any available lookup, so there are no database results. Say that this part could not be answered and ask the user to rephrase it."
     elif selected and state.get('enough_info') is False:
         lookup_note=f"The record lookup could not be run because it still needs these details from the user: {missing}. There are no database results. Do not guess the missing values."
@@ -423,6 +455,8 @@ graph.add_node("final_answer", final_answer, defer=True)
 graph.add_node("not_implemented_yet", not_implemented_yet)
 graph.add_node("handle_irrelevant_query", handle_irrelevant_query)
 graph.add_node("RAG_Query_Retrieval", RAG_Query_Retrieval)
+graph.add_node("authorize_tool", authorize_tool)
+graph.add_node("access_denied", access_denied)
 
 # Start directly with the query already provided in state
 graph.add_edge(START, "Intent Classification")
@@ -432,9 +466,10 @@ graph.add_conditional_edges(
     intent_router
 )
 
+graph.add_edge("check_for_missing_info", "authorize_tool")
 graph.add_conditional_edges(
-    "check_for_missing_info",
-    is_info_enough
+    "authorize_tool",
+    after_authorization
 )
 
 graph.add_edge("execute_tool", "final_answer")
@@ -443,6 +478,7 @@ graph.add_edge("RAG_Query_Retrieval", "final_answer")
 # These nodes return a response to the outer loop.
 # The next user input is collected by the Python loop.
 graph.add_edge("ask_for_clarification", END)
+graph.add_edge("access_denied", END)
 graph.add_edge("ask_for_missing_info", END)
 graph.add_edge("not_implemented_yet", END)
 graph.add_edge("handle_irrelevant_query", END)
@@ -450,8 +486,14 @@ graph.add_edge("final_answer", END)
 
 app=graph.compile()
 messages=[]
+def load_user_by_email(email: str) -> User:
+    """TODO: replace with your real query: SELECT employee_id, first_name, ..., role FROM employees WHERE email = :email
+    (join department for department_name). Must return a dict matching the User TypedDict."""
+    raise NotImplementedError("Implement load_user_by_email with your database query")
+
 if __name__ == "__main__":
     messages = []
+    user = load_user_by_email(input("Login email: ").strip())
     while True:
         query = input("You: ")
 
@@ -461,7 +503,7 @@ if __name__ == "__main__":
         messages.append(HumanMessage(content=query))
 
         trace.clear()
-        result = app.invoke({"messages": messages})
+        result = app.invoke({"messages": messages, "user": user})
         debug_print("turn summary",nodes_visited=" -> ".join(trace),intent=(result.get("intent") or {}).get("intent"),selected_tool=result.get("selected_tool"),tool_arguments=result.get("tool_arguments"),chunks_retrieved=len(result.get("Retrieved_chunks") or []),total_messages=len(result["messages"]))
 
         messages = result["messages"]

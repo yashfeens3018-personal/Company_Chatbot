@@ -48,8 +48,7 @@ def get_assets_endpoint(asset_type: str = None,
     model: str = None,
     status: str = None,
     condition: str = None,
-    assigned_to_first_name: str = None,
-    assigned_to_last_name: str = None,
+    assigned_to: int = None,
     purchase_cost_min: float = None,
     purchase_cost_max: float = None,
     purchase_from: datetime = None,
@@ -61,8 +60,7 @@ def get_assets_endpoint(asset_type: str = None,
     model=model,
     status=status,
     condition=condition,
-    assigned_to_first_name=assigned_to_first_name,
-    assigned_to_last_name=assigned_to_last_name,
+    assigned_to=assigned_to,
     purchase_cost_min=purchase_cost_min,
     purchase_cost_max=purchase_cost_max,
     purchase_from=purchase_from,
@@ -103,12 +101,11 @@ def get_asset_endpoint(asset_id: int):
     )
 
 
-@router.get("/assets/employee/{first_name}/{last_name}")
-def get_employee_assets_endpoint(first_name: str, last_name: str):
+@router.get("/assets/employee/{employee_id}")
+def get_employee_assets_endpoint(employee_id: int):
     return _call_asset_query(
         get_employee_assets,
-        first_name,
-        last_name
+        employee_id
     )
 
 

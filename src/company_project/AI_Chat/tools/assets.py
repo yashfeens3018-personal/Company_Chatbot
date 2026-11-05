@@ -49,8 +49,7 @@ def search_assets_tool(
     model: str | None = None,
     status: str | None = None,
     condition: str | None = None,
-    assigned_to_first_name: str | None = None,
-    assigned_to_last_name: str | None = None,
+    assigned_to: int | None = None,
     purchase_cost_min: float | None = None,
     purchase_cost_max: float | None = None,
     purchase_from: datetime | None = None,
@@ -84,11 +83,7 @@ def search_assets_tool(
             "in_repair"). Any other value causes an error.
         condition: Must be exactly one of: "excellent", "good", "fair",
             "poor", "damaged" (lowercase). Any other value causes an error.
-        assigned_to_first_name: First name of the employee holding the asset.
-            Provide this together with ``assigned_to_last_name``.
-        assigned_to_last_name: Last name of the employee holding the asset.
-            Matching is case-insensitive and exact; assets held by employees
-            with matching full names are included.
+        assigned_to: Employee ID of the person holding the asset.
         purchase_cost_min: Minimum purchase cost, inclusive.
         purchase_cost_max: Maximum purchase cost, inclusive.
         purchase_from: Only assets purchased on or after this date (ISO 8601,
@@ -105,8 +100,7 @@ def search_assets_tool(
         model=model,
         status=status,
         condition=condition,
-        assigned_to_first_name=assigned_to_first_name,
-        assigned_to_last_name=assigned_to_last_name,
+        assigned_to=assigned_to,
         purchase_cost_min=purchase_cost_min,
         purchase_cost_max=purchase_cost_max,
         purchase_from=purchase_from,
@@ -148,22 +142,19 @@ def get_asset_stats_tool(
 
 
 @tool
-def get_employee_assets_tool(first_name: str, last_name: str):
-    """List assets currently assigned to employees with the given full name.
+def get_employee_assets_tool(employee_id: int):
+    """List assets currently assigned to the employee with the given ID.
 
-    Use for "what assets does Alex Smith have". The query looks up the
-    employee ID using the exact first and last name, ignoring case. If
-    multiple employees share that name, assets for all of them are returned.
-    If no employee matches, a not-found error is raised.
+    Use for asset requests about a specific employee when their employee ID
+    is known. If no employee has that ID, a not-found error is raised.
 
     Each row contains: asset_id, asset_tag, asset_type, brand, model,
     serial_number, status, condition, purchase_date, warranty_expiry.
 
     Args:
-        first_name: Employee's exact first name.
-        last_name: Employee's exact last name.
+        employee_id: Employee's positive integer ID.
     """
-    return get_employee_assets(first_name, last_name)
+    return get_employee_assets(employee_id)
 
 
 @tool

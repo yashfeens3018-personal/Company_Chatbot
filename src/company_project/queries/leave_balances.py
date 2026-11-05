@@ -1,7 +1,7 @@
 from sqlalchemy import select
 
-from ..models import Employees,Leave_Balances
-from ..database import SessionLocal
+from ..database.models import Employees,Leave_Balances
+from ..database.database import SessionLocal
 from .leave_requests import VALID_LEAVE_TYPES
 
 

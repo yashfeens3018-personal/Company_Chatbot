@@ -8,8 +8,8 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from src.company_project.database import Base
-from src.company_project import models
+from company_project.database.database import Base
+from company_project.database.database import models
 
 from alembic import context
 

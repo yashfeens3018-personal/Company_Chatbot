@@ -1,8 +1,8 @@
 from sqlalchemy import select, func, insert, update, delete
 from datetime import datetime
 
-from ..models import Assets, Employees
-from ..database import SessionLocal
+from ..database.models import Assets, Employees
+from ..database.database import SessionLocal
 
 
 asset_statuses = [
@@ -79,8 +79,7 @@ def search_assets(
     model: str | None = None,
     status: str | None = None,
     condition: str | None = None,
-    assigned_to_first_name: str | None = None,
-    assigned_to_last_name: str | None = None,
+    assigned_to: int | None = None,
     purchase_cost_min: float | None = None,
     purchase_cost_max: float | None = None,
     purchase_from: datetime | None = None,
@@ -123,17 +122,9 @@ def search_assets(
             )
         conditions.append(Assets.condition == condition)
 
-    if (assigned_to_first_name is None) != (assigned_to_last_name is None):
-        raise ValueError(
-            "Provide both the assigned employee's first and last name."
-        )
-
-    if assigned_to_first_name is not None:
-        employee_ids = _find_employee_ids(
-            assigned_to_first_name,
-            assigned_to_last_name,
-        )
-        conditions.append(Assets.assigned_to.in_(employee_ids))
+    if assigned_to is not None:
+        does_employee_exist(assigned_to)
+        conditions.append(Assets.assigned_to == assigned_to)
 
     if purchase_cost_min is not None:
         conditions.append(
@@ -187,12 +178,8 @@ def search_assets(
     return assets
 
 
-def get_employee_assets(first_name: str, last_name: str):
-    employee_ids = _find_employee_ids(first_name, last_name)
-    if not employee_ids:
-        raise LookupError(
-            f"No employee found with the name {first_name} {last_name}."
-        )
+def get_employee_assets(employee_id: int):
+    does_employee_exist(employee_id)
 
     stmt = select(
         Assets.asset_id,
@@ -205,9 +192,7 @@ def get_employee_assets(first_name: str, last_name: str):
         Assets.condition,
         Assets.purchase_date,
         Assets.warranty_expiry
-    ).where(
-        Assets.assigned_to.in_(employee_ids)
-    )
+    ).where(Assets.assigned_to == employee_id)
 
     with SessionLocal() as session:
         result = session.execute(stmt)
@@ -428,21 +413,6 @@ def does_employee_exist(employee_id: int):
         raise LookupError(
             f"The employee with employee_id: {employee_id} does not exist."
         )
-
-
-def _find_employee_ids(first_name: str, last_name: str) -> list[int]:
-    if not first_name.strip() or not last_name.strip():
-        raise ValueError(
-            "Provide both the assigned employee's first and last name."
-        )
-
-    stmt = select(Employees.employee_id).where(
-        Employees.first_name.ilike(first_name.strip()),
-        Employees.last_name.ilike(last_name.strip()),
-    )
-
-    with SessionLocal() as session:
-        return list(session.execute(stmt).scalars().all())
 
 
 def status_employee_compatibility(

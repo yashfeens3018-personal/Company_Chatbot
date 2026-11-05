@@ -1,6 +1,6 @@
 from sqlalchemy import select,func,update,delete,insert
-from ..models import Department,Projects,Employees,Announcements
-from ..database import SessionLocal
+from ..database.models import Department,Projects,Employees,Announcements
+from ..database.database import SessionLocal
 from datetime import datetime
 
 def get_department_info(id:int=None,name:str=None):
@@ -25,7 +25,6 @@ def get_department_info(id:int=None,name:str=None):
                 Department.name,
                 Department.description,
                 Department.created_at,
-                Department.budget,
                 select(
                     func.count(Projects.project_id)
                 ).where(
@@ -43,27 +42,27 @@ def get_department_info(id:int=None,name:str=None):
                     ).scalar_subquery().label("Number Of Announcements")
                 ).where(Department.department_id==id)
     else:
-        stmt=select(Department.department_id,
-                    Department.name,
-                    Department.description,
-                    Department.created_at,
-                    Department.budget,
-                    select(
-                        func.count(Projects.project_id)
-                    ).where(
-                        Projects.department_id==Department.department_id
-                    ).scalar_subquery().label("Number Of Projects"),
-                    select(
-                        func.count(Employees.employee_id)
-                    ).where(
-                        Employees.department_id==Department.department_id
-                        ).scalar_subquery().label("Number Of Employees"),
-                    select(
-                        func.count(Announcements.announcement_id)
-                    ).where(
-                        Announcements.department_id==Department.department_id
-                        ).scalar_subquery().label("Number Of Announcements")
-                    ).where(Department.name.ilike(f"%{name}%"))
+        stmt = select(
+            Department.department_id,
+            Department.name,
+            Department.description,
+            Department.created_at,
+            select(
+                func.count(Projects.project_id)
+            ).where(
+                Projects.department_id == Department.department_id
+            ).scalar_subquery().label("Number Of Projects"),
+            select(
+                func.count(Employees.employee_id)
+            ).where(
+                Employees.department_id == Department.department_id
+            ).scalar_subquery().label("Number Of Employees"),
+            select(
+                func.count(Announcements.announcement_id)
+            ).where(
+                Announcements.department_id == Department.department_id
+            ).scalar_subquery().label("Number Of Announcements")
+        ).where(Department.name.ilike(f"%{name}%"))
     with SessionLocal() as session:
         result=session.execute(stmt)
         department=[dict(row._mapping) for row in result.all()]
@@ -74,8 +73,6 @@ def get_department_info(id:int=None,name:str=None):
 
 def get_departments(
     name:str=None,
-    budget_min:float=None,
-    budget_max:float=None,
     created_from:datetime=None,
     created_to:datetime=None,
     min_employees:int=None,
@@ -87,12 +84,6 @@ def get_departments(
 ):
     if name is not None and (not name.strip() or len(name)>100):
         raise ValueError("Department name filter must contain 1 to 100 characters.")
-    if budget_min is not None and budget_min<0:
-        raise ValueError("Minimum budget cannot be negative.")
-    if budget_max is not None and budget_max<0:
-        raise ValueError("Maximum budget cannot be negative.")
-    if budget_min is not None and budget_max is not None and budget_min>budget_max:
-        raise ValueError("Minimum budget cannot be greater than maximum budget.")
     if created_from is not None and created_to is not None and created_from>created_to:
         raise ValueError("Creation start date cannot be after creation end date.")
     if min_employees is not None and min_employees<0:
@@ -137,12 +128,6 @@ def get_departments(
     if name is not None:
         conditions.append(Department.name.ilike(f"%{name}%"))
 
-    if budget_min is not None:
-        conditions.append(Department.budget>=budget_min)
-
-    if budget_max is not None:
-        conditions.append(Department.budget<=budget_max)
-
     if created_from is not None:
         conditions.append(Department.created_at>=created_from)
 
@@ -171,7 +156,6 @@ def get_departments(
         Department.department_id,
         Department.name,
         Department.description,
-        Department.budget,
         Department.created_at,
         employee_count.label("Number Of Employees"),
         project_count.label("Number Of Projects"),
@@ -187,7 +171,6 @@ def get_departments(
 def update_department(
     id:int,
     name:str=None,
-    budget:float=None,
     description:str=None
     ):
     if id is None:
@@ -196,8 +179,6 @@ def update_department(
         raise ValueError("Department ID must be greater than 0.")
     if name is not None and (not name.strip() or len(name)>100):
         raise ValueError("Department name must contain 1 to 100 characters.")
-    if budget is not None and budget<0:
-        raise ValueError("Department budget cannot be negative.")
     if description is not None and not description.strip():
         raise ValueError("Department description cannot be empty.")
     if id is not None:
@@ -207,13 +188,11 @@ def update_department(
             department=result.one_or_none()
         if department is None:
             raise LookupError(f"Department with id {id} does not exist.")
-    if name is None and budget is None and description is None:
-        raise ValueError(f'Provide atleast name or budget or description to get updated')
+    if name is None and description is None:
+        raise ValueError("Provide at least a name or description to update.")
     Values={}
     if name is not None:
         Values['name']=name
-    if budget is not None:
-        Values['budget']=budget
     if description is not None:
         Values['description']=description
     stmt=update(Department).where(Department.department_id==id).values(**Values)
@@ -224,19 +203,15 @@ def update_department(
 
 def create_department(
     name:str,
-    description:str=None,
-    budget:float=None
+    description:str=None
     ):
     if not isinstance(name,str) or not name.strip() or len(name)>100:
         raise ValueError("Department name must contain 1 to 100 characters.")
     if description is not None and (not isinstance(description,str) or not description.strip()):
         raise ValueError("Department description cannot be empty.")
-    if budget is not None and budget<0:
-        raise ValueError("Department budget cannot be negative.")
     stmt=insert(Department).values(
         name=name,
-        description=description,
-        budget=budget
+        description=description
     )
     a=0
     with SessionLocal() as session:

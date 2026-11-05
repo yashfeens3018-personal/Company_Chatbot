@@ -1,7 +1,7 @@
 from sqlalchemy import select,func,update,delete,insert
 from datetime import datetime
-from ..models import Projects,Department,Employees,Project_Members
-from ..database import SessionLocal
+from ..database.models import Projects,Department,Employees,Project_Members
+from ..database.database import SessionLocal
 
 VALID_PROJECT_STATUSES={
     "Planning",

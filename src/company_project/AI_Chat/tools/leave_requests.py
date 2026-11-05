@@ -3,7 +3,7 @@ from datetime import datetime
 from langchain.tools import tool
 
 from ...queries.leave_requests import (
-    get_current_leaves,
+    get_employee_leave_requests,
     get_leave_request,
     search_leave_requests,
 )
@@ -77,25 +77,16 @@ def search_leave_requests_tool(
 
 
 @tool
-def get_current_leaves_tool(
-    employee_id: int | None = None,
-    leave_type: str | None = None,
-):
-    """Retrieve approved leave requests that are active today.
+def get_employment_tool(employee_id: int):
+    """List all leave requests submitted by the employee with this ID.
 
-    A request is current when its start date is on or before now and its end
-    date is on or after now. Optionally limit results to one employee or leave
-    category. Returns request ID, employee ID, leave type, start/end dates,
-    and reason. If an employee ID is supplied, that employee must exist.
-    Leave types are Annual, Sick, Casual, Unpaid, or Maternity; matching
-    ignores letter case.
+    Includes requests of every leave type and status, ordered by start date.
+    Returns request ID, employee ID, leave type, dates, reason, status,
+    approver ID, and creation/update timestamps. Raises an error if the
+    employee ID does not exist.
 
     Args:
-        employee_id: Optional employee ID to filter current leave requests.
-        leave_type: Optional leave category: Annual, Sick, Casual, Unpaid, or
-            Maternity. Matching ignores letter case.
+        employee_id: Positive integer ID of the employee who submitted the
+            requests.
     """
-    return get_current_leaves(
-        employee_id=employee_id,
-        leave_type=leave_type,
-    )
+    return get_employee_leave_requests(employee_id)

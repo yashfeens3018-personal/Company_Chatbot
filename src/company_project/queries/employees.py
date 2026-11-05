@@ -1,7 +1,7 @@
 
 from sqlalchemy import select, delete, update, insert, func, or_
-from ..models import Employees, Department
-from ..database import SessionLocal
+from ..database.models import Employees, Department
+from ..database.database import SessionLocal
 
 
 VALID_EMPLOYMENT_STATUSES = {

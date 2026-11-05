@@ -1,8 +1,8 @@
 from sqlalchemy import select, insert, update, delete
 from datetime import datetime, timezone
 
-from ..models import Project_Members, Projects, Employees
-from ..database import SessionLocal
+from ..database.models import Project_Members, Projects, Employees
+from ..database.database import SessionLocal
 
 
 def _validate_positive_id(value: int, field_name: str):

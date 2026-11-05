@@ -1,8 +1,8 @@
 from sqlalchemy import select,update,delete,insert
 from datetime import datetime
 
-from ..models import Employees,Leave_Requests
-from ..database import SessionLocal
+from ..database.models import Employees,Leave_Requests
+from ..database.database import SessionLocal
 
 VALID_LEAVE_TYPES={
     "Annual",
@@ -168,49 +168,11 @@ def search_leave_requests(
 
 
 
-def get_current_leaves(
-    employee_id:int=None,
-    leave_type:str=None
-):
-    if leave_type is not None:
-        leave_type=_normalize_allowed_value(
-            leave_type,
-            VALID_LEAVE_TYPES,
-            "leave type"
-        )
+def get_employee_leave_requests(employee_id: int):
+    if employee_id <= 0:
+        raise ValueError("Employee ID must be a positive integer.")
 
-    if employee_id is not None:
-        with SessionLocal() as session:
-            _require_employee(session,employee_id)
-
-    current_date=datetime.utcnow()
-
-    conditions=[
-        Leave_Requests.start_date<=current_date,
-        Leave_Requests.end_date>=current_date,
-        Leave_Requests.status=="Approved"
-    ]
-
-    if employee_id is not None:
-        conditions.append(Leave_Requests.employee_id==employee_id)
-
-    if leave_type is not None:
-        conditions.append(Leave_Requests.leave_type==leave_type)
-
-    stmt=select(
-        Leave_Requests.leave_request_id,
-        Leave_Requests.employee_id,
-        Leave_Requests.leave_type,
-        Leave_Requests.start_date,
-        Leave_Requests.end_date,
-        Leave_Requests.reason
-    ).where(*conditions)
-
-    with SessionLocal() as session:
-        result=session.execute(stmt)
-        leave_requests=[dict(row._mapping) for row in result.all()]
-
-    return leave_requests
+    return search_leave_requests(employee_id=employee_id)
 
 def create_leave_request(
     employee_id:int,

@@ -1,8 +1,8 @@
 from sqlalchemy import select,func,insert,update,delete
 from datetime import datetime
 
-from ..models import Employees,Ticket_Comments,Tickets
-from ..database import SessionLocal
+from ..database.models import Employees,Ticket_Comments,Tickets
+from ..database.database import SessionLocal
 
 
 def _require_ticket(session,ticket_id:int):

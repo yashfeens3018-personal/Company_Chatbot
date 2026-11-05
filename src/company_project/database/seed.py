@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 from faker import Faker
 from sqlalchemy import delete, insert
 
-from company_project.database import SessionLocal
-from company_project.models import (
+from company_project.database.database import SessionLocal
+from company_project.database.models import (
     Announcements,
     Assets,
     Department,

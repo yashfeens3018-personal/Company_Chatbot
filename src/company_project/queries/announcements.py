@@ -1,8 +1,8 @@
 from sqlalchemy import select,update,delete,insert
 from datetime import datetime
 
-from ..models import Announcements,Employees,Department
-from ..database import SessionLocal
+from ..database.models import Announcements,Employees,Department
+from ..database.database import SessionLocal
 
 
 def _require_department(department_id:int):

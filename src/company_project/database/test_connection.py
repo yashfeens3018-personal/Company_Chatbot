@@ -1,5 +1,5 @@
-from company_project.database import SessionLocal
-from company_project.models import Department
+from company_project.database.database import SessionLocal
+from company_project.database.models import Department
 
 db = SessionLocal()
 

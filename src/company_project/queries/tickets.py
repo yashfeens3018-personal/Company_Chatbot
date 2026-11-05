@@ -1,8 +1,8 @@
 from sqlalchemy import select,func,insert,update,delete
 from datetime import datetime
 
-from ..models import Tickets,Employees
-from ..database import SessionLocal
+from ..database.models import Tickets,Employees
+from ..database.database import SessionLocal
 
 def employee_id_exists(employee_id:int):
     stmt=select(Employees.employee_id).where(Employees.employee_id==employee_id)
@@ -129,44 +129,58 @@ def search_tickets(
     return tickets
 
 
-def get_unassigned_tickets(
-    status:str=None,
-    priority:str=None,
-    category:str=None
-):
-    conditions=[
-        Tickets.assigned_to.is_(None)
-    ]
+def get_employee_created_tickets(employee_id: int):
+    if employee_id <= 0:
+        raise ValueError("Employee ID must be a positive integer.")
+    employee_id_exists(employee_id)
 
-    if status is not None:
-        if status.lower() not in ticket_statuses:
-            raise ValueError(f"Invalid status. Must be one of: {', '.join(ticket_statuses)}")
-        conditions.append(Tickets.status==status.lower())
-
-    if priority is not None:
-        if priority.lower() not in ticket_priorities:
-            raise ValueError(f"Invalid priority. Must be one of: {', '.join(ticket_priorities)}")
-        conditions.append(Tickets.priority==priority.lower())
-
-    if category is not None:
-        if category.lower() not in ticket_categories:
-            raise ValueError(f"Invalid category. Must be one of: {', '.join(ticket_categories)}")
-        conditions.append(Tickets.category==category.lower())
-
-
-    stmt=select(
+    stmt = select(
         Tickets.ticket_id,
         Tickets.title,
+        Tickets.description,
         Tickets.category,
         Tickets.status,
         Tickets.priority,
         Tickets.created_at,
-        Tickets.due_at
-    ).where(*conditions)
+        Tickets.updated_at,
+        Tickets.due_at,
+        Tickets.resolved_at,
+        Tickets.closed_at,
+        Tickets.created_by,
+        Tickets.assigned_to,
+    ).where(Tickets.created_by == employee_id)
 
     with SessionLocal() as session:
-        result=session.execute(stmt)
-        tickets=[dict(row._mapping) for row in result.all()]
+        result = session.execute(stmt)
+        tickets = [dict(row._mapping) for row in result.all()]
+
+    return tickets
+
+
+def get_employee_assigned_tickets(employee_id: int):
+    if employee_id <= 0:
+        raise ValueError("Employee ID must be a positive integer.")
+    employee_id_exists(employee_id)
+
+    stmt = select(
+        Tickets.ticket_id,
+        Tickets.title,
+        Tickets.description,
+        Tickets.category,
+        Tickets.status,
+        Tickets.priority,
+        Tickets.created_at,
+        Tickets.updated_at,
+        Tickets.due_at,
+        Tickets.resolved_at,
+        Tickets.closed_at,
+        Tickets.created_by,
+        Tickets.assigned_to,
+    ).where(Tickets.assigned_to == employee_id)
+
+    with SessionLocal() as session:
+        result = session.execute(stmt)
+        tickets = [dict(row._mapping) for row in result.all()]
 
     return tickets
 

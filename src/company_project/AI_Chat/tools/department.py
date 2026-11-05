@@ -19,9 +19,9 @@ def get_department_info_tool(
     1) Number of employees in a specific department
     2) Number of projects in a specific department
     3) Number of announcements in a specific department
-    4) departmemt info like id, name, description, budget, created_at
+    4) department info like id, name, description, created_at
     Returns a list of matching
-    rows, each with: department_id, name, description, budget, created_at,
+    rows, each with: department_id, name, description, created_at,
     and counts of employees, projects, and announcements. It does NOT return
     employee names, job titles, managers, or the contents of projects or
     announcements; it only returns counts.
@@ -49,8 +49,6 @@ def get_department_info_tool(
 @tool
 def get_departments_tool(
     name: str | None = None,
-    budget_min: float | None = None,
-    budget_max: float | None = None,
     created_from: datetime | None = None,
     created_to: datetime | None = None,
     min_employees: int | None = None,
@@ -63,23 +61,21 @@ def get_departments_tool(
     """List or filter departments. Use for browsing, comparing, ranking, or discovery.
 
     Use this when the user wants several departments, asks "which departments
-    ...", wants to filter by budget, creation date, or size, or when you need
+    ...", wants to filter by creation date or size, or when you need
     to discover the exact department names that exist. With no arguments it
     returns ALL departments. All filters are optional and combined with AND.
 
-    Each result row contains: department_id, name, description, budget,
-    created_at, and counts of employees, projects, and announcements. It does
+    Each result row contains: department_id, name, description, created_at,
+    and counts of employees, projects, and announcements. It does
     NOT return individual employees, projects, or announcements.
 
     Range filters are inclusive. You may give just a min, just a max, or
-    both; if both, min must be <= max. All counts and budgets must be >= 0.
+    both; if both, min must be <= max. All counts must be >= 0.
 
     Args:
         name: Case-insensitive partial match on the department name (1-100
             characters, not blank). Use a single key word, e.g. "eng" or
             "Finance".
-        budget_min: Minimum budget, inclusive.
-        budget_max: Maximum budget, inclusive (>= budget_min if both given).
         created_from: Only departments created on or after this timestamp
             (ISO 8601, e.g. "2024-01-31T00:00:00").
         created_to: Only departments created on or before this timestamp
@@ -95,8 +91,6 @@ def get_departments_tool(
     """
     return get_departments(
         name=name,
-        budget_min=budget_min,
-        budget_max=budget_max,
         created_from=created_from,
         created_to=created_to,
         min_employees=min_employees,
