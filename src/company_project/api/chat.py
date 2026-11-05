@@ -31,7 +31,7 @@ def chat(request: ChatRequest, current_user: Annotated[dict, Depends(get_user)])
     history = list(conversations.get(key, []))[-MAX_HISTORY:]
     history.append(HumanMessage(content=request.message))
     try:
-        result = chatbot.invoke({"messages": history, "employee_email": current_user["email"]})
+        result = chatbot.invoke({"messages": history, "user": current_user})
     except Exception:
         raise HTTPException(status_code=502, detail="The assistant could not answer right now. Please try again.")
     conversations[key] = result["messages"]

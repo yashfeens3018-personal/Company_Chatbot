@@ -29,7 +29,8 @@ def get_user_from_db(user_email: str):
         Employees.job_title,
         Employees.employment_status,
         Department.name.label("department_name"),
-        Employees.manager_id
+        Employees.manager_id,
+        Employees.role
     ).join(
         Department,
         Employees.department_id == Department.department_id
@@ -84,7 +85,7 @@ def get_user(token: Annotated[str, Depends(oauth)]):
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    if user["employment_status"] != "Active":
+    if user["employment_status"] != "active":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Employee account is not active",

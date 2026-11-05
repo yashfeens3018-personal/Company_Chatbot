@@ -99,6 +99,10 @@ class Employees(Base):
         String(100),
         nullable=False
     )
+    role: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True
+    )
     department_id: Mapped[int] = mapped_column(
         ForeignKey("departments.department_id"),
         nullable=False
@@ -174,6 +178,7 @@ class Employees(Base):
     announcements: Mapped[list["Announcements"]] = relationship(
         back_populates="creator"
     )
+    
     
         
 class Tickets(Base):

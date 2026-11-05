@@ -15,6 +15,7 @@ from typing import TypedDict,List,Literal,Any
 from langchain_core.messages import HumanMessage, AIMessage
 from .Vector_db.vector_db import vector_store
 import logging
+from datetime import date
 
 load_dotenv()
 model=ChatMistralAI(model="open-mistral-7b",temperature=0)
@@ -59,6 +60,20 @@ class IntentClassification(TypedDict):
     rag_query:str|None
     database_query:str|None
 
+class User(TypedDict):
+    employee_id: int
+    first_name: str
+    last_name: str
+    gender: str
+    email: str
+    phone_number: str
+    date_joined: date
+    job_title: str
+    employment_status: str
+    department_name: str
+    manager_id: int | None
+    role: str
+
 class StateAgent(MessagesState):
     employee_email:str|None=None
     Rag_query:str|None=None
@@ -70,6 +85,7 @@ class StateAgent(MessagesState):
     missing_arguments:List[str]|None=None
     selected_tool:str|None=None
     tool_arguments:dict|None=None
+    user: User
 
 #getting the query from human and saving in messages, will add an edge between this and intent classification
 def get_the_query(state:StateAgent):
