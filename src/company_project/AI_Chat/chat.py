@@ -3,13 +3,13 @@ from dotenv import load_dotenv
 from .tools.assets import get_asset_tool, get_asset_stats_tool, get_employee_assets_tool, get_expiring_warranties_tool, get_unassigned_assets_tool,search_assets_tool
 from .tools.announcements import get_announcement_tool, search_announcements_tool,get_active_announcements_tool,get_department_announcements_tool,get_employee_announcements_tool
 from .tools.department import get_department_info_tool, get_departments_tool
-from .tools.employees import get_employee_tool, search_employees_tool, get_employee_stats_tool
+from .tools.employees import get_employee_tool, get_employee_by_email_tool, search_employees_tool, get_employee_stats_tool
 from .tools.leave_balances import get_leave_balance_tool, search_leave_balances_tool
 from .tools.leave_requests import get_employment_tool,get_leave_request_tool,search_leave_requests_tool
 from .tools.project_members import get_employee_project_memberships_tool,get_project_member_tool,get_project_members_tool,search_project_members_tool
 from .tools.projects import get_employee_projects_tool,get_project_tool,get_project_stats_tool,search_projects_tool
 from .tools.ticket_comments import get_comment_tool,get_comment_count_tool,get_latest_ticket_comment_tool,get_ticket_comments_tool,search_ticket_comments_tool
-from .tools.tickets import get_ticket_tool,get_ticket_stats_tool,get_employee_created_tickets_tool,get_employee_assigned_tickets_tool,search_tickets_tool
+from .tools.tickets import get_ticket_tool,get_ticket_stats_tool,get_employee_tickets_tool,search_tickets_tool
 from langgraph.graph import StateGraph,MessagesState,START,END
 from typing import TypedDict,List,Literal,Any
 from langchain_core.messages import HumanMessage, AIMessage
@@ -17,9 +17,13 @@ from .Vector_db.vector_db import vector_store
 import logging
 from datetime import date
 from ..auth.authorization import resolve_arguments, authorize, validate_policies
+from sqlalchemy import select
+from ..database.models import Employees, Department
+from ..database.database import SessionLocal
+from .resilience import call_with_retry, ServiceError, LLM_RETRY_KINDS, DB_RETRY_KINDS
 
 load_dotenv()
-model=ChatMistralAI(model="open-mistral-7b",temperature=0)
+model=ChatMistralAI(model="open-mistral-7b",temperature=0,timeout=30,max_retries=1)
 logger = logging.getLogger(__name__)
 
 RETRIEVAL_K = 8
@@ -38,17 +42,22 @@ def debug_print(node,**values):
         print(f"{key}: {text}")
     print("="*50+"\n")
 
+def llm_failure(node, err: ServiceError):
+    debug_print(f"{node}: FAILED", kind=err.kind, error=repr(err.original))
+    return {"messages":[AIMessage(content=err.user_message)], "llm_error":err.user_message,
+            "selected_tool":None, "tool_arguments":{}, "enough_info":False, "missing_arguments":[]}
+
 tools=[
        get_asset_tool, get_asset_stats_tool, get_employee_assets_tool, get_expiring_warranties_tool, get_unassigned_assets_tool,search_assets_tool,
        get_announcement_tool, search_announcements_tool,get_active_announcements_tool,get_department_announcements_tool,get_employee_announcements_tool,
        get_department_info_tool, get_departments_tool,
-       get_employee_tool, search_employees_tool, get_employee_stats_tool,
+       get_employee_tool, get_employee_by_email_tool, search_employees_tool, get_employee_stats_tool,
        get_leave_balance_tool, search_leave_balances_tool,
        get_employment_tool,get_leave_request_tool,search_leave_requests_tool,
        get_employee_project_memberships_tool,get_project_member_tool,get_project_members_tool,search_project_members_tool,
        get_employee_projects_tool,get_project_tool,get_project_stats_tool,search_projects_tool,
        get_comment_tool,get_comment_count_tool,get_latest_ticket_comment_tool,get_ticket_comments_tool,search_ticket_comments_tool,
-       get_ticket_tool,get_ticket_stats_tool,get_employee_created_tickets_tool,get_employee_assigned_tickets_tool,search_tickets_tool
+       get_ticket_tool,get_ticket_stats_tool,get_employee_tickets_tool,search_tickets_tool
     ]
 
 tools_by_names={tool.name: tool for tool in tools}
@@ -90,6 +99,8 @@ class StateAgent(MessagesState):
     refers_to_self:bool|None=None
     denial_reason:str|None=None
     user: User
+    llm_error:str|None=None
+    retrieval_error:bool|None=None
 
 #getting the query from human and saving in messages, will add an edge between this and intent classification
 def get_the_query(state:StateAgent):
@@ -197,22 +208,29 @@ def intent_classification(state:StateAgent):
     - database_query: for Database_Query and Mixed, a standalone plain-language description of what to look up, count or list, including any identifier or name given. Keep it limited to what the user actually asked for and do not add details they did not request. Do not mention table or column names and do not start with the word retrieve. Otherwise null.
     """
     structured_model=model.with_structured_output(IntentClassification)
-    answer=structured_model.invoke(prompt)
+    try:
+        answer=call_with_retry(lambda: structured_model.invoke(prompt), step="intent classification",
+                               retry_on=LLM_RETRY_KINDS,
+                               validate=lambda a: isinstance(a,dict) and bool(a.get("intent")))
+    except ServiceError as err:
+        return llm_failure("Intent Classification", err)
     
     
     print("\n========== INTENT DEBUG ==========")
-    print("Intent:", answer["intent"])
-    print("Reason:", answer["reason"])
-    print("RAG query:", answer["rag_query"])
-    print("Database query:", answer["database_query"])
+    print("Intent:", answer.get("intent"))
+    print("Reason:", answer.get("reason"))
+    print("RAG query:", answer.get("rag_query"))
+    print("Database query:", answer.get("database_query"))
     print("==================================\n")
     debug_print("Intent Classification: output",raw_answer=answer)
     return {
     'intent':answer,
-    'Rag_query':answer['rag_query'],
-    'Database_query':answer['database_query']}
+    'Rag_query':answer.get('rag_query'),
+    'Database_query':answer.get('database_query')}
 
 def intent_router(state:StateAgent):
+    if state.get("llm_error"):
+        return END
     intent=state['intent']['intent']
     if intent=='Database_Query':
         route="check_for_missing_info"
@@ -234,14 +252,11 @@ def RAG_Query_Retrieval(state: StateAgent):
     debug_print("RAG_Query_Retrieval: start",rag_query=query,k=RETRIEVAL_K,intent=state.get('intent'))
 
     try:
-        chunks = vector_store.similarity_search(query, k=RETRIEVAL_K)
-    except Exception:
-        logger.exception("Chroma retrieval failed")
-
-        return {
-            "Retrieved_chunks": [],
-            "retrieval_error": True
-        }
+        chunks = call_with_retry(lambda: vector_store.similarity_search(query, k=RETRIEVAL_K),
+                                 step="document search", service="document search service")
+    except ServiceError as err:
+        debug_print("RAG_Query_Retrieval: FAILED", kind=err.kind, error=repr(err.original))
+        return {"Retrieved_chunks": [], "retrieval_error": True}
 
     print(f"\nQuery: {query}")
     print(f"Retrieved {len(chunks)} chunks")
@@ -304,19 +319,25 @@ def check_for_missing_info(state:StateAgent):
     - refers_to_self: true if the user is asking about themself ("my", "me", "I", "mine"), otherwise false. Never put the user's own employee id in available_arguments yourself; the application fills it in.
     """
     structured_model=model.with_structured_output(Infocheck)
-    answer=structured_model.invoke(prompt)
+    try:
+        answer=call_with_retry(lambda: structured_model.invoke(prompt), step="tool selection",
+                                   retry_on=LLM_RETRY_KINDS,
+                                   validate=lambda a: isinstance(a,dict))
+    except ServiceError as err:
+        return llm_failure("check_for_missing_info", err)
     debug_print("check_for_missing_info: model tool selection",raw_answer=answer)
-    selected_tool = next((tool for tool in tools if tool.name == answer["selected_tool"]), None)
+    selected_tool_name = answer.get("selected_tool")
+    selected_tool = next((tool for tool in tools if tool.name == selected_tool_name), None)
 
     if selected_tool is None:
-        debug_print("check_for_missing_info: no matching tool",requested_tool=answer["selected_tool"],known_tools=list(tools_by_names))
+        debug_print("check_for_missing_info: no matching tool",requested_tool=selected_tool_name,known_tools=list(tools_by_names))
         return {'enough_info':False,'missing_arguments':[],'selected_tool':None,'tool_arguments':{},'refers_to_self':False,'denial_reason':None}
 
     argument_schema = selected_tool.get_input_schema().model_json_schema()
     required_arguments = argument_schema.get("required", [])
     refers_to_self = bool(answer.get("refers_to_self"))
     available_arguments = resolve_arguments(
-        selected_tool.name, answer["available_arguments"] or {}, state["user"], refers_to_self, required_arguments
+        selected_tool.name, answer.get("available_arguments") or {}, state["user"], refers_to_self, required_arguments
     )
     missing_arguments = [
         argument for argument in required_arguments
@@ -354,6 +375,8 @@ def access_denied(state:StateAgent):
     return {"messages":[AIMessage(content=f"Sorry, I can't do that. {state['denial_reason']}")]}
 
 def after_authorization(state:StateAgent):
+    if state.get("llm_error"):
+        return "final_answer" if state["intent"]["intent"]=="Mixed:have both queries" else END
     if state.get("denial_reason"):
         mixed=state["intent"]["intent"]=="Mixed:have both queries"
         route="final_answer" if mixed else "access_denied"
@@ -366,14 +389,31 @@ def execute_tool(state:StateAgent):
     tool = tools_by_names[state["selected_tool"]]
     debug_print("execute_tool: calling",tool=tool.name,arguments=state["tool_arguments"])
     try:
-        observation = tool.invoke(state["tool_arguments"])
+        observation = call_with_retry(
+            lambda: tool.invoke(state["tool_arguments"]),
+            step=f"tool {tool.name}",
+            service="database",
+            retry_on=DB_RETRY_KINDS,
+        )
         debug_print("execute_tool: success",result_type=type(observation).__name__,result=observation)
-    except Exception as exc:
-        observation = f"The database lookup failed: {exc}"
-        debug_print("execute_tool: FAILED",error_type=type(exc).__name__,error=exc)
+    except ServiceError as err:
+        if err.kind in ("database", "database_error"):
+            observation = f"The database lookup failed: {err.user_message}"
+        else:
+            observation = f"The database lookup failed: {err.original}"
+        debug_print("execute_tool: FAILED",kind=err.kind,error=repr(err.original))
     return {"Database_result": observation}
     
 def final_answer(state:StateAgent):
+    if state.get("llm_error"):
+        return {}
+    if state.get("retrieval_error") and not state.get("Database_query"):
+        return {"messages":[AIMessage(content="I couldn't search the company handbook right now, so I can't answer that. Please try again in a moment.")]}
+    retrieval_note = (
+        "The document search failed, so there are no document chunks. Do not guess any policy or handbook content; say that part could not be looked up right now."
+        if state.get("retrieval_error")
+        else "Document search worked normally."
+    )
     question=next((message.content for message in reversed(state['messages']) if isinstance(message, HumanMessage)), "")
     history="\n".join(f"{'User' if isinstance(message,HumanMessage) else 'Assistant'}: {str(message.content)[:500]}" for message in state['messages'][-7:-1]) or "None"
     selected=state.get('selected_tool')
@@ -414,6 +454,9 @@ def final_answer(state:StateAgent):
     Retrieved document chunks:
     {state.get('Retrieved_chunks')}
 
+    Document search status:
+    {retrieval_note}
+
     Instructions:
     1. Use the database results for company records and structured information.
        They are the exact output of the tool described above, run with the arguments shown, so every filter in those arguments (for example gender, employee id or department) has already been applied. Treat the results as correct and answer from them directly. Do not require the filter to appear as a column or field in the rows. A count, total or list returned by the tool is the answer to the matching question.
@@ -429,7 +472,15 @@ def final_answer(state:StateAgent):
     9. If the latest question refers to something said earlier (for example "what about her?", or it only supplies a detail you asked for), use the earlier conversation to understand what is being asked. Take facts only from the database results and the retrieved chunks, never from the earlier conversation.
     """
 
-    response=model.invoke(prompt)
+    try:
+        response=call_with_retry(
+            lambda: model.invoke(prompt),
+            step="final answer",
+            retry_on=LLM_RETRY_KINDS,
+            validate=lambda r: bool(str(getattr(r, "content", "")).strip()),
+        )
+    except ServiceError as err:
+        return llm_failure("final_answer", err)
     debug_print("final_answer: output",answer=response.content,usage=getattr(response,'usage_metadata',None))
 
     return {"messages":[AIMessage(content=response.content)]}
@@ -486,26 +537,99 @@ graph.add_edge("final_answer", END)
 
 app=graph.compile()
 messages=[]
-def load_user_by_email(email: str) -> User:
-    """TODO: replace with your real query: SELECT employee_id, first_name, ..., role FROM employees WHERE email = :email
-    (join department for department_name). Must return a dict matching the User TypedDict."""
-    raise NotImplementedError("Implement load_user_by_email with your database query")
+def load_user_by_email(email: str) -> User | None:
+    
+    stmt = (
+        select(
+            Employees.employee_id,
+            Employees.first_name,
+            Employees.last_name,
+            Employees.gender,
+            Employees.email,
+            Employees.phone_number,
+            Employees.date_joined,
+            Employees.job_title,
+            Employees.employment_status,
+            Employees.role,
+            Department.name.label("department_name"),
+            Employees.manager_id,
+        )
+        .join(
+            Department,
+            Employees.department_id == Department.department_id,
+        )
+        .where(Employees.email == email)
+    )
+
+    with SessionLocal() as session:
+        result = session.execute(stmt).mappings().one_or_none()
+
+    if result is None:
+        return None
+
+    return dict(result)
+
+def login():
+    while True:
+        email = input("Login email (or 'exit'): ").strip()
+        if email.lower() in ("exit", "quit"):
+            return None
+        try:
+            user = call_with_retry(
+                lambda: load_user_by_email(email),
+                step="login",
+                service="database",
+                retry_on=DB_RETRY_KINDS,
+            )
+        except ServiceError as err:
+            print(f"Assistant: {err.user_message}")
+            continue
+        if user is None:
+            print("Assistant: I couldn't find an employee with that email. Please try again.")
+            continue
+        return user
 
 if __name__ == "__main__":
     messages = []
-    user = load_user_by_email(input("Login email: ").strip())
+    user = login()
+    if user is None:
+        raise SystemExit
+
     while True:
-        query = input("You: ")
+        try:
+            query = input("You: ")
+        except (KeyboardInterrupt, EOFError):
+            break
 
         if query.lower() in ["exit", "quit"]:
             break
+        if not query.strip():
+            continue
 
         messages.append(HumanMessage(content=query))
 
         trace.clear()
-        result = app.invoke({"messages": messages, "user": user})
-        debug_print("turn summary",nodes_visited=" -> ".join(trace),intent=(result.get("intent") or {}).get("intent"),selected_tool=result.get("selected_tool"),tool_arguments=result.get("tool_arguments"),chunks_retrieved=len(result.get("Retrieved_chunks") or []),total_messages=len(result["messages"]))
+        try:
+            result = app.invoke({"messages": messages, "user": user})
+        except KeyboardInterrupt:
+            messages.pop()
+            print("\nCancelled.")
+            continue
+        except Exception:
+            logger.exception("Unhandled error while processing the query")
+            messages.pop()
+            print("Assistant: Sorry, something went wrong on my side while handling that. Please try again.")
+            continue
 
+        debug_print(
+            "turn summary",
+            nodes_visited=" -> ".join(trace),
+            intent=(result.get("intent") or {}).get("intent"),
+            selected_tool=result.get("selected_tool"),
+            tool_arguments=result.get("tool_arguments"),
+            chunks_retrieved=len(result.get("Retrieved_chunks") or []),
+            total_messages=len(result["messages"]),
+        )
         messages = result["messages"]
 
         print("Assistant:", messages[-1].content)

@@ -185,12 +185,11 @@ def search_projects(
     return projects
 
 
-def get_employee_projects(first_name:str,last_name:str):
+def get_employee_projects(employee_id: int):
+    if employee_id <= 0:
+        raise ValueError("Employee ID must be a positive integer.")
     with SessionLocal() as session:
-        employee_ids=_find_employee_ids(session,first_name,last_name)
-
-    if not employee_ids:
-        raise ValueError(f"Employee {first_name} {last_name} does not exist.")
+        _require_employee(session, employee_id, "Employee")
 
     stmt=select(
         Projects.project_id,
@@ -209,7 +208,7 @@ def get_employee_projects(first_name:str,last_name:str):
         Department,
         Projects.department_id==Department.department_id
     ).where(
-        Project_Members.employee_id.in_(employee_ids)
+        Project_Members.employee_id == employee_id
     ).order_by(
         Projects.start_date.desc()
     )

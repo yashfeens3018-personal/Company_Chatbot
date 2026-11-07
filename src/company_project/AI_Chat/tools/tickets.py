@@ -5,8 +5,7 @@ from langchain.tools import tool
 from ...queries.tickets import (
     get_ticket,
     get_ticket_stats,
-    get_employee_created_tickets,
-    get_employee_assigned_tickets,
+    get_employee_tickets,
     search_tickets,
 )
 
@@ -92,31 +91,18 @@ def search_tickets_tool(
 
 
 @tool
-def get_employee_created_tickets_tool(employee_id: int):
-    """List tickets created by the employee with the given ID.
+def get_employee_tickets_tool(employee_id: int):
+    """List tickets created by or assigned to the employee with the given ID.
 
-    Returns matching ticket records, including IDs, descriptions, status,
-    priority, lifecycle timestamps, creator ID, and assignee ID. Raises a
-    not-found error if the employee ID does not exist.
-
-    Args:
-        employee_id: Positive integer ID of the ticket creator.
-    """
-    return get_employee_created_tickets(employee_id)
-
-
-@tool
-def get_employee_assigned_tickets_tool(employee_id: int):
-    """List tickets assigned to the employee with the given ID.
-
-    Returns matching ticket records, including IDs, descriptions, status,
-    priority, lifecycle timestamps, creator ID, and assignee ID. Raises a
-    not-found error if the employee ID does not exist.
+    A ticket is included once even when the employee both created and is
+    assigned to it. Returns matching ticket records, including IDs,
+    descriptions, status, priority, lifecycle timestamps, creator ID, and
+    assignee ID. Raises a not-found error if the employee ID does not exist.
 
     Args:
-        employee_id: Positive integer ID of the ticket assignee.
+        employee_id: Positive integer ID of the employee.
     """
-    return get_employee_assigned_tickets(employee_id)
+    return get_employee_tickets(employee_id)
 
 
 @tool

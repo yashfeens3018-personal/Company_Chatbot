@@ -123,24 +123,18 @@ def get_department_announcements_tool(
 
 
 @tool
-def get_employee_announcements_tool(first_name: str, last_name: str):
-    """List announcements written by employees with the given full name.
+def get_employee_announcements_tool(employee_id: int):
+    """List announcements written by the employee with the given ID.
 
-    Use when the user asks what an employee has announced and provides their
-    first and last name. Employee IDs are resolved internally. If multiple
-    employees share that full name, announcements from all of them are
-    returned.
+    Use when the user asks what a specific employee has announced and their
+    employee ID is known.
 
     Args:
-        first_name: Employee's exact first name; matching ignores case.
-        last_name: Employee's exact last name; matching ignores case.
+        employee_id: Positive integer ID of the employee.
 
     Returns:
         A list of matching announcements with announcement ID, title,
         content, department name, publish date, expiry date, and creator ID.
-        Raises LookupError if no employee has the supplied full name.
+        Raises an error if no employee has the supplied ID.
     """
-    return get_employee_announcements(
-        first_name=first_name,
-        last_name=last_name,
-    )
+    return get_employee_announcements(employee_id=employee_id)

@@ -7,8 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from ..queries.tickets import (
     get_ticket,
     search_tickets,
-    get_employee_created_tickets,
-    get_employee_assigned_tickets,
+    get_employee_tickets,
     get_ticket_stats,
     create_ticket,
     update_ticket,
@@ -49,14 +48,9 @@ def get_ticket_stats_endpoint():
     return _call_ticket_member_query(get_ticket_stats)
 
 
-@router.get("/tickets/employee/{employee_id}/created")
-def get_employee_created_tickets_endpoint(employee_id: int):
-    return _call_ticket_member_query(get_employee_created_tickets, employee_id)
-
-
-@router.get("/tickets/employee/{employee_id}/assigned")
-def get_employee_assigned_tickets_endpoint(employee_id: int):
-    return _call_ticket_member_query(get_employee_assigned_tickets, employee_id)
+@router.get("/tickets/employee/{employee_id}")
+def get_employee_tickets_endpoint(employee_id: int):
+    return _call_ticket_member_query(get_employee_tickets, employee_id)
 
 
 @router.get("/tickets/{ticket_id}")

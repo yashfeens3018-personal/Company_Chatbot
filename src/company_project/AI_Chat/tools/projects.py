@@ -95,27 +95,21 @@ def search_projects_tool(
 
 
 @tool
-def get_employee_projects_tool(first_name: str, last_name: str):
-    """List the projects one employee works on as a team member, given their full name.
+def get_employee_projects_tool(employee_id: int):
+    """List projects where the employee with this ID is a team member.
 
-    Use for "which projects is Maria Lopez on" or "what is John Smith working
-    on". Both ``first_name`` and ``last_name`` are required. If the user gave
-    only one of them, do not guess the other. To find projects that a person
-    MANAGES, use ``search_projects_tool`` with the manager name filters
-    instead.
+    Use when the employee ID is known. To find projects that a person manages,
+    use ``search_projects_tool`` with the manager name filters instead.
 
     Returns memberships, newest project start date first. Each row contains:
     project ID, name, description, department name, the employee's role on
-    the project, the date they joined, project status, start date, expected
-    end date. If several employees share the name, memberships of all of them
-    are returned.
+    the project, the date they joined, project status, start date, and
+    expected end date.
 
     Args:
-        first_name: Employee's exact first name, e.g. "Maria". Case is
-            ignored.
-        last_name: Employee's exact last name, e.g. "Lopez". Case is ignored.
+        employee_id: Positive integer ID of the employee.
     """
-    return get_employee_projects(first_name=first_name, last_name=last_name)
+    return get_employee_projects(employee_id=employee_id)
 
 
 @tool

@@ -1,4 +1,4 @@
-from sqlalchemy import select,func,insert,update,delete
+from sqlalchemy import select,func,insert,update,delete,or_
 from datetime import datetime
 
 from ..database.models import Tickets,Employees
@@ -129,7 +129,7 @@ def search_tickets(
     return tickets
 
 
-def get_employee_created_tickets(employee_id: int):
+def get_employee_tickets(employee_id: int):
     if employee_id <= 0:
         raise ValueError("Employee ID must be a positive integer.")
     employee_id_exists(employee_id)
@@ -148,35 +148,12 @@ def get_employee_created_tickets(employee_id: int):
         Tickets.closed_at,
         Tickets.created_by,
         Tickets.assigned_to,
-    ).where(Tickets.created_by == employee_id)
-
-    with SessionLocal() as session:
-        result = session.execute(stmt)
-        tickets = [dict(row._mapping) for row in result.all()]
-
-    return tickets
-
-
-def get_employee_assigned_tickets(employee_id: int):
-    if employee_id <= 0:
-        raise ValueError("Employee ID must be a positive integer.")
-    employee_id_exists(employee_id)
-
-    stmt = select(
-        Tickets.ticket_id,
-        Tickets.title,
-        Tickets.description,
-        Tickets.category,
-        Tickets.status,
-        Tickets.priority,
-        Tickets.created_at,
-        Tickets.updated_at,
-        Tickets.due_at,
-        Tickets.resolved_at,
-        Tickets.closed_at,
-        Tickets.created_by,
-        Tickets.assigned_to,
-    ).where(Tickets.assigned_to == employee_id)
+    ).where(
+        or_(
+            Tickets.created_by == employee_id,
+            Tickets.assigned_to == employee_id,
+        )
+    ).order_by(Tickets.created_at.desc())
 
     with SessionLocal() as session:
         result = session.execute(stmt)

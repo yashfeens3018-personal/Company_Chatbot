@@ -58,6 +58,7 @@ POLICIES = {
 
     # 4. Employees: everyone, any argument
     "get_employee_tool":       open_tool("employee_id"),
+    "get_employee_by_email_tool": open_tool(),
     "search_employees_tool":   open_tool(),
     "get_employee_stats_tool": open_tool(),
 
@@ -75,8 +76,7 @@ POLICIES = {
     "get_ticket_tool":                   restricted_tool(TICKET_FULL_ACCESS),
     "get_ticket_stats_tool":             restricted_tool(TICKET_FULL_ACCESS),
     "search_tickets_tool":               restricted_tool(TICKET_FULL_ACCESS),
-    "get_employee_created_tickets_tool":  own_data_tool(TICKET_FULL_ACCESS),
-    "get_employee_assigned_tickets_tool": own_data_tool(TICKET_FULL_ACCESS),
+    "get_employee_tickets_tool":           own_data_tool(TICKET_FULL_ACCESS),
 
     # 7. Ticket comments: follow ticket access (comments expose ticket content)
     "get_comment_tool":               restricted_tool(TICKET_FULL_ACCESS),

@@ -9,18 +9,35 @@ from ...queries.employees import (
 
 
 @tool
-def get_employee_tool(email: str):
-    """Retrieve one employee using their exact email address.
+def get_employee_tool(employee_id: int):
+    """Retrieve one employee using their unique employee ID.
 
-    Use this tool ONLY when the employee's exact email address is already
-    known from the user's message or previous verified results.
-
-    Do NOT use this tool when the user provides only a name or employee ID.
-    For a name, use search_employees_tool. For an employee ID, use
-    get_employee_by_id_tool.
+    Use this when the user provides an employee ID or when a previously
+    verified result identifies the employee by ID. For a name, use
+    search_employees_tool.
 
     Args:
-        email: The exact email address identifying the employee.
+        employee_id: The positive integer employee ID.
+
+    Returns:
+        A one-item list containing the employee's ID, first name, last name,
+        gender, email, phone number, join date, job title, employment status,
+        department name, and manager ID.
+
+        Raises LookupError if no employee matches the ID.
+    """
+    return get_employee(id=employee_id)
+
+
+@tool
+def get_employee_by_email_tool(email: str):
+    """Retrieve one employee using their exact email address.
+
+    Use only when the exact email address is known. For an employee ID, use
+    get_employee_tool; for a name, use search_employees_tool.
+
+    Args:
+        email: Exact email address identifying the employee.
 
     Returns:
         A one-item list containing the employee's ID, first name, last name,
@@ -30,30 +47,6 @@ def get_employee_tool(email: str):
         Raises LookupError if no employee matches the email.
     """
     return get_employee(email=email)
-
-
-@tool
-def get_employee_by_id_tool(id: int):
-    """Retrieve one employee using their unique employee ID.
-
-    Use this tool when the user explicitly provides an employee ID or when
-    a previously verified database result identifies the employee by ID.
-
-    Do NOT use this tool when the user provides only a name or email.
-    For a name, use search_employees_tool. For an email, use
-    get_employee_tool.
-
-    Args:
-        id: The unique integer employee ID.
-
-    Returns:
-        A one-item list containing the employee's ID, first name, last name,
-        gender, email, phone number, join date, job title, employment status,
-        department name, and manager ID.
-
-        Raises LookupError if no employee matches the ID.
-    """
-    return get_employee(id=id)
 
 
 @tool

@@ -45,12 +45,12 @@ def _resolve_department_id(
     return resolved_department_id
     
 def _require_employee(employee_id:int):
-    session=SessionLocal()
-    exists=session.execute(
-        select(Employees.employee_id).where(
-            Employees.employee_id==employee_id
-        )
-    ).scalar_one_or_none()
+    with SessionLocal() as session:
+        exists=session.execute(
+            select(Employees.employee_id).where(
+                Employees.employee_id==employee_id
+            )
+        ).scalar_one_or_none()
 
     if exists is None:
         raise ValueError(f"Employee with id {employee_id} does not exist.")
@@ -282,25 +282,11 @@ def get_department_announcements(
 
 
 def get_employee_announcements(
-    first_name: str,
-    last_name: str,
+    employee_id: int,
 ):
-    if not first_name.strip() or not last_name.strip():
-        raise ValueError("Provide both an employee first name and last name.")
-
-    employee_ids_stmt = select(Employees.employee_id).where(
-        Employees.first_name.ilike(first_name.strip()),
-        Employees.last_name.ilike(last_name.strip()),
-    )
-
-    with SessionLocal() as session:
-        employee_ids = session.execute(employee_ids_stmt).scalars().all()
-
-    if not employee_ids:
-        raise LookupError(
-            f"No employee found with the name {first_name.strip()} "
-            f"{last_name.strip()}."
-        )
+    if employee_id <= 0:
+        raise ValueError("Employee ID must be a positive integer.")
+    _require_employee(employee_id)
 
     stmt=select(
         Announcements.announcement_id,
@@ -314,7 +300,7 @@ def get_employee_announcements(
         Department,
         Announcements.department_id==Department.department_id
     ).where(
-        Announcements.created_by.in_(employee_ids)
+        Announcements.created_by == employee_id
     ).order_by(
         Announcements.published_at.desc()
     )
