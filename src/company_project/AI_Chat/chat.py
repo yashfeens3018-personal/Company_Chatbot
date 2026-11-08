@@ -21,9 +21,12 @@ from sqlalchemy import select
 from ..database.models import Employees, Department
 from ..database.database import SessionLocal
 from .resilience import call_with_retry, ServiceError, LLM_RETRY_KINDS, DB_RETRY_KINDS
+from langchain_google_genai import ChatGoogleGenerativeAI
+load_dotenv()
+model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, timeout=30, max_retries=1)
 
 load_dotenv()
-model=ChatMistralAI(model="open-mistral-7b",temperature=0,timeout=30,max_retries=1)
+# model=ChatMistralAI(model="open-mistral-7b",temperature=0,timeout=30,max_retries=1)
 logger = logging.getLogger(__name__)
 
 RETRIEVAL_K = 8

@@ -18,7 +18,7 @@ from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
 logger = logging.getLogger(__name__)
 
-MAX_RETRIES = 3          # retries after the first attempt (4 attempts in total)
+MAX_RETRIES = 5         # retries after the first attempt (4 attempts in total)
 RETRY_BASE_DELAY = 1.0   # seconds; doubles each retry: 1s, 2s, 4s
 MAX_RETRY_WAIT = 20.0    # never sleep longer than this; if the API asks for more, tell the user instead
 
