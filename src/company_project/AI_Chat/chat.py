@@ -22,6 +22,7 @@ from ..database.models import Employees, Department
 from ..database.database import SessionLocal
 from .resilience import call_with_retry, ServiceError, LLM_RETRY_KINDS, DB_RETRY_KINDS
 from langchain_google_genai import ChatGoogleGenerativeAI
+from .cache import lookup as cache_lookup, store as cache_store, purge_stale
 load_dotenv()
 model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, timeout=30, max_retries=1)
 
@@ -104,6 +105,8 @@ class StateAgent(MessagesState):
     user: User
     llm_error:str|None=None
     retrieval_error:bool|None=None
+    cache_hit: bool | None = None
+    cache_score: float | None = None
 
 #getting the query from human and saving in messages, will add an edge between this and intent classification
 def get_the_query(state:StateAgent):
@@ -238,7 +241,7 @@ def intent_router(state:StateAgent):
     if intent=='Database_Query':
         route="check_for_missing_info"
     elif intent=='RAG_Query':
-        route="RAG_Query_Retrieval"
+        route = "check_cache"  
     elif intent== "Mixed:have both queries":
         route=[node for node,part in (("check_for_missing_info",state['Database_query']),("RAG_Query_Retrieval",state['Rag_query'])) if part] or "ask_for_clarification"
     elif intent=="Unclear":
@@ -249,6 +252,21 @@ def intent_router(state:StateAgent):
         route="ask_for_clarification"
     debug_print("intent_router (router)",intent=intent,next_node=route)
     return route
+
+# new node + router
+def check_cache(state: StateAgent):
+    query = state["Rag_query"]
+    hit = cache_lookup(query)
+    debug_print("check_cache", rag_query=query, hit=bool(hit),
+                score=hit.score if hit else None,
+                matched_query=hit.matched_query if hit else None)
+    if hit:
+        return {"cache_hit": True, "cache_score": hit.score,
+                "messages": [AIMessage(content=hit.answer)]}
+    return {"cache_hit": False}
+
+def after_cache_check(state: StateAgent):
+    return END if state.get("cache_hit") else "RAG_Query_Retrieval"
     
 def RAG_Query_Retrieval(state: StateAgent):
     query = state["Rag_query"]
@@ -485,7 +503,11 @@ def final_answer(state:StateAgent):
     except ServiceError as err:
         return llm_failure("final_answer", err)
     debug_print("final_answer: output",answer=response.content,usage=getattr(response,'usage_metadata',None))
-
+    if (state['intent']['intent'] == "RAG_Query"
+            and state.get("Rag_query")
+            and state.get("Retrieved_chunks")
+            and not state.get("retrieval_error")):
+        cache_store(state["Rag_query"], response.content)
     return {"messages":[AIMessage(content=response.content)]}
 
 
@@ -511,6 +533,7 @@ graph.add_node("handle_irrelevant_query", handle_irrelevant_query)
 graph.add_node("RAG_Query_Retrieval", RAG_Query_Retrieval)
 graph.add_node("authorize_tool", authorize_tool)
 graph.add_node("access_denied", access_denied)
+graph.add_node("check_cache", check_cache)
 
 # Start directly with the query already provided in state
 graph.add_edge(START, "Intent Classification")
@@ -519,7 +542,7 @@ graph.add_conditional_edges(
     "Intent Classification",
     intent_router
 )
-
+graph.add_conditional_edges("check_cache", after_cache_check)
 graph.add_edge("check_for_missing_info", "authorize_tool")
 graph.add_conditional_edges(
     "authorize_tool",
@@ -593,6 +616,7 @@ def login():
         return user
 
 if __name__ == "__main__":
+    purge_stale()
     messages = []
     user = login()
     if user is None:
@@ -628,6 +652,7 @@ if __name__ == "__main__":
             "turn summary",
             nodes_visited=" -> ".join(trace),
             intent=(result.get("intent") or {}).get("intent"),
+            cache_hit=result.get("cache_hit"),
             selected_tool=result.get("selected_tool"),
             tool_arguments=result.get("tool_arguments"),
             chunks_retrieved=len(result.get("Retrieved_chunks") or []),

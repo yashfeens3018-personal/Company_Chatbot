@@ -6,12 +6,18 @@ from langchain_core.messages import HumanMessage
 from pydantic import BaseModel
 
 from ..AI_Chat.chat import app as chatbot 
+from ..AI_Chat.cache import purge_stale
 from ..auth.security import get_user
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
 conversations: dict[tuple[str, str], list] = {}
 MAX_HISTORY = 20
+
+
+@router.on_event("startup")
+def purge_stale_chat_cache() -> None:
+    purge_stale()
 
 
 class ChatRequest(BaseModel):

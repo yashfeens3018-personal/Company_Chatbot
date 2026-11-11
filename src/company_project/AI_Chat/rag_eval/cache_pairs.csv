@@ -1,0 +1,125 @@
+query_a,query_b,should_hit,pair_type,source_id,note
+What is the annual learning budget for each employee?,How much is each employee's yearly learning budget?,1,paraphrase,q001,
+What is the annual learning budget for each employee?,learning budget per year for employees,1,paraphrase,q001,
+How many weeks of paid new parent leave does Clef offer?,How long is Clef's paid leave for new parents?,1,paraphrase,q002,
+How many weeks of paid new parent leave does Clef offer?,How many weeks of paid parental leave does the company give?,1,paraphrase,q002,
+How much is the employee referral bonus?,How much does Clef pay for an employee referral?,1,paraphrase,q003,
+How much is the employee referral bonus?,wats the referal bonus amount,1,paraphrase,q003,
+How often do employees set their OKRs?,How frequently are OKRs set by employees?,1,paraphrase,q004,
+How often do employees set their OKRs?,How often are OKRs written?,1,paraphrase,q004,
+What vesting schedule applies to employee equity at Clef?,What is the equity vesting schedule at Clef?,1,paraphrase,q005,
+What vesting schedule applies to employee equity at Clef?,how long does equity take to vest,1,paraphrase,q005,
+What is Clef's mission statement?,What is the company's mission?,1,paraphrase,q006,
+What is Clef's mission statement?,What is Clef's mission?,1,paraphrase,q006,
+Which week of the quarter is hack week?,Which week of each quarter is hack week held in?,1,paraphrase,q007,
+Which week of the quarter is hack week?,When in the quarter does hack week happen?,1,paraphrase,q007,
+How long should a weekly one on one meeting last?,How long is a weekly 1:1 supposed to be?,1,paraphrase,q008,
+How long should a weekly one on one meeting last?,What is the recommended length of a one on one meeting?,1,paraphrase,q008,
+How many interviews does each candidate go through?,How many interview rounds does a candidate go through at Clef?,1,paraphrase,q009,
+How many interviews does each candidate go through?,How many interviews are in the hiring process?,1,paraphrase,q009,
+How many days of paid vacation do employees get each year?,How many vacation days do employees get per year?,1,paraphrase,q010,
+How many days of paid vacation do employees get each year?,vacation days per yr?,1,paraphrase,q010,
+"If I get invited to talk at an industry conference, how much of my travel will the company pay for?",How much will Clef cover for travel if I speak at a conference?,1,paraphrase,q011,
+"If I get invited to talk at an industry conference, how much of my travel will the company pay for?",What does the company pay for when an employee is a speaker at an industry event?,1,paraphrase,q011,
+How much paid time off do I get when a close relative dies?,How many days of bereavement leave do I get if a family member passes away?,1,paraphrase,q012,
+"If I leave the company, how long can I still buy my vested stock?",How long do I have to exercise my vested options after leaving Clef?,1,paraphrase,q013,
+Can I expect messages I send from my work email address to stay private if I label them personal?,Are emails sent from my Clef email account private if I mark them personal?,1,paraphrase,q014,
+How does a new hire get to wrap up their first day with the team?,What are the options for ending a new hire's first day with the team?,1,paraphrase,q015,
+How quickly does the team need to get back to someone who applies directly through the website?,How fast must we respond to inbound job applications from the website?,1,paraphrase,q016,
+Which people do employees report to?,Who do employees report to at Clef?,1,paraphrase,q017,
+What part of the day should everyone keep free for in-person meetings?,Which hours are reserved for in-person meetings?,1,paraphrase,q018,
+What share of my family's health insurance premiums does the company cover?,What percentage of dependents' health insurance premiums does Clef pay?,1,paraphrase,q019,
+Can I trade some salary for a bigger ownership stake?,Is it possible to accept lower pay in exchange for more equity?,1,paraphrase,q020,
+How many stock options is each employee offered?,How many stock options does each employee receive?,1,paraphrase,q021,
+How many stock options is each employee offered?,number of stock options in an employee's grant,1,paraphrase,q021,
+What is the salary for a technical employee with more than 5 years of experience?,What does a technical employee with over five years of experience earn?,1,paraphrase,q022,
+How much do the three founders earn per year?,What is the annual salary of the founders?,1,paraphrase,q023,
+"How much money has Clef raised to date, and in what form?","How much funding has Clef raised so far, and in what form?",1,paraphrase,q024,
+"At what rate does sick leave accrue, and what is the maximum?",How fast does sick leave accrue and what is the cap?,1,paraphrase,q025,
+What is the daily co-working space subsidy for remote work?,How much does the company subsidize co-working space per day for remote employees?,1,paraphrase,q026,
+How much is the monthly allowance for waiving Clef's medical coverage?,What monthly payment do I get for opting out of Clef medical coverage?,1,paraphrase,q027,
+How many shares of Clef common stock are currently outstanding?,How many common shares of Clef are outstanding right now?,1,paraphrase,q028,
+How much advance notice must be given before taking a sabbatical?,How much notice do I need to give before going on sabbatical?,1,paraphrase,q029,
+How many hours does a typical workweek at Clef involve?,How many hours per week do people usually work at Clef?,1,paraphrase,q030,
+What are Clef's four core values?,What are the four values Clef stands for?,1,paraphrase,q031,
+What are the three stages of the interview process and how long does each take?,Walk me through the three interview stages and how long each one takes.,1,paraphrase,q032,
+"How long is the sabbatical, and does taking new parent leave delay eligibility for it?","How long is the sabbatical, and does new parent leave push back sabbatical eligibility?",1,paraphrase,q033,
+What do I need to do before working remotely for more than two consecutive days?,What steps are required before I work remotely more than two days in a row?,1,paraphrase,q034,
+"How are OKRs scored, and what average score is considered ideal?",How is the OKR score calculated and what average score is ideal?,1,paraphrase,q035,
+What do the different Slack statuses mean for how quickly I should expect a response?,How should I interpret Slack statuses in terms of expected response time?,1,paraphrase,q036,
+"What does the referral program pay, who is eligible, when is it paid, and where are open positions posted?","How does the referral program work: payout amount, eligibility, payment timing and where open positions are posted?",1,paraphrase,q037,
+"How many objectives and key results should each person set per quarter, and what kind of objective is required?","How many OKRs should I set each quarter, and which type of objective is mandatory?",1,paraphrase,q038,
+"How does equity vesting work, and what happens if I leave before one year?",Explain how equity vesting works and what happens if I leave within the first year.,1,paraphrase,q039,
+"What are the key guidelines for a new hire's first day: start and end time, what they should publish, and who is responsible?","What are the rules for a new hire's first day: start and end times, what to publish, and who is responsible?",1,paraphrase,q040,
+What percentage does Clef match on employee 401(k) contributions?,"Does Clef match 401(k) contributions, and by how much?",1,paraphrase,q041,
+How much relocation assistance does Clef give new hires?,What relocation support does the company offer new hires?,1,paraphrase,q042,
+Are dogs or other pets allowed in the Clef office?,Can I bring my dog to the office?,1,paraphrase,q043,
+Does Clef reimburse gym memberships or fitness costs?,Will Clef pay for my gym membership?,1,paraphrase,q044,
+How much severance does Clef pay when an employee is laid off?,What severance is paid if someone is laid off?,1,paraphrase,q045,
+Does Clef pay out unused vacation days when an employee leaves?,Are unused vacation days paid out when you leave Clef?,1,paraphrase,q046,
+Does Clef provide free parking or a commuter subsidy for employees?,Does the company offer free parking or commuter benefits?,1,paraphrase,q047,
+What is the current exercise price per share for Clef stock options?,What's the current strike price for Clef stock options?,1,paraphrase,q048,
+What valuation did Clef's Series A round close at?,At what valuation did the Series A close?,1,paraphrase,q049,
+How many days of paid vacation do employees get each year?,How many sick days do employees get per year?,0,hard_negative,q010,vacation vs sick leave
+How many days of paid vacation do employees get each year?,Are unused vacation days paid out when an employee leaves?,0,hard_negative,q010,vacation allowance vs payout (handbook silent)
+"At what rate does sick leave accrue, and what is the maximum?",How does vacation time accrue?,0,hard_negative,q025,sick accrual vs vacation accrual (1.25 days/month)
+How many weeks of paid new parent leave does Clef offer?,How long is the sabbatical?,0,hard_negative,q002,new parent leave vs sabbatical (12 weeks each but different policy; answers differ in detail)
+How many weeks of paid new parent leave does Clef offer?,How much paid bereavement leave do I get?,0,hard_negative,q002,parent leave vs bereavement (3 days)
+"How long is the sabbatical, and does taking new parent leave delay eligibility for it?",How much advance notice must be given before taking a sabbatical?,0,hard_negative,q033,sabbatical length vs notice (4 weeks)
+How much advance notice must be given before taking a sabbatical?,How much advance notice must be given before working remotely?,0,hard_negative,q029,sabbatical notice vs remote-work notice
+How much is the employee referral bonus?,When is the employee referral bonus paid out?,0,hard_negative,q003,bonus amount vs payment timing
+How much is the employee referral bonus?,Who is eligible for the referral bonus?,0,hard_negative,q003,bonus amount vs eligibility
+What is the annual learning budget for each employee?,What is the learning budget limited to in an employee's first year?,0,hard_negative,q001,"$4,000 vs $2,000 first-year limit"
+What is the annual learning budget for each employee?,How much does Clef pay for travel when I speak at an industry conference?,0,hard_negative,q001,"learning budget vs conference travel ($1,000/event)"
+How often do employees set their OKRs?,How are OKRs scored?,0,hard_negative,q004,OKR frequency vs scoring
+How often do employees set their OKRs?,How many objectives should each person set per quarter?,0,hard_negative,q004,OKR frequency vs count
+"How are OKRs scored, and what average score is considered ideal?",How many key results can each objective have?,0,hard_negative,q035,OKR scoring vs key-result limit (max 4)
+What vesting schedule applies to employee equity at Clef?,How long can I exercise my options after I leave the company?,0,hard_negative,q005,vesting schedule vs post-exit exercise window (7 years)
+What vesting schedule applies to employee equity at Clef?,How many stock options is each employee offered?,0,hard_negative,q005,vesting vs option count
+How many stock options is each employee offered?,How many shares of common stock are outstanding?,0,hard_negative,q021,options per employee vs shares outstanding
+"How much money has Clef raised to date, and in what form?",What valuation did Clef's Series A round close at?,0,hard_negative,q024,money raised vs valuation (handbook silent)
+"How much money has Clef raised to date, and in what form?",What are the valuation caps on the convertible notes?,0,hard_negative,q024,money raised vs note caps ($5m/$6m)
+How many shares of Clef common stock are currently outstanding?,What is the exercise price per share for Clef stock options?,0,hard_negative,q028,shares outstanding vs exercise price
+What is the salary for a technical employee with more than 5 years of experience?,How much do the founders earn per year?,0,hard_negative,q022,technical >5yr salary ($120k) vs founders ($50k)
+What is the salary for a technical employee with more than 5 years of experience?,What is the salary for a technical employee with 2 years of experience?,0,hard_negative,q022,ASSUMED different: rubric varies by experience. Verify in Salary and Equity doc
+What share of my family's health insurance premiums does the company cover?,How much is the monthly allowance for waiving Clef's medical coverage?,0,hard_negative,q019,premium share vs waiver allowance ($25)
+How much is the monthly allowance for waiving Clef's medical coverage?,What share of my family's health insurance premiums does the company cover?,0,hard_negative,q027,waiver allowance vs premium share (50%)
+Which week of the quarter is hack week?,How long does hack week last?,0,hard_negative,q007,ASSUMED different: which week (sixth) vs duration. Verify in Hack Weeks doc
+How long should a weekly one on one meeting last?,How often do one on one meetings happen?,0,hard_negative,q008,length (30 min) vs frequency (weekly)
+How many interviews does each candidate go through?,How long is the technical interview?,0,hard_negative,q009,interview count (3) vs technical interview length (2 hours)
+What are the three stages of the interview process and how long does each take?,Does Clef cover travel costs for the team fit interview?,0,hard_negative,q032,three stages vs travel coverage
+How many hours does a typical workweek at Clef involve?,What time does a new hire's first day start and end?,0,hard_negative,q030,workweek hours vs first-day times (10:00-5)
+What part of the day should everyone keep free for in-person meetings?,How far in advance must meetings outside the in-person hours be scheduled?,0,hard_negative,q018,core meeting hours vs outside-hours scheduling (a week)
+How quickly does the team need to get back to someone who applies directly through the website?,What are the three stages of the interview process?,0,hard_negative,q016,application response time vs interview stages
+What is the daily co-working space subsidy for remote work?,How much advance approval is needed to work remotely more than two days?,0,hard_negative,q026,co-working subsidy vs remote-work approval
+Can I trade some salary for a bigger ownership stake?,How many stock options is each employee offered?,0,hard_negative,q020,salary-for-equity trade vs default option grant
+Which people do employees report to?,How often do I have one on ones with my manager?,0,hard_negative,q017,who you report to vs one-on-one frequency
+How does a new hire get to wrap up their first day with the team?,What time does a new hire's first day end?,0,hard_negative,q015,how the day is wrapped up vs end time
+What do the different Slack statuses mean for how quickly I should expect a response?,Where should I post when I am working remotely?,0,hard_negative,q036,Slack status meanings vs #office posting
+What is Clef's mission statement?,What are Clef's core values?,0,hard_negative,q006,mission vs values
+What are Clef's four core values?,What is Clef's mission statement?,0,hard_negative,q031,values vs mission
+What percentage does Clef match on employee 401(k) contributions?,How much severance does Clef pay when an employee is laid off?,0,hard_negative,q041,both handbook-silent but different topics: 401(k) vs severance
+Does Clef reimburse gym memberships or fitness costs?,Does Clef provide free parking or a commuter subsidy?,0,hard_negative,q044,both handbook-silent: gym vs parking
+How much relocation assistance does Clef give new hires?,Does Clef pay out unused vacation days when an employee leaves?,0,hard_negative,q042,both handbook-silent: relocation vs vacation payout
+What is the current exercise price per share for Clef stock options?,What valuation did Clef's Series A round close at?,0,hard_negative,q048,"exercise price vs valuation (both not answerable, different)"
+Are dogs or other pets allowed in the Clef office?,Does Clef reimburse gym memberships or fitness costs?,0,hard_negative,q043,both handbook-silent: pets vs gym
+How many stock options is each employee offered?,How many days of paid vacation do employees get each year?,0,random_negative,q021|q010,
+What is the daily co-working space subsidy for remote work?,How much relocation assistance does Clef give new hires?,0,random_negative,q026|q042,
+How often do employees set their OKRs?,What vesting schedule applies to employee equity at Clef?,0,random_negative,q004|q005,
+"How are OKRs scored, and what average score is considered ideal?",Which week of the quarter is hack week?,0,random_negative,q035|q007,
+"How much money has Clef raised to date, and in what form?","How many objectives and key results should each person set per quarter, and what kind of objective is required?",0,random_negative,q024|q038,
+How often do employees set their OKRs?,"How long is the sabbatical, and does taking new parent leave delay eligibility for it?",0,random_negative,q004|q033,
+Can I expect messages I send from my work email address to stay private if I label them personal?,How much is the employee referral bonus?,0,random_negative,q014|q003,
+What is Clef's mission statement?,How many shares of Clef common stock are currently outstanding?,0,random_negative,q006|q028,
+How much is the monthly allowance for waiving Clef's medical coverage?,What vesting schedule applies to employee equity at Clef?,0,random_negative,q027|q005,
+How quickly does the team need to get back to someone who applies directly through the website?,What is Clef's mission statement?,0,random_negative,q016|q006,
+What do the different Slack statuses mean for how quickly I should expect a response?,How many shares of Clef common stock are currently outstanding?,0,random_negative,q036|q028,
+How often do employees set their OKRs?,"What does the referral program pay, who is eligible, when is it paid, and where are open positions posted?",0,random_negative,q004|q037,
+How long should a weekly one on one meeting last?,How does a new hire get to wrap up their first day with the team?,0,random_negative,q008|q015,
+What percentage does Clef match on employee 401(k) contributions?,"How many objectives and key results should each person set per quarter, and what kind of objective is required?",0,random_negative,q041|q038,
+"How many objectives and key results should each person set per quarter, and what kind of objective is required?",What is the daily co-working space subsidy for remote work?,0,random_negative,q038|q026,
+How often do employees set their OKRs?,How does a new hire get to wrap up their first day with the team?,0,random_negative,q004|q015,
+How much is the employee referral bonus?,What do the different Slack statuses mean for how quickly I should expect a response?,0,random_negative,q003|q036,
+How many interviews does each candidate go through?,What share of my family's health insurance premiums does the company cover?,0,random_negative,q009|q019,
+How much is the monthly allowance for waiving Clef's medical coverage?,How many days of paid vacation do employees get each year?,0,random_negative,q027|q010,
+"How are OKRs scored, and what average score is considered ideal?",How long should a weekly one on one meeting last?,0,random_negative,q035|q008,
