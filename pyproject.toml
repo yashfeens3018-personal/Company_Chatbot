@@ -27,6 +27,7 @@ dependencies = [
     "pwdlib[argon2]>=0.3.1",
     "pydantic>=2.13.5",
     "pyjwt>=2.15.1",
+    "pytest>=9.2.0",
     "python-dotenv>=1.2.3",
     "ragas>=0.4.3",
     "sentence-transformers>=6.2.0",
@@ -36,6 +37,9 @@ dependencies = [
 
 [project.scripts]
 company-project = "company_project:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
 
 [build-system]
 requires = ["uv_build>=0.12.15,<0.13.0"]

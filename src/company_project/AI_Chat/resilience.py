@@ -8,6 +8,7 @@ On failure a ServiceError is raised whose .user_message is safe to show to the u
 """
 import json
 import logging
+import random
 import socket
 import time
 
@@ -18,8 +19,8 @@ from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
 logger = logging.getLogger(__name__)
 
-MAX_RETRIES = 5         # retries after the first attempt (4 attempts in total)
-RETRY_BASE_DELAY = 1.0   # seconds; doubles each retry: 1s, 2s, 4s
+MAX_RETRIES = 5         # retries after the first attempt (6 attempts in total)
+RETRY_BASE_DELAY = 1.0  # seconds; doubles each retry: 1s, 2s, 4s, 8s, 16s (with jitter)
 MAX_RETRY_WAIT = 20.0    # never sleep longer than this; if the API asks for more, tell the user instead
 
 # Which kinds of failure are worth retrying
@@ -123,7 +124,8 @@ def call_with_retry(fn, *, step, service="AI service", retry_on=LLM_RETRY_KINDS,
             logger.warning("%s failed (%s, attempt %d): %r", step, kind, attempt + 1, exc)
 
             if kind in retry_on and attempt < MAX_RETRIES:
-                wait = max(RETRY_BASE_DELAY * (2 ** attempt), retry_after or 0)
+                backoff = RETRY_BASE_DELAY * (2 ** attempt) * random.uniform(0.75, 1.25)
+                wait = max(backoff, retry_after or 0)
                 if wait <= MAX_RETRY_WAIT:
                     attempt += 1
                     notify(f"{text} Retrying in {wait:g}s (retry {attempt} of {MAX_RETRIES})...")

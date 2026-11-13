@@ -20,20 +20,23 @@ from .auth.security import (
     create_token,
     get_user,
     get_user_from_db,
+    require_admin,
 )
 
 app = FastAPI()
 
-app.include_router(announcement_router)
-app.include_router(assets_router)
-app.include_router(department_router)
-app.include_router(employees_router)
-app.include_router(leavebalances_router)
-app.include_router(leaverequests_router)
-app.include_router(projectmembers_router)
-app.include_router(projects_router)
-app.include_router(ticketcomments_router)
-app.include_router(tickets_router)
+admin_only = [Depends(require_admin)]
+
+app.include_router(announcement_router, dependencies=admin_only)
+app.include_router(assets_router, dependencies=admin_only)
+app.include_router(department_router, dependencies=admin_only)
+app.include_router(employees_router, dependencies=admin_only)
+app.include_router(leavebalances_router, dependencies=admin_only)
+app.include_router(leaverequests_router, dependencies=admin_only)
+app.include_router(projectmembers_router, dependencies=admin_only)
+app.include_router(projects_router, dependencies=admin_only)
+app.include_router(ticketcomments_router, dependencies=admin_only)
+app.include_router(tickets_router, dependencies=admin_only)
 app.include_router(chat_router)
 
 

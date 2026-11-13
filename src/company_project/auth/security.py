@@ -94,6 +94,15 @@ def get_user(token: Annotated[str, Depends(oauth)]):
     return user
 
 
+def require_admin(user: Annotated[dict, Depends(get_user)]):
+    if str(user.get("role", "")).lower() != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Admin access required",
+        )
+    return user
+
+
 def verify_password(user_email: str, password: str):
     stmt = select(Employees.password_hash).where(
         Employees.email == user_email

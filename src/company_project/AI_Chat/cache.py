@@ -6,8 +6,8 @@ Semantic cache for RAG (handbook) answers ONLY. Put this file next to chat.py.
 - Store : its own Chroma collection in its own directory, so it never touches
           the handbook index and can be wiped with `rm -rf rag_cache_db`.
 - Version: every entry is tagged with a hash of (ingestion manifest + answer model
-          + prompt version). If the handbook, the ingestion config, the model or the
-          prompt changes, the hash changes and old entries can never be matched.
+          + prompt version), read once at startup. After a re-ingestion, restart the
+          server: the hash changes and old entries can never be matched.
 - Safety: every public function fails safe. On any error the caller just sees a miss.
 """
 import hashlib
@@ -25,7 +25,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 load_dotenv()
 logger = logging.getLogger(__name__)
 
-# ingestion index k liye (only used to read the manifest for versioning) 
+# ---- ingestion index (only used to read the manifest for versioning) ----------
 INDEX_DIR = "./chroma_langchain_db"
 MANIFEST_PATH = os.path.join(INDEX_DIR, "manifest.json")
 
@@ -35,23 +35,25 @@ MANIFEST_PATH = os.path.join(INDEX_DIR, "manifest.json")
 # Changing it changes the vector size, so delete ./rag_cache_db when you do.
 CACHE_EMBED_MODEL = "BAAI/bge-base-en-v1.5"
 
-
+# ---- cache settings ----------------------------------------------------------
 CACHE_DIR = "./rag_cache_db"
 COLLECTION = "rag_cache"
-SIMILARITY_THRESHOLD = 0.92      # from tune_cache_threshold.py with bge-base: 0 false hits at >=0.90 therefore pciked this threshold
+SIMILARITY_THRESHOLD = 0.92      # from tune_cache_threshold.py with bge-base: 0 false hits at >=0.90
 TTL_SECONDS = 7 * 24 * 3600      # safety net on top of versioning
 
 # ---- bump these when cached answers would change ------------------------------
-ANSWER_MODEL = "gemini-2.5-flash"   #same as chat.py
-PROMPT_VERSION = 1                  #depends on the changes of final prompt version
+ANSWER_MODEL = "gemini-2.5-flash"   # keep in sync with chat.py
+PROMPT_VERSION = 1                  # bump when you edit the final_answer prompt
 
-
+# Chroma's cosine space gives the same scores the tuning script measured.
 embeddings = HuggingFaceEmbeddings(
     model_name=CACHE_EMBED_MODEL,
     encode_kwargs={"normalize_embeddings": True},
 )
 
 try:
+    # Chroma's default distance is squared L2. We want cosine, so say so explicitly.
+    # With cosine, distance = 1 - similarity.
     _store = Chroma(
         collection_name=COLLECTION,
         embedding_function=embeddings,
@@ -70,29 +72,37 @@ class CacheHit:
     matched_query: str
 
 
-_version_memo = {"mtime": None, "value": None}
+# ---- versioning ---------------------------------------------------------------
+_version: str | None = None
 
 
 def get_cache_version() -> str | None:
-    try:
-        mtime = os.path.getmtime(MANIFEST_PATH)
-        if _version_memo["mtime"] != mtime:
+    """Hash of the ingestion manifest (config + per-file hashes) + models + prompt version.
+
+    Read ONCE per process, then kept. The Chroma index this process serves was loaded at
+    startup, and re-ingestion (a separate process) does not update it live, so the cache
+    must be tagged with the index the app is REALLY using. Rule: restart the server after
+    every ingestion; the new start gets a new version and old cache entries stop matching.
+    Returns None if the manifest can't be read, which disables the cache."""
+    global _version
+    if _version is None:
+        try:
             with open(MANIFEST_PATH, encoding="utf-8") as f:
                 manifest = json.load(f)
-            payload = json.dumps(
-                {"manifest": manifest, "model": ANSWER_MODEL, "prompt": PROMPT_VERSION, "embed": CACHE_EMBED_MODEL},
-                sort_keys=True,
-            )
-            _version_memo["value"] = hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
-            _version_memo["mtime"] = mtime
-        return _version_memo["value"]
-    except (OSError, json.JSONDecodeError):
-        logger.warning("Cache version unknown (manifest missing/unreadable); cache bypassed")
-        return None
+        except (OSError, json.JSONDecodeError):
+            logger.warning("Cache version unknown (manifest missing/unreadable); cache bypassed")
+            return None
+        payload = json.dumps(
+            {"manifest": manifest, "model": ANSWER_MODEL, "prompt": PROMPT_VERSION, "embed": CACHE_EMBED_MODEL},
+            sort_keys=True,
+        )
+        _version = hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+    return _version
 
 
-
+# ---- core API -----------------------------------------------------------------
 def best_match(query: str) -> CacheHit | None:
+    """Closest valid (current version, not expired) entry, with NO threshold applied."""
     version = get_cache_version()
     if _store is None or not version or not query or not query.strip():
         return None

@@ -1,3 +1,4 @@
+import os
 from langchain_mistralai import ChatMistralAI
 from dotenv import load_dotenv
 from .tools.assets import get_asset_tool, get_asset_stats_tool, get_employee_assets_tool, get_expiring_warranties_tool, get_unassigned_assets_tool,search_assets_tool
@@ -31,11 +32,13 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 RETRIEVAL_K = 8
-DEBUG=True
+DEBUG = os.getenv("CHAT_DEBUG") == "1"
+RECORD_TRACE = False
 MAX_DEBUG_CHARS=1500
 trace=[]
 def debug_print(node,**values):
-    trace.append(node)
+    if RECORD_TRACE:
+        trace.append(node)
     if not DEBUG:
         return
     print(f"\n========== NODE: {node} ==========")
@@ -220,14 +223,6 @@ def intent_classification(state:StateAgent):
                                validate=lambda a: isinstance(a,dict) and bool(a.get("intent")))
     except ServiceError as err:
         return llm_failure("Intent Classification", err)
-    
-    
-    print("\n========== INTENT DEBUG ==========")
-    print("Intent:", answer.get("intent"))
-    print("Reason:", answer.get("reason"))
-    print("RAG query:", answer.get("rag_query"))
-    print("Database query:", answer.get("database_query"))
-    print("==================================\n")
     debug_print("Intent Classification: output",raw_answer=answer)
     return {
     'intent':answer,
@@ -279,13 +274,6 @@ def RAG_Query_Retrieval(state: StateAgent):
         debug_print("RAG_Query_Retrieval: FAILED", kind=err.kind, error=repr(err.original))
         return {"Retrieved_chunks": [], "retrieval_error": True}
 
-    print(f"\nQuery: {query}")
-    print(f"Retrieved {len(chunks)} chunks")
-
-    for i, chunk in enumerate(chunks, start=1):
-        print(f"\n--- Chunk {i} ---")
-        print(chunk.page_content)
-        print("Metadata:", chunk.metadata)
     debug_print("RAG_Query_Retrieval: done",chunks_retrieved=len(chunks),sources=[chunk.metadata.get('source') or chunk.metadata.get('file_path') for chunk in chunks])
     return {"Retrieved_chunks": chunks}
 
@@ -616,6 +604,7 @@ def login():
         return user
 
 if __name__ == "__main__":
+    RECORD_TRACE = True
     purge_stale()
     messages = []
     user = login()
